@@ -1,25 +1,79 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import TheLogin from "../views/TheLogin.vue";
+import TheSala from "../views/TheSala.vue";
+import TheHome from "../views/TheHome.vue";
+import TheDelivery from "../views/TheDelivery.vue";
+import TheTakeAway from "../views/TheTakeAway.vue";
+import TheOrders from "../views/TheOrders.vue";
+import TheMenu from "../views/TheMenu.vue";
+import TheIngredients from "../views/TheIngredients.vue";
+import TheOrder from "../views/TheOrder.vue";
+import TheNewOrder from "../views/TheNewOrder.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "login",
+    component: TheLogin,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: "/home",
+    name: "home",
+    component: TheHome,
+  },
+  {
+    path: "/sala",
+    name: "sala",
+    component: TheSala,
+  },
+  {
+    path: "/delivery",
+    name: "delivery",
+    component: TheDelivery,
+  },
+  {
+    path: "/take-away",
+    name: "take-away",
+    component: TheTakeAway,
+  },
+  {
+    path: "/orders",
+    name: "orders",
+    component: TheOrders,
+  },
+  {
+    path: "/menu",
+    name: "menu",
+    component: TheMenu,
+  },
+  {
+    path: "/ingredients",
+    name: "ingredients",
+    component: TheIngredients,
+  },
+  {
+    path:"/order",
+    name:"order",
+    component:TheOrder,
+  },
+  {
+    path:"/new-order",
+    name:"new-order",
+    component: TheNewOrder,
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+// router.beforeEach(() => {
+//   document.documentElement.style.width = "100vw";
+//   document.documentElement.style.height = "100vh";
+//   document.body.style.height = "100%";
+//   document.body.style.width = "100%";
+//   document.body.style.position = "absolute";
+// });
+
+export default router;

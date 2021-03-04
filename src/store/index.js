@@ -10,3 +10,8 @@ export default createStore({
   modules: {
   }
 })
+
+/* TABLEs STORE
+Store the list of actual-tables
+actions can be performed to CRUD on tables and orders
+*/

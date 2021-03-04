@@ -1,0 +1,23 @@
+{
+  "tableId": 1,
+  "number": 1,
+  "completed": false,
+  "seats": 0,
+  "reservation": "",
+  "status": "free",
+  "order": {
+    "id": 1,
+    "lastUpdate": "2020-11-23T21:50:23",
+    "lineItems": [
+      {
+        "liId": 1,
+        "qty": 1,
+        "product": {
+          "productId": 1,
+          "productCategory": "fritti",
+          "productName": "Cipotle"
+        }
+      }
+    ]
+  }
+}
