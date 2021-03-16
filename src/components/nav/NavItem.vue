@@ -16,7 +16,7 @@ export default {
     navItem() {
       if (this.item === "sala") return ["fas", "home"];
       else if (this.item === "delivery") return ["fas", "car"];
-      else if (this.item === "ta") return ["fas", "hand-holding-usd"];
+      else if (this.item === "ta") return ["fas", "layer-group"];
       else if (this.item === "orders") return ["fas", "copy"];
       else if (this.item === "menu") return ["fas", "utensils"];
       else if (this.item === "back") return ["fas", "arrow-circle-left"];

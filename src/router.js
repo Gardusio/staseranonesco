@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
-import TheLogin from "../views/TheLogin.vue";
-import TheSala from "../views/TheSala.vue";
-import TheHome from "../views/TheHome.vue";
-import TheDelivery from "../views/TheDelivery.vue";
-import TheTakeAway from "../views/TheTakeAway.vue";
-import TheOrders from "../views/TheOrders.vue";
-import TheMenu from "../views/TheMenu.vue";
-import TheIngredients from "../views/TheIngredients.vue";
-import TheOrder from "../views/TheOrder.vue";
-import TheNewOrder from "../views/TheNewOrder.vue";
+import TheLogin from "./views/TheLogin";
+import TheSala from "./views/TheSala.vue";
+import TheHome from "./views/TheHome.vue";
+import TheDelivery from "./views/TheDelivery.vue";
+import TheTakeAway from "./views/TheTakeAway.vue";
+import TheOrders from "./views/TheOrders.vue";
+import TheMenu from "./views/TheMenu.vue";
+import TheIngredients from "./views/TheIngredients.vue";
+import TheOrder from "./views/TheOrder.vue";
+import TheNewOrder from "./views/TheNewOrder.vue";
 
 const routes = [
   {
@@ -52,12 +52,12 @@ const routes = [
     component: TheIngredients,
   },
   {
-    path:"/order",
+    path:"/order/:id",
     name:"order",
     component:TheOrder,
   },
   {
-    path:"/new-order",
+    path:"/new-order/:id",
     name:"new-order",
     component: TheNewOrder,
   }

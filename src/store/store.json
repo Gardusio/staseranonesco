@@ -1,0 +1,40 @@
+{
+  "shouldUpdate": true,
+  "tables": [
+    {
+      "id": 1,
+      "hasOrder": true,
+      "orderCreatedAt": "20.00",
+      "number": 3,
+      "seats": 5,
+      "status": "closed, alert, small-alert",
+      "statusChanges": {
+        "smallAlert": 15,
+        "alert": 30
+      }
+    }
+  ],
+
+  "ordersStore": {
+    "shouldUpdate": true,
+    "orders": [
+        
+    ],
+    "take-away":[],
+    "delivery": []
+  },
+
+  "notifStore": {
+    "shouldUpdate": true,
+    "notifications": [
+      {
+        "orderId": 2,
+        "type": "ta/del/table",
+        "statusChanges": {
+          "smallAlert": 15,
+          "alert": 30
+        }
+      }
+    ]
+  }
+}

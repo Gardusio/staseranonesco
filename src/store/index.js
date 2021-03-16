@@ -1,13 +1,11 @@
 import { createStore } from 'vuex'
+import tablesModule from "./tables/index"
+import ordersModule from "./orders/index"
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    tables: tablesModule,
+    orders: ordersModule,
   }
 })
 

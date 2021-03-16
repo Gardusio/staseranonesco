@@ -1,7 +1,7 @@
 <template>
-  <div class="container" >
+  <div class="container" :class="status === 'alert' ? 'animated-alert' : ''">
     <div class="table-icon-container">
-      <p :class="numberStyle">{{ number }}</p>
+      <p :class="numberClass">{{ number }}</p>
       <img class="table" src="../../../assets/table.png" />
     </div>
     <table-icon :status="status"></table-icon>
@@ -10,18 +10,39 @@
 
 <script>
 import TableIcon from "./TableIcon";
+
 export default {
+  components: { TableIcon },
+
   props: ["status", "number"],
-  components: {
-    TableIcon,
+  data() {
+    return {
+      numberStyle: "number",
+    };
   },
   computed: {
-      numberStyle() {
-          if(this.status === "completed")
-          return "number green";
-          else
-          return "number"
-      }
+    numberClass() {
+      if (this.isCompleted()) return this.numberStyle + " completed";
+      if (this.isWaiting()) return this.numberStyle + " waiting";
+      if (this.isAlert()) return this.numberStyle + " alert";
+      if (this.isFirstAlert()) return this.numberStyle + " first-alert";
+      return this.numberStyle;
+    },
+  },
+
+  methods: {
+    isCompleted() {
+      return this.status === "completed";
+    },
+    isWaiting() {
+      return this.status === "waiting";
+    },
+    isAlert() {
+      return this.status === "alert";
+    },
+    isFirstAlert() {
+      return this.status === "first-alert";
+    },
   },
 };
 </script>
@@ -32,35 +53,68 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
 }
+
+.animated-alert {
+  align-self: flex-end;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+  animation-name: pulsate-fwd;
+  animation-timing-function: ease;
+}
+
+@keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
 
 .table-icon-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 9.75rem;
-  height: 7.5rem;
+  width: 7rem;
+  height: 5rem;
 }
 
 .table {
-  margin-bottom: -11px;
   z-index: 10;
-  width: 9rem;
-  height: 7rem;
+  width: 7rem;
+  height: 5rem;
 }
 
 .number {
   font-family: "Lato", sans-serif;
   font-weight: bold;
-  color: #ccc;
-  font-size: 72px;
+  color: var(--gray);
+  font-size: 60px;
   margin-right: 8px;
-  text-shadow: 2px 3px 3px rgba(100, 100, 111, 0.2);
+  text-shadow: 2px 3px 3px rgba(119, 122, 123, 0.1);
 }
-.green {
-    color: rgba(125,236,117,0.69)
+.completed {
+  color: var(--completed-green);
+}
+.first-alert {
+  color: var(--first-alert-red);
+}
+.waiting {
+  color: var(--friedorange);
+}
+.alert {
+  color: var(--second-alert-red);
 }
 </style>

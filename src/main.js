@@ -1,10 +1,10 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import store from "./store/index";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBeer, faHamburger, faPizzaSlice, faPlusCircle, faTrash, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faBeer, faHamburger, faPizzaSlice, faPlusCircle, faTrash, faMinusCircle, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faCar } from "@fortawesome/free-solid-svg-icons";
@@ -14,11 +14,11 @@ import { faBacon } from "@fortawesome/free-solid-svg-icons";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const app = createApp(App);
 
-app.component("font-awesome-icon", FontAwesomeIcon);
 library.add(faPlus);
 library.add(faPlusCircle);
 library.add(faMinusCircle);
@@ -34,6 +34,9 @@ library.add(faArrowCircleLeft);
 library.add(faHamburger);
 library.add(faBeer);
 library.add(faPizzaSlice);
+library.add(faExclamationCircle);
+library.add(faLayerGroup);
 
+app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.use(store).use(router).mount("#app");

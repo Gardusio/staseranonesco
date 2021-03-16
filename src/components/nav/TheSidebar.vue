@@ -68,8 +68,8 @@ a.router-link-active {
 .sidebar-container {
   position: fixed;
   height: 100%;
-  width: 100px;
-  padding: 0.5rem 0.5rem;
+  width: 90px;
+  padding: 0.8rem 0.8rem;
   background-color: #2d150b;
   font-family: inherit;
   color: white;

@@ -2,23 +2,23 @@
   <router-view></router-view>
 </template>
 
-<script>
-</script>
+<script></script>
 <style>
-
 :root {
-  --mainbrown: #2D150B;
-  --paperwhite: #FFF2E2;
-  --secondarybrown: #623D22;
-  --evidenceorange: #EFBE7D;
-  --friedorange: #E1A85F;
-  --takeawayred: #8F3822;
-  --gray: #707070;
+  --mainbrown: #2d150b;
+  --paperwhite: #fff2e2;
+  --secondarybrown: #623d22;
+  --evidenceorange: #efbe7d;
+  --friedorange: #e1a85f;
+  --first-alert-red: #8f3822;
+  --second-alert-red: rgb(255, 35, 35);
+  --completed-green: rgba(125, 236, 117, 0.69);
+  --gray: #777a7b;
 }
 * {
   box-sizing: border-box;
   padding: 0;
-  margin: 0
+  margin: 0;
 }
 
 #app {
@@ -27,12 +27,12 @@
   height: 100%;
   width: 100%;
   overflow-y: visible;
-  position: absolute; 
+  position: absolute;
 }
 
 .left-section {
-  background:rgba(98,61,34,0.12);
-  width: 33%;
+  background: rgba(98, 61, 34, 0.12);
+  width: 35%;
   height: 100%;
   position: fixed;
   padding: 2rem;
@@ -45,9 +45,8 @@
 .main-container {
   position: absolute;
   height: 100%;
-  width: 58%;
+  width: 56%;
   margin-left: 100px;
   margin-right: 33%;
 }
-
 </style>

@@ -1,9 +1,9 @@
 <template>
-    <the-background></the-background>
-    <notifications-section></notifications-section>
-    <the-sidebar activeElem="sala"></the-sidebar>
-    <header-actions></header-actions>
-    <tables-grid></tables-grid>
+  <the-background></the-background>
+  <notifications-section></notifications-section>
+  <the-sidebar activeElem="sala"></the-sidebar>
+  <header-actions></header-actions>
+  <tables-grid :tableList="tables"></tables-grid>
 </template>
 
 <script>
@@ -20,6 +20,16 @@ export default {
     NotificationsSection,
     TablesGrid,
     HeaderActions,
+  },
+
+  computed: {
+    tables() {
+      return this.$store.getters["tables/getTables"];
+    },
+  },
+  created() {
+    //load Tables
+    this.$store.dispatch("tables/setTables");
   },
 };
 </script>
