@@ -1,29 +1,34 @@
 <template>
   <the-background></the-background>
-  <section class="main">
+  <div class="flex-container">
     <div class="home-date-container">
       <p class="home-date-container__date">Martedi 20 Ottobre</p>
       <div class="home-date-container__hours">21.40</div>
     </div>
-    <div class="home-links">
-      <div>
-        <button @click="sala" class="home-links-shared home-links__restaurant">
-          <a class="home-links__restaurant__header">Ristorante</a>
-        </button>
-        <p class="home-links__restaurant-bottom-text">
-          Accedi al servizio di giornata
-        </p>
+    <section class="main">
+      <div class="home-links">
+        <div>
+          <button
+            @click="sala"
+            class="home-links-shared home-links__restaurant"
+          >
+            <a class="home-links__restaurant__header">Ristorante</a>
+          </button>
+          <p class="home-links__restaurant-bottom-text">
+            Accedi al servizio di giornata
+          </p>
+        </div>
+        <div>
+          <button class="home-links-shared home-links__reports">
+            <a href="/" class="home-links__reports__header">Vendite</a>
+          </button>
+          <p class="home-links__reports-bottom-text">
+            Accedi ai reports del mese
+          </p>
+        </div>
       </div>
-      <div>
-        <button class="home-links-shared home-links__reports">
-          <a href="/" class="home-links__reports__header">Vendite</a>
-        </button>
-        <p class="home-links__reports-bottom-text">
-          Accedi ai reports del mese
-        </p>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -39,14 +44,23 @@ export default {
 </script>
 
 <style scoped>
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 0;
+}
 .main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
 }
 
 .home-date-container {
-  margin-top: 1rem;
+  margin-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,11 +81,9 @@ export default {
 }
 
 .home-links {
-  align-self: center;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 6rem;
   width: 100%;
 }
 
@@ -146,11 +158,5 @@ export default {
   text-align: center;
   margin-top: 0.8rem;
   font-family: "Raleway", sans-serif;
-}
-
-@media only screen and (orientation: portrait) {
-  .main {
-    margin-top: 5rem;
-  }
 }
 </style>

@@ -115,11 +115,12 @@ export default {
   margin-top: 0;
   color: #623d22;
 }
-
-@media only screen and (orientation: portrait) {
   .main {
+    display:flex;
+    flex-direction: column;
+    height: 100vh;
     justify-content: center;
+    align-items: center;
     margin: 0;
   }
-}
 </style>
