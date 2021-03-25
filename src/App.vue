@@ -2,7 +2,9 @@
   <router-view></router-view>
 </template>
 
-<script></script>
+<script>
+</script>
+
 <style>
 :root {
   --mainbrown: #2d150b;
@@ -34,10 +36,12 @@
   height: 100%;
   position: fixed;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
   top: 0;
   right: 0;
   overflow-y: scroll;
-  box-shadow: 2px 9px 15px 6px var(--primarybrown);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .main-container {

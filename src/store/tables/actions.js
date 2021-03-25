@@ -14,4 +14,7 @@ export default {
       status: payload.newStatus,
     });
   },
+  updateSeats(context, payload) {
+    context.commit("updateSeats", payload);
+  }
 };

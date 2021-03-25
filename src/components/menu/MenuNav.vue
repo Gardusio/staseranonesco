@@ -46,17 +46,10 @@ export default {};
   bottom: 0;
 }
 
-h3 {
-  position: absolute;
-  margin-right: 35%;
-  margin-left: 15%;
-  margin-top: 20%;
-}
-
 .nav-list {
   position: absolute;
   width: 100%;
-  bottom: 1rem;
+  bottom: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

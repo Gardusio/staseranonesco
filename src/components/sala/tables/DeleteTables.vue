@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import PrimaryButton from "../../buttons/PrimaryButton";
+import PrimaryButton from "../../UI/buttons/PrimaryButton";
 export default {
   components: {
     PrimaryButton,

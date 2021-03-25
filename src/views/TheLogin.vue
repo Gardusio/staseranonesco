@@ -26,9 +26,7 @@
 </template>
 
 <script>
-import TheBackground from "../components/layouts/TheBackground";
 export default {
-  components: { TheBackground },
   methods: {
     login() {
       this.$router.push("home");

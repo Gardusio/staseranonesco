@@ -4,7 +4,6 @@
       <font-awesome-icon
         @click.self="$emit('close')"
         :icon="['fas', 'times-circle']"
-        size="small"
         class="close-icon"
       ></font-awesome-icon>
       <slot></slot>

@@ -18,7 +18,9 @@ export default {
             {
               id: 1,
               productId: 1,
+              productName: "Cipotle",
               qty: 2,
+              fullProducts: 1,
               compositions: [
                 {
                   isFullProduct: false,
@@ -27,6 +29,7 @@ export default {
                   ingredients: [
                     {
                       ingredientId: 1,
+                      ingredientName: "ketchup",
                       withIt: false,
                       type: "sauce",
                     },

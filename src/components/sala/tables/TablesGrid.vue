@@ -21,8 +21,8 @@ export default {
 
   methods: {
     toTable(table) {
-      if (table.status === "free") this.$router.push(`/new-order/${table.id}`);
-      else this.$router.push(`/order/${table.id}`);
+      if (table.status === "free") this.$router.push(`/empty-table/${table.id}`);
+      else this.$router.push(`/table-order/${table.id}`);
     },
 
     tableStatus(table) {

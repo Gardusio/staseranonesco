@@ -2,13 +2,14 @@ import { createRouter, createWebHistory } from "vue-router";
 import TheLogin from "./views/TheLogin";
 import TheSala from "./views/TheSala.vue";
 import TheHome from "./views/TheHome.vue";
-import TheDelivery from "./views/TheDelivery.vue";
-import TheTakeAway from "./views/TheTakeAway.vue";
-import TheOrders from "./views/TheOrders.vue";
+import DeliveriesGrid from "./views/DeliveriesGrid.vue";
+import TakeAways from "./views/TakeAways.vue";
+import AllOrders from "./views/AllOrders.vue";
 import TheMenu from "./views/TheMenu.vue";
 import TheIngredients from "./views/TheIngredients.vue";
-import TheOrder from "./views/TheOrder.vue";
-import TheNewOrder from "./views/TheNewOrder.vue";
+import TableOrder from "./views/TableOrder.vue";
+import EmptyTable from "./views/EmptyTable.vue";
+import CreateTableOrder from "./views/CreateTableOrder.vue"
 
 const routes = [
   {
@@ -29,17 +30,17 @@ const routes = [
   {
     path: "/delivery",
     name: "delivery",
-    component: TheDelivery,
+    component: DeliveriesGrid,
   },
   {
     path: "/take-away",
     name: "take-away",
-    component: TheTakeAway,
+    component: TakeAways,
   },
   {
     path: "/orders",
     name: "orders",
-    component: TheOrders,
+    component: AllOrders,
   },
   {
     path: "/menu",
@@ -52,14 +53,19 @@ const routes = [
     component: TheIngredients,
   },
   {
-    path:"/order/:id",
-    name:"order",
-    component:TheOrder,
+    path: "/table-order/:id",
+    name: "table-order",
+    component: TableOrder,
   },
   {
-    path:"/new-order/:id",
-    name:"new-order",
-    component: TheNewOrder,
+    path: "/empty-table/:id",
+    name: "empty-table",
+    component: EmptyTable,
+  },
+  {
+    path: "/empty-table/create/:id",
+    name: "create-table-order",
+    component: CreateTableOrder
   }
 ];
 
@@ -67,13 +73,5 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
-// router.beforeEach(() => {
-//   document.documentElement.style.width = "100vw";
-//   document.documentElement.style.height = "100vh";
-//   document.body.style.height = "100%";
-//   document.body.style.width = "100%";
-//   document.body.style.position = "absolute";
-// });
 
 export default router;

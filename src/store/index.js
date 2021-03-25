@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import tablesModule from "./tables/index"
-import ordersModule from "./orders/index"
+import ordersModule from "./table-orders/index"
 
 export default createStore({
   modules: {

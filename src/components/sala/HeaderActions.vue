@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import SmallModal from "../layouts/SmallModal.vue";
-import BigModal from "./../layouts/BigModal";
+import SmallModal from "../UI/layouts/SmallModal.vue";
+import BigModal from "./../UI/layouts/BigModal";
 import AddTables from "./tables/AddTables";
 import DeleteTables from "./tables/DeleteTables";
 export default {

@@ -10,8 +10,8 @@ export default {};
 
 <style scoped>
 .background {
-  background: url("../../assets/images/filterBackground.png"),
-    url("../../assets/images/background.png");
+  background: url("../../../assets/images/filterBackground.png"),
+    url("../../../assets/images/background.png");
   background-size: cover;
   height: 100vh;
   width: 100vw;

@@ -10,11 +10,17 @@ export default {
       tables: [
         {
           id: 1,
+          orderId: 1,
           hasOrder: true,
           orderCreatedAt: "03/08/2021 10:00:00",
+          lastUpdateAt: "03/08/2021 10:00:00",
           number: 1,
           seats: 5,
           status: "waiting",
+          reservation: {
+            name: "laurenzi",
+            date: "03/08/2021 10:00:00",
+          },
           statusChanges: {
             firstAlert: 15,
             secondAlert: 30,
@@ -22,11 +28,13 @@ export default {
         },
         {
           id: 2,
+          orderId:2,
           hasOrder: true,
           orderCreatedAt: new Date().toISOString(),
+          lastUpdateAt: new Date().toISOString(),
           number: 2,
           seats: 5,
-          status: "completed",
+          status: "free",
           statusChanges: {
             firstAlert: 15,
             secondAlert: 30,

@@ -1,5 +1,5 @@
 <template>
-  asd
+  LINE ITEMS
 </template>
 
 <script>
@@ -8,6 +8,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

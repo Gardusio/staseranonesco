@@ -11,4 +11,8 @@ export default {
       if (t.id === payload.tableId) t.status = status;
     });
   },
+  updateSeats(state, payload) {
+    const t = state.tables.find(t => t.id === payload.id)
+    t.seats = payload.seats;
+  }
 };

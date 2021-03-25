@@ -32,9 +32,7 @@
 </template>
 
 <script>
-import TheBackground from "../components/layouts/TheBackground.vue";
 export default {
-  components: { TheBackground },
   methods: {
     sala() {
       this.$router.push("/sala");

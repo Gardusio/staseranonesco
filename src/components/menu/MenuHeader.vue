@@ -12,22 +12,19 @@ export default {};
 
 <style>
 .header {
-    display: flex;
-    width: 100%;
-    height: 18%;
+  display: flex;
+  width: 100%;
+  height: 18%;
 }
-
 
 h1 {
   position: absolute;
   margin-left: 5%;
   font-size: 4rem;
-  font-family: "Raleway";
-  font-weight: 200;
+  margin-top: 2rem;
+  font-family: "Raleway", "sans-serif";
+  font-weight: 500;
   letter-spacing: 4px;
-  color: #623d22;
-}
-.menu-add-button {
-    
+  color: var(--mainbrown);
 }
 </style>

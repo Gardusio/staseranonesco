@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import PrimaryButton from "../../buttons/PrimaryButton";
+import PrimaryButton from "../../UI/buttons/PrimaryButton";
 import SingleTableIcon from "./SingleTableIcon"
 import ChairsIcon from "./ChairsIcon"
 export default {
