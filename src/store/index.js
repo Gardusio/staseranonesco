@@ -1,11 +1,13 @@
 import { createStore } from 'vuex'
 import tablesModule from "./tables/index"
-import ordersModule from "./table-orders/index"
+import tableOrdersModule from "./table-orders/index"
+import productsModule from "./products/index"
 
 export default createStore({
   modules: {
     tables: tablesModule,
-    orders: ordersModule,
+    orders: tableOrdersModule,
+    products: productsModule
   }
 })
 

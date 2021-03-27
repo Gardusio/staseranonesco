@@ -17,7 +17,7 @@ export default {
   font-weight: 500;
   padding: 0 1.5rem;
   outline: none;
-  border: none;
+  border: 1px solid white;
   color: white;
   background-color: var(--primarybrown);
   background-image: linear-gradient(180deg, #2d150b 0%, #623d22 120%);

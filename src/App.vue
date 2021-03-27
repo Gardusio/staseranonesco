@@ -12,6 +12,8 @@
   --secondarybrown: #623d22;
   --evidenceorange: #efbe7d;
   --friedorange: #e1a85f;
+  --buttonorange: #db8442;
+  --buttongreen: #82ce73;
   --first-alert-red: #8f3822;
   --second-alert-red: rgb(255, 35, 35);
   --completed-green: rgba(125, 236, 117, 0.69);
@@ -41,7 +43,7 @@
   top: 0;
   right: 0;
   overflow-y: scroll;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .main-container {

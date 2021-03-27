@@ -1,12 +1,16 @@
 <template>
-  <p class="day">Martedi <br />20 febbraio</p>
+  <p class="day">{{ dayOfWeek }}<br />{{ day }}</p>
 </template>
 
 <script>
 export default {
   computed: {
-    date() {
-      return "";
+    dayOfWeek() {
+      return new Date().getDay();
+    },
+    day() {
+      const date = new Date();
+      return date.getDate() + " " + date.getMonth();
     },
   },
 };

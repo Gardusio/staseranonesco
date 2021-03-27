@@ -6,7 +6,7 @@
   </div>
   <div class="main-container">
     <menu-header></menu-header>
-    <products-grid></products-grid>
+    <products-grid category="Fritti"></products-grid>
     <menu-nav></menu-nav>
   </div>
 </template>

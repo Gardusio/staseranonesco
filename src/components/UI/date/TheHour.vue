@@ -1,12 +1,13 @@
 <template>
-  <p class="hour">21.40</p>
+  <p class="hour">{{ hour }}</p>
 </template>
 
 <script>
 export default {
   computed: {
     hour() {
-      return "";
+      const date = new Date();
+      return date.getHours() + "." + date.getMinutes();
     },
   },
 };

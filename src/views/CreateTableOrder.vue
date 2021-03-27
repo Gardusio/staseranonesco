@@ -1,16 +1,28 @@
 <template>
   <the-background></the-background>
   <the-sidebar activeElem="sala"></the-sidebar>
+
   <section class="left-section">
     <span class="title">Tavolo {{ table.number }}</span>
-    <line-items></line-items>
+    <line-items
+      :lineItems="lineItems"
+      @addOne="addOne"
+      @removeOne="removeOne"
+    ></line-items>
+    <primary-button
+      @click="saveOrder()"
+      text="Apri ordine"
+      class="continue"
+    ></primary-button>
   </section>
+
   <section class="main-container">
     <div class="header">
       <h1>{{ category }}</h1>
     </div>
-    <products-grid></products-grid>
-    <menu-nav></menu-nav>
+    <products-grid @select-product="addProduct" :category="selectedCategory">
+    </products-grid>
+    <menu-nav @category-selected="setSelectedCategory"></menu-nav>
   </section>
 </template>
 
@@ -29,6 +41,8 @@ export default {
     return {
       table: null,
       order: null,
+      isNewOrder: false,
+      lineItems: [],
       selectedCategory: "Fritti",
     };
   },
@@ -40,8 +54,109 @@ export default {
   created() {
     const tables = this.$store.getters["tables/getTables"];
     const id = this.$route.params.id;
-    const t = tables.find((t) => (t.id = id));
+    const t = { ...tables.find((t) => t.id == id) };
     this.table = t;
+
+    if (this.table.orderId === null) {
+      this.isNewOrder = true;
+      const order = {
+        id: null,
+        tableId: id,
+        lastUpdate: new Date(),
+        createdAt: new Date(),
+        total: 0,
+        lineItems: [],
+      };
+      this.order = order;
+      this.$store.dispatch("orders/createOrder", order);
+    } else {
+      const orders = this.$store.getters["orders/getOrders"];
+      this.order = orders.find((o) => o.tableId === this.table.id).reduce();
+    }
+  },
+  methods: {
+    setSelectedCategory(selected) {
+      this.selectedCategory = selected;
+    },
+
+    saveOrder() {
+      this.$store.dispatch("tables/saveOrder", this.order);
+      this.$router.push("/sala");
+    },
+
+    addProduct(product) {
+      //create line item
+      let lineItem = {
+        id: null,
+        productId: product.id,
+        productName: product.name,
+        qty: 1,
+        //...note related
+      };
+
+      //if lineItem is already there
+      for (let i = 0; i < this.lineItems.length; i = i + 1) {
+        const current = this.lineItems[i];
+        if (current.productId === product.id) {
+          current.qty += 1;
+          lineItem = current;
+        }
+      }
+
+      if (lineItem.qty < 2) this.lineItems.push(lineItem);
+
+      //sort lineItems to show fritti-pizze-panini-bevande
+
+      //set local-order line items
+      const updatedOrder = {
+        ...this.order,
+        lineItems: this.lineItems,
+      };
+      this.order = updatedOrder;
+
+      //update order
+      this.$store.dispatch("orders/updateLineItems", updatedOrder);
+    },
+
+    addOne(li) {
+      for (let i = 0; i < this.lineItems.length; i = i + 1) {
+        const current = this.lineItems[i];
+        if (current.productId === li.productId) {
+          current.qty += 1;
+        }
+      }
+      //set local-order line items
+      const updatedOrder = {
+        ...this.order,
+        lineItems: this.lineItems,
+      };
+      this.order = updatedOrder;
+
+      //update order
+      this.$store.dispatch("orders/updateLineItems", updatedOrder);
+    },
+
+    removeOne(li) {
+      for (let i = 0; i < this.lineItems.length; i = i + 1) {
+        const current = this.lineItems[i];
+        if (current.productId === li.productId) {
+          current.qty -= 1;
+          if (current.qty === 0) {
+            const index = this.lineItems.indexOf(current);
+            this.lineItems.splice(index, 1);
+          }
+        }
+      }
+
+      const updatedOrder = {
+        ...this.order,
+        lineItems: this.lineItems,
+      };
+      this.order = updatedOrder;
+
+      //update order
+      this.$store.dispatch("orders/updateLineItems", updatedOrder);
+    },
   },
 };
 </script>
@@ -53,5 +168,11 @@ export default {
   font-weight: 500;
   letter-spacing: 4px;
   align-self: center;
+}
+
+.left-section > .continue {
+  align-self: center;
+  margin-top: auto;
+  justify-self: flex-end;
 }
 </style>

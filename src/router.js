@@ -7,7 +7,6 @@ import TakeAways from "./views/TakeAways.vue";
 import AllOrders from "./views/AllOrders.vue";
 import TheMenu from "./views/TheMenu.vue";
 import TheIngredients from "./views/TheIngredients.vue";
-import TableOrder from "./views/TableOrder.vue";
 import EmptyTable from "./views/EmptyTable.vue";
 import CreateTableOrder from "./views/CreateTableOrder.vue"
 
@@ -55,7 +54,7 @@ const routes = [
   {
     path: "/table-order/:id",
     name: "table-order",
-    component: TableOrder,
+    component: CreateTableOrder,
   },
   {
     path: "/empty-table/:id",

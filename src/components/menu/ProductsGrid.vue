@@ -1,20 +1,11 @@
 <template>
   <div class="grid-container">
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
-    <product-item productName="Cipolle"></product-item>
+    <product-item
+      v-for="product in products"
+      :key="product.id"
+      :product="product"
+      @product-selected="productSelected"
+    />
   </div>
 </template>
 
@@ -23,6 +14,21 @@
 import ProductItem from "./ProductItem.vue";
 export default {
   components: { ProductItem },
+  props: ["category"],
+  computed: {
+    products() {
+      const prods = this.$store.getters["products/getProducts"];
+      const categoryProds = prods.filter(
+        (p) => p.category === this.category.toLowerCase()
+      );
+      return categoryProds;
+    },
+  },
+  methods: {
+    productSelected(product) {
+      this.$emit("select-product", product);
+    },
+  },
 };
 </script>
 

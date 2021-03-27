@@ -16,5 +16,12 @@ export default {
   },
   updateSeats(context, payload) {
     context.commit("updateSeats", payload);
-  }
+  },
+  saveOrder(context, payload) {
+    //http : save new order,
+    context.commit("setTableStatus", {
+      id: payload.tableId,
+      newStatus: "waiting",
+    });
+  },
 };

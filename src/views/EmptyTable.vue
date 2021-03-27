@@ -46,7 +46,7 @@
       </div>
     </small-modal>
     <primary-button
-      @click="toCreateOrder()"
+      @click="createOrder()"
       class="main-action"
       text="Apri ordine"
       >Apri ordine</primary-button
@@ -95,13 +95,13 @@ export default {
       });
       this.showSeats = false;
     },
-    toCreateOrder() {
+    createOrder() {
       const routeParams = this.$route.params;
-      this.$router.push("/empty-table/create/" + routeParams.id);
+      const tableId = routeParams.id;
+      this.$router.push("/empty-table/create/" + tableId);
     },
   },
-  computed: {
-  },
+  computed: {},
 };
 </script>
 

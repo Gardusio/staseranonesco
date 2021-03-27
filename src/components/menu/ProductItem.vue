@@ -1,16 +1,20 @@
 <template>
-  <div class="item-container">
+  <div class="item-container" @click="productSelected(product)">
     <img class="circle-image" src="../../assets/images/frittiCategoria.jpg" />
-    <span class="title">{{ productName }} </span>
+    <span class="title">{{ product.name }} </span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["productName"],
+  props: ["product"],
+  methods: {
+    productSelected() {
+      this.$emit("product-selected", this.product);
+    }
+  }
 };
 </script>
-
 
 <style scoped>
 .item-container {
@@ -30,8 +34,8 @@ export default {
 .title {
   font-family: "Montserrat";
   font-size: 1.8rem;
-  font-weight: 300;
-  color: #2d150b;
-  margin-top: 0.5rem;
+  font-weight: 400;
+  color: var(--mainbrown);
+  margin-top: 0.7rem;
 }
 </style>

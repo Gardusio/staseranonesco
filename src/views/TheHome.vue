@@ -2,8 +2,8 @@
   <the-background></the-background>
   <div class="flex-container">
     <div class="home-date-container">
-      <p class="home-date-container__date">Martedi 20 Ottobre</p>
-      <div class="home-date-container__hours">21.40</div>
+      <p class="home-date-container__date">{{ date }}</p>
+      <div class="home-date-container__hours">{{ hours }}</div>
     </div>
     <section class="main">
       <div class="home-links">
@@ -36,6 +36,21 @@ export default {
   methods: {
     sala() {
       this.$router.push("/sala");
+    },
+  },
+  computed: {
+    date() {
+      const current = new Date().toLocaleString("it-IT", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+      });
+      const dateString = current.toString();
+      return dateString.charAt(0).toUpperCase() + dateString.slice(1);
+    },
+    hours() {
+      const current = new Date();
+      return current.getHours() + "." + current.getMinutes();
     },
   },
 };

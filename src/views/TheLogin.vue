@@ -2,7 +2,7 @@
   <the-background> </the-background>
   <section class="main">
     <img class="logo" src="../assets/images/LOGO.png" />
-    <form class="login-form" @submit="login">
+    <form class="login-form" @submit.prevent="login">
       <input
         type="text"
         class="login-form__entry"

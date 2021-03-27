@@ -10,7 +10,7 @@ export default {
       tables: [
         {
           id: 1,
-          orderId: 1,
+          orderId: null,
           hasOrder: true,
           orderCreatedAt: "03/08/2021 10:00:00",
           lastUpdateAt: "03/08/2021 10:00:00",
@@ -28,7 +28,7 @@ export default {
         },
         {
           id: 2,
-          orderId:2,
+          orderId:1,
           hasOrder: true,
           orderCreatedAt: new Date().toISOString(),
           lastUpdateAt: new Date().toISOString(),
