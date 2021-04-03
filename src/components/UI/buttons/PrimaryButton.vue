@@ -1,13 +1,13 @@
 <template>
-        <button class="primary-button">
-            {{text}}
-        </button>
+  <button class="primary-button">
+    {{ text }}
+  </button>
 </template>
 
 <script>
 export default {
-  props: ['text']
-}
+  props: ["text"],
+};
 </script>
 
 <style scoped>
@@ -15,13 +15,13 @@ export default {
   font-family: "Raleway", sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   outline: none;
   border: 1px solid white;
   color: white;
   background-color: var(--primarybrown);
   background-image: linear-gradient(180deg, #2d150b 0%, #623d22 120%);
-  filter: drop-shadow(0px 1px 1px rgba(45, 21, 11, 1));
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   border-radius: 24px;
   margin-bottom: 1rem;
   width: auto;

@@ -29,7 +29,7 @@
 <script>
 import MenuNav from "../components/menu/MenuNav";
 import ProductsGrid from "../components/menu/ProductsGrid";
-import LineItems from "../components/orders/LineItemsList";
+import LineItems from "../components/orders/lineitems/LineItemsList";
 
 export default {
   components: {
@@ -41,7 +41,6 @@ export default {
     return {
       table: null,
       order: null,
-      isNewOrder: false,
       lineItems: [],
       selectedCategory: "Fritti",
     };
@@ -54,25 +53,19 @@ export default {
   created() {
     const tables = this.$store.getters["tables/getTables"];
     const id = this.$route.params.id;
-    const t = { ...tables.find((t) => t.id == id) };
+    const t = tables.find((t) => t.id === parseInt(id));
     this.table = t;
 
-    if (this.table.orderId === null) {
-      this.isNewOrder = true;
-      const order = {
-        id: null,
-        tableId: id,
-        lastUpdate: new Date(),
-        createdAt: new Date(),
-        total: 0,
-        lineItems: [],
-      };
-      this.order = order;
-      this.$store.dispatch("orders/createOrder", order);
-    } else {
-      const orders = this.$store.getters["orders/getOrders"];
-      this.order = orders.find((o) => o.tableId === this.table.id).reduce();
-    }
+    const order = {
+      id: null,
+      tableId: parseInt(id),
+      lastUpdate: new Date(),
+      createdAt: new Date(),
+      total: 0,
+      lineItems: [],
+    };
+    this.order = order;
+    this.$store.dispatch("orders/createOrder", order);
   },
   methods: {
     setSelectedCategory(selected) {
@@ -90,7 +83,9 @@ export default {
         id: null,
         productId: product.id,
         productName: product.name,
+        productPrice: product.price,
         qty: 1,
+        total: product.price,
         //...note related
       };
 
@@ -123,6 +118,7 @@ export default {
         const current = this.lineItems[i];
         if (current.productId === li.productId) {
           current.qty += 1;
+          current.total += current.productPrice;
         }
       }
       //set local-order line items
@@ -141,6 +137,7 @@ export default {
         const current = this.lineItems[i];
         if (current.productId === li.productId) {
           current.qty -= 1;
+          current.total -= current.productPrice;
           if (current.qty === 0) {
             const index = this.lineItems.indexOf(current);
             this.lineItems.splice(index, 1);

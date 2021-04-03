@@ -4,7 +4,7 @@
       <font-awesome-icon
         @click="$emit('close')"
         :icon="['fas', 'times-circle']"
-        size="small"
+        size="lg"
         class="close-icon"
       ></font-awesome-icon>
       <slot></slot>
@@ -32,7 +32,7 @@ export default {};
 }
 
 .container {
-  background: white;
+    background: rgba(255,255,255,0.75);
   height: 70%;
   width: 30%;
   padding: 1rem;
@@ -45,5 +45,8 @@ export default {};
 .close-icon {
   color: #2d150b;
   cursor: pointer;
+  position: absolute;
+  top: 2;
+  right: 20px;
 }
 </style>

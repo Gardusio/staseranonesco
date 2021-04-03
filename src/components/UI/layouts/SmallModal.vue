@@ -1,10 +1,11 @@
 <template>
-    <div class="modal-mask" @click.self="$emit('close')">
+  <div class="modal-mask" @click.self="$emit('close')">
     <div class="container">
       <font-awesome-icon
         @click.self="$emit('close')"
         :icon="['fas', 'times-circle']"
         class="close-icon"
+        size="lg"
       ></font-awesome-icon>
       <slot></slot>
     </div>
@@ -12,9 +13,7 @@
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
 <style scoped>
@@ -33,12 +32,12 @@ export default {
 }
 
 .container {
-  background: white;
+  background: rgba(255,255,255,0.75);
   height: 50%;
   width: 30%;
   padding: 1rem;
   border-radius: 24px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   z-index: 10;
   position: fixed;
 }
@@ -46,5 +45,8 @@ export default {
 .close-icon {
   color: #2d150b;
   cursor: pointer;
+  position: absolute;
+  top: 2;
+  right: 20px;
 }
 </style>

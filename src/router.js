@@ -9,6 +9,7 @@ import TheMenu from "./views/TheMenu.vue";
 import TheIngredients from "./views/TheIngredients.vue";
 import EmptyTable from "./views/EmptyTable.vue";
 import CreateTableOrder from "./views/CreateTableOrder.vue"
+import TableOrder from "./views/TableOrder.vue"
 
 const routes = [
   {
@@ -54,7 +55,7 @@ const routes = [
   {
     path: "/table-order/:id",
     name: "table-order",
-    component: CreateTableOrder,
+    component: TableOrder,
   },
   {
     path: "/empty-table/:id",

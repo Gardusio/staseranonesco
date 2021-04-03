@@ -25,7 +25,7 @@ export default {
   },
   created() {
     //load Tables
-    this.$store.dispatch("tables/setTables");
+    //this.$store.dispatch("tables/setTables");
   },
 };
 </script>

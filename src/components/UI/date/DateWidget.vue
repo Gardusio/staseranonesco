@@ -13,14 +13,7 @@ export default {
     TheDate,
     TheHour,
   },
-  computed: {
-    hour() {
-      return "";
-    },
-    date() {
-      return "";
-    },
-  },
+  computed: {},
 };
 </script>
 

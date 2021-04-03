@@ -81,7 +81,7 @@ export default {
   created() {
     const tables = this.$store.getters["tables/getTables"];
     const id = this.$route.params.id;
-    const t = tables.find((t) => (t.id = id));
+    const t = tables.find((t) => t.id === parseInt(id));
     this.table = t;
   },
   methods: {

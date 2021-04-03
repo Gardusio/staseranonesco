@@ -30,7 +30,7 @@ export default {
       else if (this.isToAlert(table.statusChanges, table.orderCreatedAt)) {
         this.$store.dispatch("tables/setTableStatus", {
           id: table.id,
-          newStatus: "alert",
+          status: "alert",
         });
         return "alert";
       }
@@ -39,9 +39,8 @@ export default {
       else if (this.isToFirstAlert(table.statusChanges, table.orderCreatedAt)) {
         this.$store.dispatch("tables/setTableStatus", {
           id: table.id,
-          newStatus: "first-alert",
+          status: "first-alert",
         });
-
         return "first-alert";
       }
       return table.status;

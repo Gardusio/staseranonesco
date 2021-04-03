@@ -28,7 +28,7 @@ export default {
         },
         {
           id: 2,
-          orderId:1,
+          orderId:null,
           hasOrder: true,
           orderCreatedAt: new Date().toISOString(),
           lastUpdateAt: new Date().toISOString(),

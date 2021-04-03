@@ -4,13 +4,42 @@
 
 <script>
 export default {
+  data() {
+    return {
+      days: [
+        "Lunedi",
+        "Martedi",
+        "Mercoledi",
+        "Giovedi",
+        "Venerdi",
+        "Sabato",
+        "Domenica",
+      ],
+       months: [
+        "Gennaio",
+        "Febbraio",
+        "Marzo",
+        "Aprile",
+        "Maggio",
+        "Giugno",
+        "Luglio",
+        "Agosto",
+        "Settembre",
+        "Ottobre",
+        "Novembre",
+        "Dicembre"
+      ],
+    };
+  },
   computed: {
     dayOfWeek() {
-      return new Date().getDay();
+      return this.days[new Date().getDay()];
     },
     day() {
       const date = new Date();
-      return date.getDate() + " " + date.getMonth();
+      return (
+        date.getDate() + " " + this.months[date.getMonth()]
+      );
     },
   },
 };

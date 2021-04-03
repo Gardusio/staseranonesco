@@ -41,6 +41,8 @@ export default {
   align-items: center;
   width: 100%;
   height: auto;
+  max-width: 547px;
+  max-height: 58.5px;
   padding: 0.2rem 0.2rem;
   margin-top: 2rem;
   border: 1px solid white;
@@ -57,6 +59,8 @@ export default {
   font-size: 24px;
   width: 50px;
   height: 50px;
+  min-width: 50px;
+  min-height: 50px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -65,16 +69,19 @@ export default {
 
 .name {
   font-family: "Montserrat", "sans-serif";
-  font-size: 24px;
+  font-size: 20px;
   color: var(--mainbrown);
+  text-align:left;
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .actions {
   display: flex;
   justify-content: space-evenly;
-  width: 20%;
+  width: 18%;
   height: 100%;
+  min-width: 18%;
   margin-right: 0.2rem;
   align-items: center;
   background-color: transparent;

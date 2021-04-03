@@ -11,7 +11,7 @@ export default {
   setTableStatus(context, payload) {
     context.commit("setTableStatus", {
       id: payload.id,
-      status: payload.newStatus,
+      status: payload.status,
     });
   },
   updateSeats(context, payload) {
@@ -21,7 +21,7 @@ export default {
     //http : save new order,
     context.commit("setTableStatus", {
       id: payload.tableId,
-      newStatus: "waiting",
+      status: "waiting",
     });
   },
 };

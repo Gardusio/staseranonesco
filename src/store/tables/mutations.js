@@ -7,11 +7,8 @@ export default {
     state.tables = tables;
   },
   setTableStatus(state, payload) {
-    console.log(payload);
-    state.tables.map((t) => {
-      if (t.id == payload.id) t.status = payload.newStatus;
-    });
-    console.log(state.tables);
+    const t = state.tables.find(t => t.id === payload.id)
+    t.status = payload.status;
   },
   updateSeats(state, payload) {
     const t = state.tables.find(t => t.id === payload.id)
