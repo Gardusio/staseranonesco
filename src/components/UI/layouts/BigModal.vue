@@ -32,7 +32,7 @@ export default {};
 }
 
 .container {
-    background: rgba(255,255,255,0.75);
+  background: white;
   height: 70%;
   width: 30%;
   padding: 1rem;

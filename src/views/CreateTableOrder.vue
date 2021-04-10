@@ -11,7 +11,7 @@
     ></line-items>
     <primary-button
       @click="saveOrder()"
-      text="Apri ordine"
+      text="Salva Ordine"
       class="continue"
     ></primary-button>
   </section>
@@ -56,16 +56,23 @@ export default {
     const t = tables.find((t) => t.id === parseInt(id));
     this.table = t;
 
-    const order = {
-      id: null,
-      tableId: parseInt(id),
-      lastUpdate: new Date(),
-      createdAt: new Date(),
-      total: 0,
-      lineItems: [],
-    };
+    const orders = this.$store.getters["orders/getOrders"];
+    let order = orders.find((o) => o.tableId === parseInt(id));
     this.order = order;
-    this.$store.dispatch("orders/createOrder", order);
+    this.lineItems = order ? order.lineItems : [];
+
+    if (!order) {
+      order = {
+        id: null,
+        tableId: parseInt(id),
+        lastUpdate: new Date(),
+        createdAt: new Date(),
+        total: 0,
+        lineItems: [],
+      };
+      this.order = order;
+      this.$store.dispatch("orders/createOrder", order);
+    }
   },
   methods: {
     setSelectedCategory(selected) {

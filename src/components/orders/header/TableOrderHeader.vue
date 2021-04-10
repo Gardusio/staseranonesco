@@ -2,7 +2,7 @@
   <div class="header-container">
     <back-widget view="Sala" @back="backToSala()"></back-widget>
     <table-order-title></table-order-title>
-    <add-button></add-button>
+    <add-button @click="addLineItem()"></add-button>
   </div>
 </template>
 
@@ -20,8 +20,11 @@ export default {
   methods: {
     backToSala() {
       this.$emit("toSala");
-    }
-  }
+    },
+    addLineItem() {
+      this.$emit("addLineItem");
+    },
+  },
 };
 </script>
 

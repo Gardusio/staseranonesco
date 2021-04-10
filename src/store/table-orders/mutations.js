@@ -9,10 +9,8 @@ export default {
 
         let total = 0;
         for (let i = 0; i < order.lineItems.length; i++) {
-            console.log(order.lineItems[i]);
             total += order.lineItems[i].total;
         }
         order.total = total;
-        console.log(order.total)
     },
 }

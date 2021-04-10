@@ -2,7 +2,10 @@
   <the-background></the-background>
   <the-sidebar activeElem="sala"></the-sidebar>
 
-  <table-order-header @toSala="toSala()"></table-order-header>
+  <table-order-header
+    @toSala="toSala()"
+    @addLineItem="addProduct()"
+  ></table-order-header>
 
   <main class="line-items-section">
     <line-items-grid
@@ -119,13 +122,14 @@ export default {
 
     const orders = this.$store.getters["orders/getOrders"];
     this.order = orders.find((o) => o.tableId === tId);
-
-    console.log(this.order);
   },
 
   methods: {
     toSala() {
       this.$router.push("/sala");
+    },
+    addProduct() {
+      this.$router.push("/create/" + this.table.id);
     },
     addOne(li) {
       for (let i = 0; i < this.order.lineItems.length; i = i + 1) {

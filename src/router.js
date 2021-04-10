@@ -63,10 +63,11 @@ const routes = [
     component: EmptyTable,
   },
   {
-    path: "/empty-table/create/:id",
+    path: "/create/:id",
     name: "create-table-order",
     component: CreateTableOrder
-  }
+  },
+ 
 ];
 
 const router = createRouter({

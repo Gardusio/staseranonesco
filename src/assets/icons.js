@@ -21,12 +21,16 @@ import {
     faExclamationCircle,
     faPrint,
     faCheckCircle,
-    faChevronLeft
+    faChevronLeft,
+    faArrowDown,
+    faArrowUp,
+    faReceipt
 } from "@fortawesome/free-solid-svg-icons";
 
 const icons = [faPlus,
     faChevronLeft,
     faPrint,
+    faReceipt,
     faCheckCircle,
     faPlusCircle,
     faMinusCircle,
@@ -46,6 +50,8 @@ const icons = [faPlus,
     faBeer,
     faPizzaSlice,
     faExclamationCircle,
-    faLayerGroup];
+    faLayerGroup,
+    faArrowDown,
+    faArrowUp];
 
 export default icons;

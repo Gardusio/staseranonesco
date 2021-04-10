@@ -18,6 +18,10 @@
   --second-alert-red: rgb(255, 35, 35);
   --completed-green: rgba(125, 236, 117, 0.69);
   --gray: #777a7b;
+  --backgroundgray: #e9e6e2;
+  --backgroundactions: #eae2d8;
+  --takeawaysgreen: #6a8d73;
+  --deliveryorange: #b68149;
 }
 * {
   box-sizing: border-box;
@@ -47,10 +51,10 @@
 }
 
 .main-container {
-  position: absolute;
+  position: relative;
   height: 100%;
-  width: 56%;
-  margin-left: 100px;
+  width: 58%;
+  margin-left: 7%;
   margin-right: 33%;
 }
 </style>

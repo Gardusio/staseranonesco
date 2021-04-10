@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <span class="title">Conto {{ header }}</span>
-    <span class="total">{{ total }}€</span>
+    <span class="total">{{ confirmedTotal }}€</span>
     <span class="instructions">Vuoi aggiungere uno sconto?</span>
     <div class="discounts-grid">
       <div

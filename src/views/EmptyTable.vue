@@ -98,7 +98,7 @@ export default {
     createOrder() {
       const routeParams = this.$route.params;
       const tableId = routeParams.id;
-      this.$router.push("/empty-table/create/" + tableId);
+      this.$router.push("/create/" + tableId);
     },
   },
   computed: {},
