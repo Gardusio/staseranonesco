@@ -23,22 +23,19 @@ export default {
   flex-direction: column;
   align-items: center;
   position: fixed;
-  bottom: 0;
-  right: 0;
-  padding: 3rem 2rem;
-  height: 20vh;
+  height: auto;
   width: auto;
 }
 .day {
   color: var(--secondarybrown);
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-family: "Montserrat", sans-serif;
   text-align: right;
 }
 
 .hour {
   color: var(--secondarybrown);
-  font-size: 3rem;
+  font-size: 2rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
 }

@@ -103,8 +103,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 7.5rem;
-  width: 7.5rem;
+  height: 7rem;
+  width: 7rem;
   font-weight: 400;
 }
 
@@ -125,12 +125,12 @@ export default {
 
 .category {
   font-family: "Raleway";
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   letter-spacing: 2px;
-  margin-top: 0.6rem;
+  margin-top: 0.75rem;
 }
 
 .icon {
-  margin-top: 0.9rem;
+  margin-top: 1rem;
 }
 </style>

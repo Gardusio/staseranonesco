@@ -168,10 +168,11 @@ export default {
 <style scoped>
 .title {
   font-family: "Raleway", "sans-serif";
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 500;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   align-self: center;
+  color: var(--mainbrown)
 }
 
 .left-section > .continue {

@@ -20,11 +20,11 @@ export default {};
 h1 {
   position: absolute;
   margin-left: 5%;
-  font-size: 4rem;
+  font-size: 3rem;
   margin-top: 2rem;
   font-family: "Raleway", "sans-serif";
   font-weight: 500;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   color: var(--mainbrown);
 }
 </style>

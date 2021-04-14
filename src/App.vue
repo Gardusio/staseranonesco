@@ -23,10 +23,12 @@
   --takeawaysgreen: #6a8d73;
   --deliveryorange: #b68149;
 }
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Montserrat", sans-serif;
 }
 
 #app {
@@ -38,7 +40,7 @@
 
 .left-section {
   background: rgba(98, 61, 34, 0.12);
-  width: 35%;
+  width: 33%;
   height: 100%;
   position: fixed;
   padding: 2rem;
@@ -53,8 +55,8 @@
 .main-container {
   position: relative;
   height: 100%;
-  width: 58%;
-  margin-left: 7%;
+  width: 60%;
+  margin-left: 90px;
   margin-right: 33%;
 }
 </style>

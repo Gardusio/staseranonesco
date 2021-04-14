@@ -1,6 +1,6 @@
 <template>
   <the-background></the-background>
-  <the-sidebar activeElem="ta"></the-sidebar>
+  <the-sidebar activeElem="delivery"></the-sidebar>
   <notifications-section></notifications-section>
 
   <div class="main-container with-actions">

@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <span class="title">Notifiche</span>
-    <the-hour style="color: var(--mainbrown)"></the-hour>
+    <the-hour></the-hour>
   </div>
 </template>
 
@@ -22,7 +22,6 @@ export default {
 
 .title {
     font-family: "Raleway", "sans-serif";
-
-    font-size: 3rem;
+    font-size: 2rem;
 }
 </style>

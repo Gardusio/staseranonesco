@@ -67,9 +67,8 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: center;
   align-items: center;
-  margin-top: 0;
+  margin-top: 5rem;
 }
 
 .home-date-container {

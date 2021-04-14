@@ -16,7 +16,7 @@ export default {
 <style scoped>
 .hour {
   color: var(--secondarybrown);
-  font-size: 3rem;
+  font-size: 2rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
 }

@@ -2,8 +2,8 @@
   <div class="container">
     <font-awesome-icon
       :icon="navItem"
-      size="2x"
       :style="{ color: iconColor }"
+      :size="iconSize"
     ></font-awesome-icon>
     <span class="text" :class="activeText"> {{ text }} </span>
   </div>
@@ -27,6 +27,11 @@ export default {
       if (this.isActive) {
         return "#EFBE7D";
       } else return "white";
+    },
+    iconSize() {
+      if (this.isActive) 
+        return "2x";
+      return "1x";
     },
     activeText() {
       if (this.isActive) return "activeText";

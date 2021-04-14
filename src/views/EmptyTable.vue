@@ -52,7 +52,7 @@
       >Apri ordine</primary-button
     >
   </section>
-  <date-widget></date-widget>
+  <date-widget class="date"></date-widget>
 </template>
 
 <script>
@@ -116,10 +116,16 @@ export default {
   justify-content: center;
   margin-left: 100px;
 }
+.date {
+  position: fixed;
+  bottom:3%;
+  right: 3%;
+  height: auto;
+}
 .title {
   font-family: "Raleway", sans-serif;
   font-weight: 500;
-  color: var(--mainbrown);
+  color: var(--secondarybrown);
   font-size: 4rem;
   margin-bottom: 3rem;
 }

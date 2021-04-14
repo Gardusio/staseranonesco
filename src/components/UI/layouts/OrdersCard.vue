@@ -2,9 +2,59 @@
   <div class="container">
     <div class="header" :class="headerBackground">
       <span class="title">{{ headerTitle }}</span>
-      <div class="hour" :class="alertType">{{ hourString }}</div>
+      <div class="hour-container" :class="alertType">
+        <div class="hour" >{{ hourString }}</div>
+      </div>
     </div>
     <ul class="line-items">
+      <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
+      <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
+      <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
+      <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">Funghi salsiccia, stracchino</span>
+      </li>
+      <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">Rughetta, bresaola, pachino, bufala</span>
+      </li>
+      <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
       <li
         v-for="lineItem in lineItems"
         :key="lineItem.productId"
@@ -47,8 +97,8 @@ export default {
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 290px;
-  height: 275px;
+  width: 250px;
+  height: 225px;
   border-radius: 0 0 25px 25px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -58,7 +108,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 25%;
+  height: 20%;
   color: white;
 }
 
@@ -73,16 +123,23 @@ export default {
 .title {
   font-family: "Montserrat", "sans-serif";
   font-weight: 500;
-  font-size: 1.8rem;
+  font-size: 1.25rem;
   margin-left: 1rem;
+  flex: 2;
 }
 
+.hour-container {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0.5rem;
+}
 .hour {
   font-family: "Lato", "sans-serif";
   font-weight: 500;
-  font-size: 1.6rem;
-  height: 100%;
-  padding: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .line-items {
@@ -91,25 +148,30 @@ export default {
   margin-bottom: 0.85rem;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
+  margin:auto;
   height: 50%;
   justify-content: center;
   align-items: center;
   font-family: "Lato", "sans-serif";
-  font-weight: bold;
-  font-size: 1.25rem;
+  font-weight: 500;
+  font-size: 16px;
   color: black;
   overflow-y: scroll;
-  flex-flow: row;
-  row-gap: 4px;
-  flex-wrap: wrap;
+  row-gap: 8px;
 }
 
 .line-item {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  width: 60%;
+  width: 105%;
+  margin:auto;
+}
+
+.product {
+  flex:2;
+  margin-left:8px;
 }
 
 .alert {

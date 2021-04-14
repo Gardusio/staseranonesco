@@ -4,10 +4,7 @@
   <notifications-section></notifications-section>
 
   <div class="main-container with-actions">
-    <take-aways-header
-      :slotLower="slotLower"
-      :slotUpper="slotUpper"
-    ></take-aways-header>
+    <take-aways-header></take-aways-header>
     <take-aways-grid :takeaways="takeaways"></take-aways-grid>
   </div>
   <div class="actions">
@@ -31,8 +28,6 @@ export default {
   data() {
     return {
       takeaways: [],
-      slotLower: new Date().setHours(18, 30, 0, 0),
-      slotUpper: new Date().setHours(22, 30, 0, 0),
     };
   },
 
@@ -47,9 +42,8 @@ export default {
   height: 79%;
 }
 .actions {
-  height: 16%;
-  width: 58%;
-  margin-left: 7%;
+  height: 17%;
+  margin-left: 90px;
   margin-right: 33%;
   display: flex;
   align-items: center;
