@@ -4,8 +4,13 @@
   <notifications-section></notifications-section>
 
   <div class="main-container with-actions">
-    <take-aways-header></take-aways-header>
-    <take-aways-grid :takeaways="takeaways"></take-aways-grid>
+    <take-aways-header
+      :upper="slotUpper"
+      :lower="slotLower"
+      @increase="(slot) => up(slot)"
+      @decrease="(slot) => down(slot)"
+    ></take-aways-header>
+    <take-aways-grid :takeaways="filteredOrders"></take-aways-grid>
   </div>
   <div class="actions">
     <add-button></add-button>
@@ -28,11 +33,80 @@ export default {
   data() {
     return {
       takeaways: [],
+      slotLower: null,
+      slotUpper: null,
     };
   },
-
+  computed: {
+    filteredOrders() {
+      const isBeetween = (t) =>
+        t.hour >= this.slotLower && t.hour <= this.slotUpper;
+      return this.takeaways.filter(isBeetween);
+    },
+  },
   created() {
     this.takeaways = this.$store.getters["takeaways/getTakeAways"];
+    const slots = this.$store.getters["getTakeAwaySlot"];
+    this.slotLower = slots[0];
+    this.slotUpper = slots[1];
+  },
+  methods: {
+    up(slot) {
+      let selectedMins;
+      let selectedHours;
+      let selectedSlot = slot === "lower" ? this.slotLower : this.slotUpper;
+
+      selectedMins = new Date(selectedSlot).getMinutes();
+      selectedHours = new Date(selectedSlot).getHours();
+
+      if (selectedMins >= 45) {
+        const newHour = selectedHours + 1;
+        selectedSlot = new Date().setHours(newHour, 0, 0, 0);
+      } else
+        selectedSlot = new Date().setHours(
+          selectedHours,
+          selectedMins + 15,
+          0,
+          0
+        );
+
+      slot === "lower"
+        ? (this.slotLower = selectedSlot)
+        : (this.slotUpper = selectedSlot);
+
+      this.$store.dispatch("updateSlots", {
+        page: "takeAway",
+        slots: [this.slotLower, this.slotUpper],
+      });
+    },
+    down(slot) {
+      let selectedMins;
+      let selectedHours;
+      let selectedSlot = slot === "lower" ? this.slotLower : this.slotUpper;
+
+      selectedMins = new Date(selectedSlot).getMinutes();
+      selectedHours = new Date(selectedSlot).getHours();
+
+      if (selectedMins === 0) {
+        const newHour = selectedHours - 1;
+        selectedSlot = new Date().setHours(newHour, 45, 0, 0);
+      } else
+        selectedSlot = new Date().setHours(
+          selectedHours,
+          selectedMins - 15,
+          0,
+          0
+        );
+
+      slot === "lower"
+        ? (this.slotLower = selectedSlot)
+        : (this.slotUpper = selectedSlot);
+
+      this.$store.dispatch("updateSlots", {
+        page: "takeAway",
+        slots: [this.slotLower, this.slotUpper],
+      });
+    },
   },
 };
 </script>

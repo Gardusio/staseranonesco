@@ -3,7 +3,7 @@
     <span class="title">Ordini</span>
     <div class="actions-container">
       <span class="fascia">Fascia</span>
-      <fasce-widget></fasce-widget>
+      <fasce-widget page="orders"></fasce-widget>
     </div>
     <date-widget class="date"></date-widget>
     <div id="border"></div>
@@ -22,6 +22,7 @@ export default {
 <style scoped>
 .header-container {
   display: flex;
+  height:20%;
   position: relative;
   align-items: center;
   justify-content: space-between;

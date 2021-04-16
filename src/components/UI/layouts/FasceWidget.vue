@@ -1,41 +1,74 @@
 <template>
   <div class="actions">
-    <div class="action-circle-container">
-      <font-awesome-icon
-        class="action"
-        :icon="['fas', 'arrow-down']"
-      ></font-awesome-icon>
+    <div class="hour-actions">
+      <div @click="up('lower')">
+        <font-awesome-icon
+          class="action"
+          :icon="['fas', 'chevron-up']"
+          size="lg"
+        ></font-awesome-icon>
+      </div>
+      <div @click="down('lower')">
+        <font-awesome-icon
+          class="action"
+          :icon="['fas', 'chevron-down']"
+          size="lg"
+        ></font-awesome-icon>
+      </div>
     </div>
-    <span class="hours">{{ lower }} - {{ upper }} </span>
-    <div class="action-circle-container">
-      <font-awesome-icon
-        class="action"
-        :icon="['fas', 'arrow-up']"
-      ></font-awesome-icon>
+    <span class="hours">{{ slower }} - {{ supper }} </span>
+    <div class="hour-actions">
+      <div @click="up('upper')">
+        <font-awesome-icon
+          class="action"
+          :icon="['fas', 'chevron-up']"
+          size="lg"
+        ></font-awesome-icon>
+      </div>
+      <div @click="down('upper')">
+        <font-awesome-icon
+          class="action"
+          :icon="['fas', 'chevron-down']"
+          size="lg"
+        ></font-awesome-icon>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["page", "slotUpper", "slotLower"],
   data() {
     return {
-      slotLower: new Date().setHours(18, 30, 0, 0),
-      slotUpper: new Date().setHours(22, 30, 0, 0),
+      upper: this.slotUpper,
+      lower: this.slotLower,
     };
   },
+  mounted() {
+    this.upper = this.slotUpper;
+    this.lower = this.slotLower;
+  },
+  methods: {
+    up(slot) {
+      this.$emit("slotUp", slot);
+    },
+    down(slot) {
+      this.$emit("slotDown", slot);
+    },
+  },
   computed: {
-    lower() {
+    slower() {
       const date = new Date(this.slotLower);
       if (date.getMinutes() != 0)
         return date.getHours().toString() + "." + date.getMinutes().toString();
-      return date.getHours.toString();
+      return date.getHours().toString();
     },
-    upper() {
+    supper() {
       const date = new Date(this.slotUpper);
       if (date.getMinutes() != 0)
         return date.getHours().toString() + "." + date.getMinutes().toString();
-      return date.getHours.toString();
+      return date.getHours().toString();
     },
   },
 };
@@ -45,7 +78,7 @@ export default {
 .actions {
   margin-top: 0.5rem;
   display: flex;
-  width: 45%;
+  width: 33%;
   height: auto;
   justify-content: space-evenly;
   align-items: center;
@@ -56,18 +89,15 @@ export default {
   font-weight: 600;
   color: var(--secondarybrown);
 }
-.action-circle-container {
-  display: flex;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--mainbrown);
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+.action {
+  color: var(--mainbrown);
 }
 
-.action {
-  color: var(--backgroundgray);
+.hour-actions {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 </style>

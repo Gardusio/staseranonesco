@@ -15,44 +15,46 @@
     ></line-items-grid>
   </main>
 
-  <div class="nav">
-    <div class="nav-list">
-      <div class="nav-item" @click="showStampa = true">
-        <font-awesome-icon
-          :icon="['fas', 'print']"
-          class="icon"
-          size="2x"
-        ></font-awesome-icon>
-        <span class="category">Stampa</span>
-      </div>
-      <div class="nav-item" @click="showConto = true">
-        <span class="category-text">21€</span>
-        <span class="category">Conto</span>
-      </div>
-      <div class="nav-item">
-        <font-awesome-icon
-          :icon="['fas', 'chair']"
-          class="icon"
-          size="2x"
-        ></font-awesome-icon>
-        <span class="category">Tavolo</span>
-      </div>
-      <div class="nav-item" @click="showChiudi = true">
-        <font-awesome-icon
-          :icon="['fas', 'check-circle']"
-          class="icon"
-          size="2x"
-        ></font-awesome-icon>
-        <span class="category">Chiudi</span>
-      </div>
-      <div class="nav-item" @click="showElimina = true">
-        <font-awesome-icon
-          :icon="['fas', 'trash']"
-          class="icon"
-          size="2x"
-        ></font-awesome-icon>
-        <span class="category">Elimina</span>
-      </div>
+  <div class="nav-list">
+    <div class="nav-item" @click="showStampa = true">
+      <font-awesome-icon
+        :icon="['fas', 'print']"
+        class="icon"
+        size="2x"
+      ></font-awesome-icon>
+      <span class="category">Stampa</span>
+    </div>
+    <div class="nav-item" @click="showConto = true">
+      <font-awesome-icon
+        :icon="['fas', 'euro-sign']"
+        class="icon"
+        size="2x"
+      ></font-awesome-icon>
+      <span class="category">Conto</span>
+    </div>
+    <div class="nav-item">
+      <font-awesome-icon
+        :icon="['fas', 'chair']"
+        class="icon"
+        size="2x"
+      ></font-awesome-icon>
+      <span class="category">Tavolo</span>
+    </div>
+    <div class="nav-item" @click="showChiudi = true">
+      <font-awesome-icon
+        :icon="['fas', 'check-circle']"
+        class="icon"
+        size="2x"
+      ></font-awesome-icon>
+      <span class="category">Chiudi</span>
+    </div>
+    <div class="nav-item" @click="showElimina = true">
+      <font-awesome-icon
+        :icon="['fas', 'trash']"
+        class="icon"
+        size="2x"
+      ></font-awesome-icon>
+      <span class="category">Elimina</span>
     </div>
   </div>
 
@@ -191,54 +193,47 @@ export default {
   width: 80%;
 }
 
-.nav {
-  position: absolute;
-  width: 80%;
-  height: 20%;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 9%;
-  bottom: 0;
-  text-align: center;
-}
-
 .nav-list {
   position: absolute;
-  width: 100%;
-  bottom: 2rem;
+  width: 80%;
+  margin: auto;
+  bottom: 1.225rem;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  left: 0;
+  right: 0;
 }
 
 .nav-item {
   background-image: linear-gradient(180deg, #2d150b 0%, #623d22 120%);
   color: white;
-  border-radius: 28px;
+  border-radius: 26px;
   border: 2px solid white;
   filter: drop-shadow(0px 3px 3px rgba(45, 21, 11, 1));
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 8rem;
-  width: 8rem;
+  height: 6.25rem;
+  width: 6.25rem;
   font-weight: 400;
-  justify-content: space-evenly;
-  align-items: center;
 }
 
 .category {
   font-family: "Raleway";
-  font-size: 1.5rem;
-  letter-spacing: 2px;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  margin-top: 0.75rem;
 }
 
-.category-text {
-  font-family: "Lato", "sans-serif";
-  font-size: 2rem;
-  letter-spacing: 2px;
-  font-weight: bolder;
-  color: var(--evidenceorange);
+.icon {
+  margin-top: 1rem;
+}
+
+.date {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  height: auto;
 }
 </style>

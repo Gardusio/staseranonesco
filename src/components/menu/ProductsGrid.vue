@@ -37,7 +37,6 @@ export default {
   position: absolute;
   height: 60%;
   width: 90%;
-  margin-top:3.5rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   overflow-y: scroll;

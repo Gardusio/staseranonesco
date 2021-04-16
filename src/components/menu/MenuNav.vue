@@ -1,5 +1,4 @@
 <template>
-  <div class="nav">
     <div class="nav-list">
       <div
         :class="activeStyle('fritti')"
@@ -9,7 +8,7 @@
         <font-awesome-icon
           :icon="['fas', 'ring']"
           class="icon"
-          size="3x"
+          size="2x"
         ></font-awesome-icon>
         <span class="category">Fritti</span>
       </div>
@@ -21,7 +20,7 @@
         <div class="item-flex">
           <font-awesome-icon
             :icon="['fas', 'pizza-slice']"
-            size="3x"
+            size="2x"
             class="icon"
             style="transform: rotate(275deg)"
           ></font-awesome-icon>
@@ -36,7 +35,7 @@
         <font-awesome-icon
           :icon="['fas', 'hamburger']"
           class="icon"
-          size="3x"
+          size="2x"
         ></font-awesome-icon>
         <span class="category">Panini</span>
       </div>
@@ -48,13 +47,12 @@
         <font-awesome-icon
           :icon="['fas', 'beer']"
           class="icon"
-          style="margin-left: 0.5rem"
-          size="3x"
+          style="margin-left: 0.33rem"
+          size="2x"
         ></font-awesome-icon>
         <span class="category">Bere</span>
       </div>
     </div>
-  </div>
 </template>
 
 
@@ -78,17 +76,13 @@ export default {
 </script>
 
 <style scoped>
-.nav {
-  position: absolute;
-  width: 100%;
-  height: 20%;
-  bottom: 0;
-}
+
 
 .nav-list {
   position: absolute;
-  width: 100%;
-  bottom: 2rem;
+  width: 90%;
+  margin:auto;
+  bottom: 1.225rem;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -103,8 +97,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 7rem;
-  width: 7rem;
+  height: 6rem;
+  width: 6rem;
   font-weight: 400;
 }
 
@@ -126,7 +120,7 @@ export default {
 .category {
   font-family: "Raleway";
   font-size: 1.25rem;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   margin-top: 0.75rem;
 }
 

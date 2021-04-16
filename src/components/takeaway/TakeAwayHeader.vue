@@ -1,13 +1,28 @@
 <template>
   <div class="container">
     <span class="title">Asporto</span>
-    <fasce-widget></fasce-widget>
+    <fasce-widget
+      page="takeAways"
+      :slotUpper="supper"
+      :slotLower="slower"
+      @slotUp="(slot) => $emit('increase', slot)"
+      @slotDown="(slot) => $emit('decrease', slot)"
+    ></fasce-widget>
   </div>
 </template>
 
 <script>
 import FasceWidget from "../UI/layouts/FasceWidget";
 export default {
+  props: ["upper", "lower"],
+  computed: {
+    supper() {
+      return this.upper;
+    },
+    slower() {
+      return this.lower;
+    },
+  },
   components: { FasceWidget },
 };
 </script>

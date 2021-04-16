@@ -10,7 +10,7 @@ export default {
                 {
                     id: 3,
                     name: "Laurenzi",
-                    hour: "04/07/2021 12:35:00",
+                    hour: new Date(),
                     phone: "3894831579",
                     lastUpdate: "04/07/2021 12:35:00",
                     createdAt: "04/07/2021 12:35:00",

@@ -9,43 +9,6 @@
       orderType="ta"
       :lineItems="order.lineItems"
     ></orders-card>
-    <orders-card
-      v-for="order in takeaways"
-      :key="order.phone"
-      :headerTitle="order.name"
-      :hour="getOrderHour(order.hour)"
-      :alert="getAlert(order.hour)"
-      orderType="ta"
-      :lineItems="order.lineItems"
-    ></orders-card>
-     <orders-card
-      v-for="order in takeaways"
-      :key="order.phone"
-      :headerTitle="order.name"
-      :hour="getOrderHour(order.hour)"
-      :alert="getAlert(order.hour)"
-      orderType="ta"
-      :lineItems="order.lineItems"
-    ></orders-card>
-     <orders-card
-      v-for="order in takeaways"
-      :key="order.phone"
-      :headerTitle="order.name"
-      :hour="getOrderHour(order.hour)"
-      :alert="getAlert(order.hour)"
-      orderType="ta"
-      :lineItems="order.lineItems"
-    ></orders-card>
-     <orders-card
-      v-for="order in takeaways"
-      :key="order.phone"
-      :headerTitle="order.name"
-      :hour="getOrderHour(order.hour)"
-      :alert="getAlert(order.hour)"
-      orderType="ta"
-      :lineItems="order.lineItems"
-    ></orders-card>
-    
   </div>
 </template>
 
@@ -53,6 +16,7 @@
 import OrdersCard from "../../components/UI/layouts/OrdersCard";
 export default {
   props: ["takeaways"],
+
   components: {
     OrdersCard,
   },
@@ -84,8 +48,8 @@ export default {
 <style scoped>
 .grid-container {
   display: grid;
-  margin-top: 4rem;
-  height: 80%;
+  margin-top: 3rem;
+  height: 82%;
   width: 100%;
   justify-items: center;
   grid-template-columns: repeat(2, 1fr);
