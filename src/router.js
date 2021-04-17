@@ -10,6 +10,7 @@ import TheIngredients from "./views/TheIngredients.vue";
 import EmptyTable from "./views/EmptyTable.vue";
 import CreateTableOrder from "./views/CreateTableOrder.vue"
 import TableOrder from "./views/TableOrder.vue"
+import CreateTakeAway from "./views/CreateTakeAway.vue"
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: "/create/:id",
     name: "create-table-order",
     component: CreateTableOrder
+  },
+  {
+    path: "/update-ta/:id",
+    name: "update-takeaway-order",
+    component: CreateTakeAway
   },
  
 ];

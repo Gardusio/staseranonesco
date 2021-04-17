@@ -3,7 +3,7 @@
   <the-sidebar activeElem="sala"></the-sidebar>
 
   <section class="left-section">
-    <span class="title">Tavolo {{ table.number }}</span>
+    <span class="title">{{ order.name }}</span>
     <line-items
       :lineItems="lineItems"
       @addOne="addOne"
@@ -39,7 +39,6 @@ export default {
   },
   data() {
     return {
-      table: null,
       order: null,
       lineItems: [],
       selectedCategory: "Fritti",
@@ -51,28 +50,11 @@ export default {
     },
   },
   created() {
-    const tables = this.$store.getters["tables/getTables"];
     const id = this.$route.params.id;
-    const t = tables.find((t) => t.id === parseInt(id));
-    this.table = t;
-
-    const orders = this.$store.getters["orders/getOrders"];
-    let order = orders.find((o) => o.tableId === parseInt(id));
+    const orders = this.$store.getters["takeaways/getTakeAways"];
+    let order = orders.find((o) => o.id === parseInt(id));
     this.order = order;
     this.lineItems = order ? order.lineItems : [];
-
-    if (!order) {
-      order = {
-        id: null,
-        tableId: parseInt(id),
-        lastUpdate: new Date(),
-        createdAt: new Date(),
-        total: 0,
-        lineItems: [],
-      };
-      this.order = order;
-      this.$store.dispatch("orders/createOrder", order);
-    }
   },
   methods: {
     setSelectedCategory(selected) {
@@ -80,8 +62,8 @@ export default {
     },
 
     saveOrder() {
-      this.$store.dispatch("tables/saveOrder", this.order);
-      this.$router.push("/sala");
+      this.$store.dispatch("takeaways/saveTakeAway", { order: this.order });
+      this.$router.push("/take-away");
     },
 
     addProduct(product) {
@@ -117,7 +99,7 @@ export default {
       this.order = updatedOrder;
 
       //update order
-      this.$store.dispatch("orders/updateLineItems", updatedOrder);
+      this.$store.dispatch("takeaways/updateLineItems", updatedOrder);
     },
 
     addOne(li) {
@@ -136,7 +118,7 @@ export default {
       this.order = updatedOrder;
 
       //update order
-      this.$store.dispatch("orders/updateLineItems", updatedOrder);
+      this.$store.dispatch("takeaways/updateLineItems", updatedOrder);
     },
 
     removeOne(li) {
@@ -159,7 +141,7 @@ export default {
       this.order = updatedOrder;
 
       //update order
-      this.$store.dispatch("orders/updateLineItems", updatedOrder);
+      this.$store.dispatch("takeaways/updateLineItems", updatedOrder);
     },
   },
 };

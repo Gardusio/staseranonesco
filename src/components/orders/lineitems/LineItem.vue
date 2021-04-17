@@ -79,7 +79,7 @@ export default {
 .actions {
   display: flex;
   justify-content: space-evenly;
-  width: 18%;
+  width: 23%;
   height: 100%;
   min-width: 18%;
   margin-right: 0.2rem;

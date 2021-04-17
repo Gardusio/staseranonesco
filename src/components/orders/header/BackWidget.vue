@@ -32,7 +32,7 @@ export default {
 .text {
   font-family: "Raleway", "sans-serif";
   font-weight: 300;
-  font-size: 28px;
+  font-size: 1.25rem;
   color: var(--mainbrown);
   margin-left: 1rem;
 }

@@ -5,6 +5,7 @@
       :key="product.id"
       :product="product"
       @product-selected="productSelected"
+      :category = category
     />
   </div>
 </template>
@@ -37,6 +38,7 @@ export default {
   position: absolute;
   height: 60%;
   width: 90%;
+  margin-left:3%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   overflow-y: scroll;

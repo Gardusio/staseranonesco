@@ -11,6 +11,7 @@ import PrimaryButton from "../src/components/UI/buttons/PrimaryButton"
 import SecondaryButton from "../src/components/UI/buttons/SecondaryButton"
 import TheSidebar from "../src/components/nav/TheSidebar.vue"
 import TheBackground from "../src/components/UI/layouts/TheBackground"
+import VueResizeText from "vue-resize-text"
 
 const app = createApp(App);
 
@@ -21,4 +22,4 @@ app.component("secondary-button", SecondaryButton);
 app.component("TheSidebar", TheSidebar);
 app.component("TheBackground", TheBackground);
 
-app.use(store).use(router).mount("#app");
+app.use(store).use(router).use(VueResizeText).mount("#app");

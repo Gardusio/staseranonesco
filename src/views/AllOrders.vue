@@ -16,33 +16,6 @@
             alert="alert"
             orderType="ta"
           ></order-card>
-          <order-card
-            headerTitle="Laurenzi"
-            :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
-            }"
-            alert="alert"
-            orderType="ta"
-          ></order-card>
-          <order-card
-            headerTitle="Laurenzi"
-            :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
-            }"
-            alert="alert"
-            orderType="ta"
-          ></order-card>
-          <order-card
-            headerTitle="Laurenzi"
-            :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
-            }"
-            alert="alert"
-            orderType="ta"
-          ></order-card>
         </ul>
       </div>
       <div class="type-container del">
@@ -57,39 +30,20 @@
             alert="alert"
             orderType="del"
           ></order-card>
-          <order-card
-            headerTitle="Laurenzi"
-            :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
-            }"
-            alert="alert"
-            orderType="del"
-          ></order-card>
-          <order-card
-            headerTitle="Laurenzi"
-            :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
-            }"
-            alert="alert"
-            orderType="del"
-          ></order-card>
-          <order-card
-            headerTitle="Laurenzi"
-            :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
-            }"
-            alert="alert"
-            orderType="del"
-          ></order-card>
         </ul>
       </div>
       <div class="type-container tables">
         <div class="icon"></div>
         <ul class="orders-list">
-          <li class="order"></li>
+          <order-card
+            headerTitle="Laurenzi"
+            :hour="{
+              hours: new Date().getHours(),
+              minutes: new Date().getMinutes(),
+            }"
+            alert="alert"
+            orderType="table"
+          ></order-card>
         </ul>
       </div>
     </section>
@@ -123,7 +77,7 @@ export default {
   width: 30%;
   overflow-y: scroll;
   border-radius: 24px;
-  border:none;
+  border: none;
 }
 
 .orders-list {

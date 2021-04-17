@@ -13,8 +13,11 @@
     <take-aways-grid :takeaways="filteredOrders"></take-aways-grid>
   </div>
   <div class="actions">
-    <add-button></add-button>
+    <add-button @click="showNew = true"></add-button>
   </div>
+  <big-modal v-if="showNew" @close="showNew = false">
+   <new-take-away-form></new-take-away-form>
+  </big-modal>
 </template>
 
 <script>
@@ -22,12 +25,16 @@ import NotificationsSection from "../components/notifications/NotificationsSecti
 import TakeAwaysHeader from "../components/takeaway/TakeAwayHeader";
 import TakeAwaysGrid from "../components/takeaway/TakeAwaysGrid";
 import AddButton from "../components/UI/buttons/AddButton";
+import BigModal from "../components/UI/layouts/BigModal"
+import NewTakeAwayForm from "../components/takeaway/TakeAwayForm"
 export default {
   components: {
     NotificationsSection,
     TakeAwaysHeader,
     TakeAwaysGrid,
     AddButton,
+    BigModal,
+    NewTakeAwayForm
   },
 
   data() {
@@ -35,6 +42,7 @@ export default {
       takeaways: [],
       slotLower: null,
       slotUpper: null,
+      showNew: false,
     };
   },
   computed: {

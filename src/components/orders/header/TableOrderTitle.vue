@@ -27,9 +27,9 @@ export default {};
 
 .title {
   font-family: "Raleway", "sans-serif";
-  letter-spacing: 0.25rem;
+  letter-spacing: 1px;
   font-weight: 600;
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: var(--mainbrown);
 }
 

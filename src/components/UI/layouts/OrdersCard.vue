@@ -83,7 +83,8 @@ export default {
     },
     headerBackground() {
       if (this.orderType === "ta") return "header-background-ta";
-      return "header-background-del";
+      else if (this.orderType === "del") return "header-background-del";
+      return "header-background-table"
     },
     hourString() {
       return this.hour.hours + "." + this.hour.minutes;
@@ -118,6 +119,10 @@ export default {
 
 .header-background-del {
   background-color: var(--deliveryorange);
+}
+
+.header-background-table {
+  background-color: var(--mainbrown);
 }
 
 .title {
