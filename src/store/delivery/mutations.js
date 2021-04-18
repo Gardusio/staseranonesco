@@ -1,10 +1,10 @@
 export default {
-  saveNewTa(state, payload) {
-    state.takeaways.push(payload.ta);
+  saveNewDel(state, payload) {
+    state.deliveries.push(payload.del);
   },
   updateLineItems(state, payload) {
-    const orders = state.takeaways;
-    const order = orders.find((o) => o.id == payload.id);
+    const orders = state.deliveries;
+    const order = orders.find((o) => o.id === payload.id);
     order.lineItems = payload.lineItems;
 
     let total = 0;

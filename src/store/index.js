@@ -3,6 +3,7 @@ import tablesModule from "./tables/index";
 import tableOrdersModule from "./table-orders/index";
 import productsModule from "./products/index";
 import takeawayModule from "./takeaways/index";
+import deliveryModule from "./delivery/index";
 
 export default createStore({
   modules: {
@@ -10,6 +11,7 @@ export default createStore({
     orders: tableOrdersModule,
     products: productsModule,
     takeaways: takeawayModule,
+    deliveries: deliveryModule,
   },
   state() {
     return {
@@ -47,19 +49,15 @@ export default createStore({
     },
     setOrdersSlots(state, payload) {
       state.ordersSlot = payload.slots;
-    }
+    },
   },
   actions: {
     updateSlots(context, payload) {
       const page = payload.page;
       if (page === "takeAway") context.commit("setTakeAwaysSlots", payload);
-      else if (page === "delivery") context.commit("setDeliveriesSlots", payload);
+      else if (page === "delivery")
+        context.commit("setDeliveriesSlots", payload);
       context.commit("setOrdersSlots", payload);
     },
   },
 });
-
-/* TABLEs STORE
-Store the list of actual-tables
-actions can be performed to CRUD on tables and orders
-*/

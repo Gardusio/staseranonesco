@@ -4,37 +4,38 @@
   <notifications-section></notifications-section>
 
   <div class="main-container with-actions">
-    <take-aways-header
+    <fasce-header
       :upper="slotUpper"
       :lower="slotLower"
+      page="Asporto"
       @increase="(slot) => up(slot)"
       @decrease="(slot) => down(slot)"
-    ></take-aways-header>
-    <take-aways-grid :takeaways="filteredOrders"></take-aways-grid>
+    ></fasce-header>
+    <orders-grid :orders="filteredOrders" type="ta"></orders-grid>
   </div>
   <div class="actions">
     <add-button @click="showNew = true"></add-button>
   </div>
   <big-modal v-if="showNew" @close="showNew = false">
-   <new-take-away-form></new-take-away-form>
+    <new-take-away-form></new-take-away-form>
   </big-modal>
 </template>
 
 <script>
 import NotificationsSection from "../components/notifications/NotificationsSection";
-import TakeAwaysHeader from "../components/takeaway/TakeAwayHeader";
-import TakeAwaysGrid from "../components/takeaway/TakeAwaysGrid";
+import FasceHeader from "../components/UI/layouts/FasceHeader";
+import OrdersGrid from "../components/UI/layouts/OrdersGrid";
 import AddButton from "../components/UI/buttons/AddButton";
-import BigModal from "../components/UI/layouts/BigModal"
-import NewTakeAwayForm from "../components/takeaway/TakeAwayForm"
+import BigModal from "../components/UI/layouts/BigModal";
+import NewTakeAwayForm from "../components/new-orders-forms/TakeAwayForm";
 export default {
   components: {
     NotificationsSection,
-    TakeAwaysHeader,
-    TakeAwaysGrid,
+    FasceHeader,
+    OrdersGrid,
     AddButton,
     BigModal,
-    NewTakeAwayForm
+    NewTakeAwayForm,
   },
 
   data() {

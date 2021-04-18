@@ -1,21 +1,21 @@
 <template>
   <div class="grid-container">
     <orders-card
-      v-for="order in takeaways"
+      v-for="order in orders"
       :key="order.phone"
       :headerTitle="order.name"
       :hour="getOrderHour(order.hour)"
       :alert="getAlert(order.hour)"
-      orderType="ta"
+      :orderType="type"
       :lineItems="order.lineItems"
     ></orders-card>
   </div>
 </template>
 
 <script>
-import OrdersCard from "../../components/UI/layouts/OrdersCard";
+import OrdersCard from "./OrdersCard";
 export default {
-  props: ["takeaways"],
+  props: ["orders", "type"],
 
   components: {
     OrdersCard,

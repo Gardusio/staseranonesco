@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <span class="title">Asporto</span>
+    <span class="title">{{ page }}</span>
     <fasce-widget
       page="takeAways"
       :slotUpper="supper"
@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import FasceWidget from "../UI/layouts/FasceWidget";
+import FasceWidget from "./FasceWidget";
 export default {
-  props: ["upper", "lower"],
+  props: ["upper", "lower", "page"],
   computed: {
     supper() {
       return this.upper;

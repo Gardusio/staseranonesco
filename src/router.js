@@ -8,9 +8,10 @@ import AllOrders from "./views/AllOrders.vue";
 import TheMenu from "./views/TheMenu.vue";
 import TheIngredients from "./views/TheIngredients.vue";
 import EmptyTable from "./views/EmptyTable.vue";
-import CreateTableOrder from "./views/CreateTableOrder.vue"
-import TableOrder from "./views/TableOrder.vue"
-import CreateTakeAway from "./views/CreateTakeAway.vue"
+import CreateTableOrder from "./views/CreateTableOrder.vue";
+import TableOrder from "./views/TableOrder.vue";
+import CreateTakeAway from "./views/CreateTakeAway.vue";
+import CreateDelivery from "./views/CreateDelivery";
 
 const routes = [
   {
@@ -66,14 +67,18 @@ const routes = [
   {
     path: "/create/:id",
     name: "create-table-order",
-    component: CreateTableOrder
+    component: CreateTableOrder,
   },
   {
     path: "/update-ta/:id",
     name: "update-takeaway-order",
-    component: CreateTakeAway
+    component: CreateTakeAway,
   },
- 
+  {
+    path: "/update-del/:id",
+    name: "update-delivery-order",
+    component: CreateDelivery,
+  },
 ];
 
 const router = createRouter({

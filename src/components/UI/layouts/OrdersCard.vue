@@ -3,7 +3,7 @@
     <div class="header" :class="headerBackground">
       <span class="title">{{ headerTitle }}</span>
       <div class="hour-container" :class="alertType">
-        <div class="hour" >{{ hourString }}</div>
+        <div class="hour">{{ hourString }}</div>
       </div>
     </div>
     <ul class="line-items">
@@ -15,7 +15,7 @@
         <span class="qty">{{ lineItem.qty }}x </span>
         <span class="product">{{ lineItem.productName }}</span>
       </li>
-      <li
+       <li
         v-for="lineItem in lineItems"
         :key="lineItem.productId"
         class="line-item"
@@ -23,7 +23,7 @@
         <span class="qty">{{ lineItem.qty }}x </span>
         <span class="product">{{ lineItem.productName }}</span>
       </li>
-      <li
+       <li
         v-for="lineItem in lineItems"
         :key="lineItem.productId"
         class="line-item"
@@ -31,23 +31,7 @@
         <span class="qty">{{ lineItem.qty }}x </span>
         <span class="product">{{ lineItem.productName }}</span>
       </li>
-      <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">Funghi salsiccia, stracchino</span>
-      </li>
-      <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">Rughetta, bresaola, pachino, bufala</span>
-      </li>
-      <li
+       <li
         v-for="lineItem in lineItems"
         :key="lineItem.productId"
         class="line-item"
@@ -55,7 +39,7 @@
         <span class="qty">{{ lineItem.qty }}x </span>
         <span class="product">{{ lineItem.productName }}</span>
       </li>
-      <li
+       <li
         v-for="lineItem in lineItems"
         :key="lineItem.productId"
         class="line-item"
@@ -63,6 +47,47 @@
         <span class="qty">{{ lineItem.qty }}x </span>
         <span class="product">{{ lineItem.productName }}</span>
       </li>
+       <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
+       <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
+       <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
+       <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
+       <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
+      </li>
+
     </ul>
     <card-actions></card-actions>
   </div>
@@ -84,7 +109,7 @@ export default {
     headerBackground() {
       if (this.orderType === "ta") return "header-background-ta";
       else if (this.orderType === "del") return "header-background-del";
-      return "header-background-table"
+      return "header-background-table";
     },
     hourString() {
       return this.hour.hours + "." + this.hour.minutes;
@@ -134,7 +159,7 @@ export default {
 }
 
 .hour-container {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -154,7 +179,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 80%;
-  margin:auto;
+  margin: auto;
   height: 50%;
   justify-content: center;
   align-items: center;
@@ -164,6 +189,7 @@ export default {
   color: black;
   overflow-y: scroll;
   row-gap: 8px;
+  scrollbar-width: none
 }
 
 .line-item {
@@ -171,12 +197,20 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 105%;
-  margin:auto;
+  margin: auto;
+}
+
+::-webkit-scrollbar {
+display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--mainbrown);
 }
 
 .product {
-  flex:2;
-  margin-left:8px;
+  flex: 2;
+  margin-left: 8px;
 }
 
 .alert {
