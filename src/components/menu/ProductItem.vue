@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     nameScaled() {
-      if (this.hasToScale(this.product.name)) return "font-size: 16px ";
+      if (this.hasToScale(this.product.name)) return "font-size: 14px ";
       return "";
     },
     categoryStyle() {
@@ -48,19 +48,12 @@ export default {
   align-items: center;
   justify-content: center;
   margin: auto;
-  width: 130px;
-  height: 90px;
-  
+  width: 120px;
+  height: 70px;
+  border-radius: 8px;
   background-color: whitesmoke;
   padding: 3rem;
   text-overflow: ellipsis;
-}
-.circle-image {
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  box-shadow: 1px 1px 1px 1px #3f2c1c;
-  transition: all linear 2ms;
 }
 
 .title {
@@ -76,12 +69,14 @@ export default {
 }
 
 .panini {
-  border-color: var(--friedorange);
-  box-shadow: 0 8px 6px -6px var(--friedorange);
+  box-shadow: var(--secondarybrown) 0px 3px 8px;
 }
 
 .pizze {
-  border-color: var(--friedorange);
-  box-shadow: 0 8px 6px -6px var(--friedorange);
+ box-shadow: var(--pizzered) 0px 3px 8px;
+}
+
+.bere {
+  box-shadow: var(--bereblue) 0px 3px 8px;
 }
 </style>

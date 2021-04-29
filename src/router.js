@@ -12,6 +12,8 @@ import CreateTableOrder from "./views/CreateTableOrder.vue";
 import TableOrder from "./views/TableOrder.vue";
 import CreateTakeAway from "./views/CreateTakeAway.vue";
 import CreateDelivery from "./views/CreateDelivery";
+import TakeAwayOrder from "./views/TakeAwayOrder";
+import DeliveryOrder from "./views/DeliveryOrder";
 
 const routes = [
   {
@@ -63,6 +65,16 @@ const routes = [
     path: "/empty-table/:id",
     name: "empty-table",
     component: EmptyTable,
+  },
+  {
+    path: "/takeaway/:id",
+    name: "take-away-order",
+    component: TakeAwayOrder,
+  },
+  {
+    path: "/delivery/:id",
+    name: "delivery-order",
+    component: DeliveryOrder,
   },
   {
     path: "/create/:id",

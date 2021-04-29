@@ -14,7 +14,7 @@ export default {};
 .header {
   display: flex;
   width: 100%;
-  height: 18%;
+  height: 15%;
 }
 
 h1 {

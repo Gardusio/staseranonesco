@@ -1,6 +1,6 @@
 export default {
   addTable(context, table) {
-    context.commit("addTable", table);
+    context.commit("addTable", {...table, id:parseInt(Math.random()*31)});
     //http
     //shouldUpdate
   },

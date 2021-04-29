@@ -25,16 +25,15 @@ export default {
   position: fixed;
   height: auto;
   width: auto;
+  color: var(--mainbrown)
 }
 .day {
-  color: var(--secondarybrown);
   font-size: 1rem;
   font-family: "Montserrat", sans-serif;
   text-align: right;
 }
 
 .hour {
-  color: var(--secondarybrown);
   font-size: 2rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;

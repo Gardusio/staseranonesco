@@ -1,14 +1,16 @@
 <template>
   <the-background></the-background>
-  <the-sidebar activeElem="sala"></the-sidebar>
+  <the-sidebar activeElem="ta"></the-sidebar>
 
-  <section class="left-section">
+  <section class="left-section" style="padding: 1.5rem">
     <span class="title">{{ order.name }}</span>
-    <line-items
-      :lineItems="lineItems"
-      @addOne="addOne"
-      @removeOne="removeOne"
-    ></line-items>
+    <div class="line-items">
+      <line-items
+        :lineItems="lineItems"
+        @addOne="addOne"
+        @removeOne="removeOne"
+      ></line-items>
+    </div>
     <primary-button
       @click="saveOrder()"
       text="Salva Ordine"
@@ -19,8 +21,25 @@
   <section class="main-container">
     <div class="header">
       <h1>{{ category }}</h1>
+      <input
+        type="text"
+        class="search-bar"
+        v-model="search"
+        placeholder="Cerca un prodotto.."
+      />
     </div>
-    <products-grid @select-product="addProduct" :category="selectedCategory">
+
+    <menu-chips
+      v-if="selectedCategoryIsWithSub"
+      :chips="chipsType"
+      @selected="(c) => (chipSelected = c)"
+    ></menu-chips>
+    <products-grid
+      :category="selectedCategory"
+      :subCategory="selectedCategoryIsWithSub ? chipSelected : false"
+      :search="search"
+      @select-product="addProduct"
+    >
     </products-grid>
     <menu-nav @category-selected="setSelectedCategory"></menu-nav>
   </section>
@@ -28,6 +47,7 @@
 
 <script>
 import MenuNav from "../components/menu/MenuNav";
+import MenuChips from "../components/menu/MenuChips"
 import ProductsGrid from "../components/menu/ProductsGrid";
 import LineItems from "../components/orders/lineitems/LineItemsList";
 
@@ -35,6 +55,7 @@ export default {
   components: {
     LineItems,
     MenuNav,
+    MenuChips,
     ProductsGrid,
   },
   data() {
@@ -42,11 +63,24 @@ export default {
       order: null,
       lineItems: [],
       selectedCategory: "Fritti",
+      chipSelected: "",
+      search: "",
     };
   },
   computed: {
     category() {
       return this.selectedCategory;
+    },
+    chipsType() {
+      const pizze = ["Classiche", "Speciali", "Rosse", "Bianche"];
+      const panini = ["Speciali", "Hamburger", "Salsiccia", "Pollo"];
+      if (this.selectedCategory === "Pizze") return pizze;
+      else return panini;
+    },
+    selectedCategoryIsWithSub() {
+      return (
+        this.selectedCategory === "Panini" || this.selectedCategory === "Pizze"
+      );
     },
   },
   created() {
@@ -58,6 +92,7 @@ export default {
   },
   methods: {
     setSelectedCategory(selected) {
+      this.chipSelected = "";
       this.selectedCategory = selected;
     },
 
@@ -73,6 +108,7 @@ export default {
         productId: product.id,
         productName: product.name,
         productPrice: product.price,
+        productCategory: product.category,
         qty: 1,
         total: product.price,
         //...note related
@@ -83,6 +119,7 @@ export default {
         const current = this.lineItems[i];
         if (current.productId === product.id) {
           current.qty += 1;
+          current.total += current.productPrice;
           lineItem = current;
         }
       }
@@ -159,7 +196,47 @@ export default {
 
 .left-section > .continue {
   align-self: center;
-  margin-top: auto;
   justify-self: flex-end;
+}
+
+.line-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  height: 100%;
+  overflow-y: scroll;
+  margin-bottom: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 15%;
+}
+
+h1 {
+  position: unset;
+  margin-left: 5%;
+  margin-top: unset;
+  font-size: 3rem;
+  font-family: "Raleway", "sans-serif";
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--mainbrown);
+}
+.search-bar {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.2rem;
+  color: #623d22;
+  margin-right: 5%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  border-bottom: 2px solid #623d22;
 }
 </style>

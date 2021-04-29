@@ -2,7 +2,7 @@
   <div class="container">
     <span class="title">{{ page }}</span>
     <fasce-widget
-      page="takeAways"
+      :page="page"
       :slotUpper="supper"
       :slotLower="slower"
       @slotUp="(slot) => $emit('increase', slot)"

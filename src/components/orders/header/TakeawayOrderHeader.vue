@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
-    <back-widget view="Sala" @back="backToSala()"></back-widget>
-    <table-order-title></table-order-title>
+    <back-widget view="Asporto" @back="back()"></back-widget>
+    <order-title></order-title>
     <add-button @click="addLineItem()"></add-button>
   </div>
 </template>
@@ -10,16 +10,16 @@
 //import TableOrderTitle from ""
 import AddButton from "../../UI/buttons/AddButton";
 import BackWidget from "../../orders/header/BackWidget";
-import TableOrderTitle from "../../orders/header/TableOrderTitle";
+import OrderTitle from "../../orders/header/OrderTitle";
 export default {
   components: {
     AddButton,
     BackWidget,
-    TableOrderTitle,
+    OrderTitle,
   },
   methods: {
-    backToSala() {
-      this.$emit("toSala");
+    back() {
+      this.$emit("toTakeAways");
     },
     addLineItem() {
       this.$emit("addLineItem");

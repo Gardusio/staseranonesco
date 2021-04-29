@@ -1,12 +1,24 @@
 <template>
   <div class="container">
-    <span class="title">Tavolo 2</span>
-    <span class="waiting">Aspetta da 25 minuti (20.15)</span>
+    <span class="title">{{ title }}</span>
+    <span class="waiting">{{ wait }}</span>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["title", "waiting"],
+  data() {
+    return {
+      wait: this.waiting,
+    };
+  },
+  watch: {
+    waiting() {
+      this.wait = this.waiting;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -29,13 +41,14 @@ export default {};
   font-family: "Raleway", "sans-serif";
   letter-spacing: 1px;
   font-weight: 600;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   color: var(--mainbrown);
+  width: 66%;
 }
 
 .waiting {
   font-family: "Montserrat", "sans-serif";
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin-top: 0.5rem;
   color: var(--mainbrown);
 }

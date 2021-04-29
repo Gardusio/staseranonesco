@@ -11,15 +11,136 @@ export default {
         {
           id: 1,
           category: "fritti",
-          image: "",
+          subCategory: "",
           price: 2.5,
-          name: "Cipotle",
+          name: "Cipotle, cipotle, cipotle, cipotle, cipotle",
           available: true,
           number: 0,
           ingredients: [
             {
               ingredientId: 1,
               name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 31,
+          category: "bere",
+          subCategory: "",
+          price: 2.5,
+          name: "Acqua 0.5L",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 41,
+          category: "bere",
+          subCategory: "",
+          price: 2.5,
+          name: "Heinekein 66cl",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 11,
+          category: "fritti",
+          subCategory: "",
+          price: 2.5,
+          name: "Patatine fritte",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 2,
+          category: "pizze",
+          subCategory: "rosse",
+          price: 6,
+          name: "Margherita",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 3,
+          category: "pizze",
+          subCategory: "bianche",
+          price: 7,
+          name: "Zucchine",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 4,
+              name: "zucchine",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 5,
+          category: "panini",
+          subCategory: "pollo",
+          price: 7,
+          name: "Pollo speciale",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 4,
+              name: "zucchine",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 7,
+          category: "panini",
+          subCategory: "hamburger",
+          price: 7,
+          name: "Grande Hamburger",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 4,
+              name: "zucchine",
+            },
+            {
+              ingredientId: 3,
+              name: "",
             },
           ],
         },

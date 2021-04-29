@@ -14,4 +14,7 @@ export default {
     //http save order
     console.log(context, payload.order);
   },
+  setStatus(context, payload) {
+    context.commit("setStatus", payload);
+  },
 };

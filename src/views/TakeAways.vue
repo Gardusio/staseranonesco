@@ -19,6 +19,8 @@
   <big-modal v-if="showNew" @close="showNew = false">
     <new-take-away-form></new-take-away-form>
   </big-modal>
+
+  
 </template>
 
 <script>

@@ -12,6 +12,7 @@ export default {
              {
                id: 1,
                tableId: 2,
+               tableNumber: 2,
                lastUpdate: "03/08/2021 10:00:00",
                createdAt: "03/08/2021 10:00:00",
                total: 23.5,
@@ -20,7 +21,10 @@ export default {
                    id: 1,
                    productId: 1,
                    productName: "Cipotle",
+                   productPrice:2.5,
+                   productCategory: "fritti"
                    qty: 2,
+                   total: 5,
                    fullProducts: 1,
                    compositions: [
                      {

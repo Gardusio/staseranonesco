@@ -4,7 +4,6 @@ export default {
       ...payload.del,
       id: parseInt(Math.random() * 10), //http id
     };
-    console.log(del);
     context.commit("saveNewDel", { del: del });
     return del;
   },
@@ -14,5 +13,11 @@ export default {
   saveDelivery(context, payload) {
     //http save order
     console.log(context, payload.order);
+  },
+  setStatus(context, payload) {
+    context.commit("setStatus", payload);
+  },
+  deleteDelivery(context, payload) {
+    context.commit("deleteOne", payload);
   },
 };

@@ -4,22 +4,15 @@
       class="icon"
       :icon="['fas', 'print']"
       size="lg"
+      @click="$emit('showPrintOrder')"
     ></font-awesome-icon>
     <font-awesome-icon
       class="icon"
       :icon="['fas', 'receipt']"
       size="lg"
+      @click="$emit('showBill')"
     ></font-awesome-icon>
-    <font-awesome-icon
-      class="icon"
-      :icon="['fas', 'chair']"
-      size="lg"
-    ></font-awesome-icon>
-    <font-awesome-icon
-      :icon="['fas', 'check-circle']"
-      size="lg"
-      class="icon"
-    ></font-awesome-icon>
+    
   </div>
 </template>
 
@@ -29,13 +22,15 @@ export default {};
 
 <style scoped>
 .actions-container {
-  width: 100%;
-  padding: 1.25rem;
-  height: 15%;
+  width: 90%;
+  padding: 1rem;
+  margin:auto;
+  padding-bottom: 0.5rem;
+  height: 25%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .icon {

@@ -2,59 +2,264 @@
   <the-background></the-background>
   <the-sidebar activeElem="orders"></the-sidebar>
   <section class="main">
-    <all-orders-header></all-orders-header>
+    <all-orders-header
+      :upper="slotUpper"
+      :lower="slotLower"
+      @increase="(slot) => up(slot)"
+      @decrease="(slot) => down(slot)"
+    ></all-orders-header>
+
     <section class="orders">
       <div class="type-container ta">
         <div class="icon"></div>
         <ul class="orders-list">
           <order-card
-            headerTitle="Laurenzi"
+            v-for="takeaway in filteredTakeAways"
+            :key="takeaway.id"
+            :headerTitle="takeaway.name"
             :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
+              hours: takeaway ? takeaway.hour.getHours() : '',
+              minutes: takeaway.hour.getMinutes(),
             }"
-            alert="alert"
+            :lineItems="takeaway.lineItems"
+            :alert="getAlert(takeaway, 'ta')"
             orderType="ta"
-          ></order-card>
+            @goInto="goInto(takeaway.id, 'ta')"
+            @showPrint="setPrintInfos(takeaway.name)"
+            @showConto="setBillInfos(takeaway.total, takeaway.name)"
+          >
+          </order-card>
         </ul>
       </div>
       <div class="type-container del">
         <div class="icon"></div>
         <ul class="orders-list">
           <order-card
-            headerTitle="Laurenzi"
+            v-for="delivery in filteredDeliveries"
+            :key="delivery.id"
+            :headerTitle="deliveryHeader(delivery)"
             :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
+              hours: delivery.hour.getHours(),
+              minutes: delivery.hour.getMinutes(),
             }"
-            alert="alert"
+            :lineItems="delivery.lineItems"
+            :alert="getAlert(delivery, 'del')"
             orderType="del"
-          ></order-card>
+            @goInto="goInto(delivery.id, 'del')"
+            @showPrint="setPrintInfos(deliveryHeader(delivery))"
+            @showConto="setBillInfos(delivery.total, deliveryHeader(delivery))"
+          >
+          </order-card>
         </ul>
       </div>
       <div class="type-container tables">
         <div class="icon"></div>
         <ul class="orders-list">
           <order-card
-            headerTitle="Laurenzi"
+            v-for="order in filteredOrders"
+            :key="order.tableId"
+            :headerTitle="`Tavolo ${order.tableNumber}`"
             :hour="{
-              hours: new Date().getHours(),
-              minutes: new Date().getMinutes(),
+              hours: order.lastUpdate.getHours(),
+              minutes: order.lastUpdate.getMinutes(),
             }"
-            alert="alert"
+            :lineItems="order.lineItems"
+            :alert="getAlert(order, 'table')"
             orderType="table"
+            @goInto="goInto(order.tableId, 'table')"
+            @showPrint="setPrintInfos('Tavolo ' + order.tableNumber)"
+            @showConto="
+              setBillInfos(order.total, 'Tavolo ' + order.tableNumber)
+            "
           ></order-card>
         </ul>
       </div>
     </section>
+
+    <small-modal v-if="showStampa" @close="showStampa = false">
+      <print-order :header="stampaHeader"></print-order>
+    </small-modal>
+
+    <big-modal v-if="showConto" @close="showConto = false">
+      <print-order-bill
+        :total="orderSelectedTotal"
+        :header="contoHeader"
+      ></print-order-bill>
+    </big-modal>
   </section>
 </template>
 
 <script>
 import AllOrdersHeader from "../components/all/AllOrdersHeader";
 import OrderCard from "../components/UI/layouts/OrdersCard";
+import SmallModal from "../components/UI/layouts/SmallModal";
+import BigModal from "../components/UI/layouts/BigModal";
+import PrintOrder from "../components/orders/actions/PrintOrder";
+import PrintOrderBill from "../components/orders/actions/PrintOrderBill";
 export default {
-  components: { AllOrdersHeader, OrderCard },
+  components: {
+    AllOrdersHeader,
+    OrderCard,
+    SmallModal,
+    PrintOrder,
+    BigModal,
+    PrintOrderBill,
+  },
+  data() {
+    return {
+      slotLower: null,
+      slotUpper: null,
+      showStampa: false,
+      showConto: false,
+      showTavolo: false,
+      showChiudi: true,
+      showElimina: false,
+      stampaHeader: "",
+      contoHeader: "",
+      orderInfoHeader: "",
+      chiudiHeader: "",
+      orderSelectedTotal: 0,
+      selectedOrder: null,
+      orderStatus: null,
+      takeaways: [],
+      deliveries: [],
+      tableOrders: [],
+    };
+  },
+  computed: {
+    filteredTakeAways() {
+      return this.takeaways.filter(this.isBeetween);
+    },
+    filteredDeliveries() {
+      return this.deliveries.filter(this.isBeetween);
+    },
+    filteredOrders() {
+      const isBeetween = (t) =>
+        t.lastUpdate >= this.slotLower && t.lastUpdate <= this.slotUpper;
+      return this.tableOrders.filter(isBeetween);
+    },
+  },
+  created() {
+    this.takeaways = this.$store.getters["takeaways/getTakeAways"];
+    this.deliveries = this.$store.getters["deliveries/getDeliveries"];
+    this.tableOrders = this.$store.getters["orders/getOrders"];
+    const slots = this.$store.getters["getOrdersSlot"];
+    this.slotLower = slots[0];
+    this.slotUpper = slots[1];
+  },
+  methods: {
+    goInto(id, type) {
+      if (type === "ta") this.$router.push("/takeaway/" + id);
+      else if (type === "del") this.$router.push("/delivery/" + id);
+      else this.$router.push("/table-order/" + id);
+    },
+    setPrintInfos(header) {
+      this.stampaHeader = header;
+      this.showStampa = true;
+    },
+    setBillInfos(total, header) {
+      this.contoHeader = header;
+      this.orderSelectedTotal = total;
+      this.showConto = true;
+    },
+    isBeetween(t) {
+      return t.hour >= this.slotLower && t.hour <= this.slotUpper;
+    },
+    up(slot) {
+      let selectedMins;
+      let selectedHours;
+      let selectedSlot = slot === "lower" ? this.slotLower : this.slotUpper;
+
+      selectedMins = new Date(selectedSlot).getMinutes();
+      selectedHours = new Date(selectedSlot).getHours();
+
+      if (selectedMins >= 45) {
+        const newHour = selectedHours + 1;
+        selectedSlot = new Date().setHours(newHour, 0, 0, 0);
+      } else
+        selectedSlot = new Date().setHours(
+          selectedHours,
+          selectedMins + 15,
+          0,
+          0
+        );
+
+      slot === "lower"
+        ? (this.slotLower = selectedSlot)
+        : (this.slotUpper = selectedSlot);
+
+      this.$store.dispatch("updateSlots", {
+        page: "allOrders",
+        slots: [this.slotLower, this.slotUpper],
+      });
+    },
+    down(slot) {
+      let selectedMins;
+      let selectedHours;
+      let selectedSlot = slot === "lower" ? this.slotLower : this.slotUpper;
+
+      selectedMins = new Date(selectedSlot).getMinutes();
+      selectedHours = new Date(selectedSlot).getHours();
+
+      if (selectedMins === 0) {
+        const newHour = selectedHours - 1;
+        selectedSlot = new Date().setHours(newHour, 45, 0, 0);
+      } else
+        selectedSlot = new Date().setHours(
+          selectedHours,
+          selectedMins - 15,
+          0,
+          0
+        );
+
+      slot === "lower"
+        ? (this.slotLower = selectedSlot)
+        : (this.slotUpper = selectedSlot);
+
+      this.$store.dispatch("updateSlots", {
+        page: "allOrders",
+        slots: [this.slotLower, this.slotUpper],
+      });
+    },
+    getAlert(order, type) {
+      if (type === "ta" || type === "del") {
+        if (order.completed) return "completed";
+        const hour = order.hour;
+        return this.calcAlert(hour, "-");
+      } else {
+        if (order.status === "completed") return "completed";
+        const createdAt = order.createdAt;
+        return this.calcAlert(createdAt, "+");
+      }
+    },
+    calcAlert(time, op) {
+      const currentTime = Date.now();
+      const hourMillis = new Date(time).getTime();
+
+      const alertMillis = this.$store.getters["getAlertMillis"];
+      const tableAlertMillis = this.$store.getters["getTableAlertMillis"];
+
+      let alert;
+      let firstAlert;
+
+      if (op === "+") {
+        alert = hourMillis + tableAlertMillis.second <= currentTime;
+        firstAlert = hourMillis + tableAlertMillis.first <= currentTime;
+      } else {
+        alert =
+          currentTime + alertMillis.second >= hourMillis ||
+          hourMillis <= currentTime;
+        firstAlert = currentTime + alertMillis.first >= hourMillis;
+      }
+      if (alert) return "second-alert";
+      if (firstAlert) return "first-alert";
+      return "";
+    },
+
+    deliveryHeader(delivery) {
+      return `${delivery.street}/${delivery.civic}`;
+    },
+  },
 };
 </script>
 

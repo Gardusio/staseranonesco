@@ -47,7 +47,6 @@ export default {
 
 <style scoped>
 .day {
-  color: var(--secondarybrown);
   font-size: 1.5rem;
   font-family: "Montserrat", sans-serif;
   text-align: right;

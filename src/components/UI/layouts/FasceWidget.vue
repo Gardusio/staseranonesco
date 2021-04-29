@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  props: ["page", "slotUpper", "slotLower"],
+  props: ["slotUpper", "slotLower"],
   data() {
     return {
       upper: this.slotUpper,

@@ -13,4 +13,9 @@ export default {
     }
     order.total = total;
   },
+  setStatus(state, payload) {
+    const orders = state.takeaways;
+    const order = orders.find((o) => o.id == payload.id);
+    order.completed = payload.status;
+  },
 };

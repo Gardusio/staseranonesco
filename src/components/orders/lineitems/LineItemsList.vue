@@ -4,6 +4,8 @@
     :key="lineItem.productId"
     :name="lineItem.productName"
     :qty="lineItem.qty"
+    :type="lineItem.productCategory"
+    :scale="true"
     @add="add(lineItem)"
     @remove="remove(lineItem)"
   ></line-item>

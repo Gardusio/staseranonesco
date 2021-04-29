@@ -58,8 +58,9 @@ export default {
       const newTa = {
         id: null,
         name: this.name,
-        hour: new Date().setHours(this.hour, this.minutes, 0, 0),
+        hour: new Date(new Date().setHours(this.hour, this.minutes, 0, 0)),
         phone: this.phone,
+        completed: false,
         lastUpdate: new Date(),
         createdAt: new Date(),
         total: 0,
@@ -85,9 +86,9 @@ export default {
 }
 .new {
   font-family: "Raleway", sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 500;
-  color: var(--secondarybrown);
+  color: var(--mainbrown);
 }
 .form-container {
   display: flex;
@@ -100,6 +101,7 @@ export default {
   font-family: inherit;
   color: rgba(98, 61, 34, 45%);
   font-size: 1rem;
+  margin-bottom:8px;
 }
 .hours {
   display: flex;
@@ -120,8 +122,8 @@ export default {
   background: transparent;
   border: 0;
   outline: 0;
-  border-bottom: 1px solid #623d22;
-  box-shadow: 0 2px rgba(119, 122, 123, 0.2);
+  border-bottom: 1px solid #ccc;
+  
 }
 
 .hour {

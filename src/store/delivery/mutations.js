@@ -13,4 +13,12 @@ export default {
     }
     order.total = total;
   },
+  setStatus(state, payload) {
+    const orders = state.deliveries;
+    const order = orders.find((o) => o.id === payload.id);
+    order.completed = payload.status;
+  },
+  deleteOne(state, payload) {
+    state.deliveries = state.deliveries.filter((d) => d.id !== payload.id);
+  },
 };

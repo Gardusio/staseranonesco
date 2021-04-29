@@ -51,7 +51,7 @@
         placeholder="389 48 31 579"
         required
       />
-      <primary-button text="Continua"></primary-button>
+      <primary-button class="continue" text="Continua"></primary-button>
     </form>
   </div>
 </template>
@@ -73,10 +73,11 @@ export default {
       const newDel = {
         id: null,
         name: this.name,
-        hour: new Date().setHours(this.hour, this.minutes, 0, 0),
+        hour: new Date(new Date().setHours(this.hour, this.minutes, 0, 0)),
         street: this.street,
         civic: this.civic,
         phone: this.phone,
+        completed: false,
         lastUpdate: new Date(),
         createdAt: new Date(),
         total: 0,
@@ -104,14 +105,14 @@ export default {
   font-family: "Raleway", sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
-  color: var(--secondarybrown);
+  color: var(--mainbrown);
 }
 .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
   width: 100%;
+  margin-top: 2rem;
 }
 
 .label {
@@ -140,13 +141,10 @@ export default {
   color: #623d22;
   display: block;
   margin-bottom: 2rem;
-  width: auto;
-  height: auto;
   background: transparent;
   border: 0;
   outline: 0;
-  border-bottom: 1px solid #623d22;
-  box-shadow: 0 2px rgba(119, 122, 123, 0.2);
+  border-bottom: 2px solid #ccc;
 }
 .via {
   width: 66%;
@@ -160,5 +158,9 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.continue {
+  margin-top:1rem;
 }
 </style>

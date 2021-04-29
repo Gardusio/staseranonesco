@@ -10,7 +10,7 @@
     </div>
   </div>
   <big-modal v-if="showAddModal" @close="showAddModal = false">
-    <add-tables></add-tables>
+    <add-tables @close ="showAddModal = false"></add-tables>
   </big-modal>
   <small-modal v-if="showDeleteModal" @close="showDeleteModal = false">
     <delete-tables></delete-tables>

@@ -32,36 +32,37 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 .section {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 
 .delete-tables-header {
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.6rem;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.8rem;
   font-weight: 600;
-  color: red;
+  color: var(--pizzered);
 }
 .instructions {
   color: var(--primarybrown);
-  font-family: "Raleway", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  line-height: 20px;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-  padding: 0 1rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.8;
+  padding: 0 0.8rem;
+  text-align: center;
 }
 .alert {
-  color: red;
+  color: var(--pizzered);
+  margin-top: 0.8rem;
 }
 
 .primary-button {
-  margin-top: 1.5rem;
   letter-spacing: 0.5px;
-  background-color: red !important;
+  background-color: var(--pizzered) !important;
   color:white !important;
   background-image: none !important;
 }

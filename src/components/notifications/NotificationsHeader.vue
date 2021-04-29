@@ -1,7 +1,7 @@
 <template>
-  <div class="header-container">
-    <span class="title">Notifiche</span>
-    <the-hour></the-hour>
+  <div class="notif-header-container">
+    <span class="title-header">Notifiche</span>
+    <the-hour style="color:var(--mainbrown)"></the-hour>
   </div>
 </template>
 
@@ -15,13 +15,15 @@ export default {
 </script>
 
 <style>
-.header-container {
-    display: flex;
-    justify-content: space-between;
+.notif-header-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 1.25rem 0rem 1.25rem;
 }
 
-.title {
-    font-family: "Raleway", "sans-serif";
-    font-size: 2rem;
+.title-header {
+  font-family: "Raleway", "sans-serif";
+  font-size: 2rem;
+  color: var(--mainbrown);
 }
 </style>

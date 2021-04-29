@@ -12,8 +12,6 @@ export default {
           id: 1,
           orderId: null,
           hasOrder: true,
-          orderCreatedAt: "03/08/2021 10:00:00",
-          lastUpdateAt: "03/08/2021 10:00:00",
           number: 1,
           seats: 5,
           status: "waiting",
@@ -25,10 +23,13 @@ export default {
             firstAlert: 15,
             secondAlert: 30,
           },
+          orderCreatedAt: "03/08/2021 10:00:00",
+          lastUpdateAt: "03/08/2021 10:00:00",
+          createdAt: new Date()
         },
         {
           id: 2,
-          orderId:null,
+          orderId: null,
           hasOrder: true,
           orderCreatedAt: new Date().toISOString(),
           lastUpdateAt: new Date().toISOString(),
@@ -39,6 +40,7 @@ export default {
             firstAlert: 15,
             secondAlert: 30,
           },
+          createdAt: new Date()
         },
       ],
     };

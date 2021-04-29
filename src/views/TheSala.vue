@@ -17,15 +17,15 @@ export default {
     TablesGrid,
     HeaderActions,
   },
-
-  computed: {
-    tables() {
-      return this.$store.getters["tables/getTables"];
-    },
+  data() {
+    return {
+      tables: [],
+    };
   },
   created() {
     //load Tables
     //this.$store.dispatch("tables/setTables");
+    this.tables = this.$store.getters["tables/getTables"];
   },
 };
 </script>

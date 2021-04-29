@@ -26,6 +26,7 @@ export default {
   margin-bottom: 1rem;
   width: auto;
   height: 2.5rem;
+  min-height: 2.5rem;
   cursor: pointer;
 }
 </style>

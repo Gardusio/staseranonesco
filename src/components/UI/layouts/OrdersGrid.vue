@@ -2,37 +2,65 @@
   <div class="grid-container">
     <orders-card
       v-for="order in orders"
-      :key="order.phone"
+      :key="order.id"
       :headerTitle="order.name"
       :hour="getOrderHour(order.hour)"
-      :alert="getAlert(order.hour)"
+      :alert="getAlert(order.completed, order.hour)"
       :orderType="type"
       :lineItems="order.lineItems"
+      @goInto="goInto(order.id, type)"
+      @showPrint="setPrintInfos(order.name)"
+      @showConto="setBillInfos(order.total, order.name)"
     ></orders-card>
   </div>
+
+  <small-modal v-if="showStampa" @close="showStampa = false">
+    <print-order :header="stampaHeader"></print-order>
+  </small-modal>
+
+  <big-modal v-if="showConto" @close="showConto = false">
+    <print-order-bill
+      :total="orderSelectedTotal"
+      :header="contoHeader"
+    ></print-order-bill>
+  </big-modal>
 </template>
 
 <script>
 import OrdersCard from "./OrdersCard";
+import BigModal from "../layouts/BigModal";
+import SmallModal from "../layouts/SmallModal";
+import PrintOrderBill from "../../orders/actions/PrintOrderBill";
+import PrintOrder from "../../orders/actions/PrintOrder";
 export default {
+  components: { OrdersCard, BigModal, SmallModal, PrintOrder, PrintOrderBill },
   props: ["orders", "type"],
-
-  components: {
-    OrdersCard,
+  data() {
+    return {
+      showConto: false,
+      showStampa: false,
+      contoHeader: "",
+      stampaHeader: "",
+      orderSelectedTotal: 0,
+    };
   },
   methods: {
-    getAlert(hour) {
-      //first-alert
+    goInto(id) {
+      if (this.type === "ta") this.$router.push("/takeaway/" + id);
+      else this.$router.push("/delivery/" + id);
+    },
+    getAlert(completed, hour) {
+      if (completed) return "completed";
+
       const currentTime = Date.now();
-      const lastUpdateMillis = new Date(hour).getTime();
-      const firstAlertMillis = 15 * 60 * 1000;
-      const secondAlertMillis = 30 * 60 * 1000;
-
-      const firstAlertTime = lastUpdateMillis + firstAlertMillis;
-      const secondAlertTime = lastUpdateMillis + secondAlertMillis;
-
-      if (secondAlertTime < currentTime) return "alert";
-      if (firstAlertTime < currentTime) return "first-alert";
+      const hourMillis = new Date(hour).getTime();
+      const alertMillis = this.$store.getters["getAlertMillis"];
+      if (
+        currentTime + alertMillis.second >= hourMillis ||
+        hourMillis <= currentTime
+      )
+        return "second-alert";
+      if (currentTime + alertMillis.first >= hourMillis) return "first-alert";
       return "";
     },
     getOrderHour(date) {
@@ -40,6 +68,15 @@ export default {
         hours: new Date(date).getHours(),
         minutes: new Date(date).getMinutes(),
       };
+    },
+    setPrintInfos(header) {
+      this.stampaHeader = header;
+      this.showStampa = true;
+    },
+    setBillInfos(total, header) {
+      this.contoHeader = header;
+      this.orderSelectedTotal = total;
+      this.showConto = true;
     },
   },
 };

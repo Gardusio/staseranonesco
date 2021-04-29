@@ -24,11 +24,12 @@ export default {};
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(119, 122, 123, 0.4);
+  background-color: rgba(119, 122, 123, 0.3);
   display: flex;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease;
   justify-content: center;
   align-items: center;
+  margin-left: 90px;
 }
 
 .container {
@@ -37,9 +38,10 @@ export default {};
   width: 30%;
   padding: 1rem;
   border-radius: 24px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   z-index: 10;
   position: fixed;
+  transition: all 1s ease-in;
 }
 
 .close-icon {

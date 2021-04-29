@@ -1,19 +1,24 @@
 <template>
   <div class="container">
     <span class="title">Elimina Ordine</span>
-    <span class="instructions"
-      >Elimina l'ordine e libera il tavolo.
-      <span style="font-weight: bold"> ATTENTO </span>, tutte le righe d'ordine
-      verranno cancellate!
-    </span>
-    <span class="instructions evidence">Vuoi liberare il tavolo?</span>
-    <primary-button class="alert" text="Elimina ordine"></primary-button>
+    <div class="content-container">
+      <span class="instructions">
+        <span style="font-weight: 600"> Attento</span> tutte le righe d'ordine
+        verranno cancellate!
+      </span>
+      <span class="instructions evidence">{{ instructionsEvidence }}</span>
+      <primary-button
+        class="alert"
+        text="Elimina ordine"
+        @click="$emit('deleteOrder')"
+      ></primary-button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["header"],
+  props: ["header", "instructionsEvidence"],
 };
 </script>
 
@@ -26,35 +31,45 @@ export default {
   align-items: center;
   justify-content: space-evenly;
 }
-
+.content-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
+  margin-top: 1rem;
+  align-items: center;
+  justify-content: space-around;
+}
 .title {
   font-family: "Raleway", "sans-serif";
   font-weight: 600;
-  font-size: 2.8rem;
-  color: red;
+  font-size: 2rem;
+  color: firebrick;
   letter-spacing: 1px;
-  margin-top: -1rem;
+  margin-top: 2rem;
+  text-align:center;
 }
 
 .instructions {
   font-family: "Montserrat", "sans-serif";
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--mainbrown);
   text-align: center;
-}
-
-.alert {
-  background-color: red;
-  color: white;
-  background-image: none;
+  line-height: 1.5;
 }
 
 .evidence {
-  font-weight: bold;
+  font-weight: 600;
+  color: var(--mainbrown);
 }
 
 .mark {
   color: var(--evidenceorange);
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.alert {
+  background: firebrick;
 }
 </style>

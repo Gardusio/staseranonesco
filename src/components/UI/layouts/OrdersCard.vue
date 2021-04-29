@@ -1,95 +1,24 @@
 <template>
   <div class="container">
-    <div class="header" :class="headerBackground">
-      <span class="title">{{ headerTitle }}</span>
-      <div class="hour-container" :class="alertType">
-        <div class="hour">{{ hourString }}</div>
+    <div class="card-container" @click="$emit('goInto')">
+      <div class="header" :class="headerBackground">
+        <span class="title" :style="titleScaled">{{ headerTitle }}</span>
+        <div class="hour-container" :class="alertType">
+          <div class="hour">{{ hourString }}</div>
+        </div>
       </div>
+      <ul class="line-items">
+        <li
+          v-for="lineItem in lineItems"
+          :key="lineItem.productId"
+          class="line-item"
+        >
+          <span class="qty">{{ lineItem.qty }}x </span>
+          <span class="product">{{ lineItem.productName }}</span>
+        </li>
+      </ul>
     </div>
-    <ul class="line-items">
-      <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-       <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-
-    </ul>
-    <card-actions></card-actions>
+    <card-actions @showPrintOrder="$emit('showPrint')" @showBill="$emit('showConto')"></card-actions>
   </div>
 </template>
 
@@ -100,9 +29,26 @@ export default {
   components: {
     CardActions,
   },
+  methods: {
+    hasToScale(name) {
+      const numWords = (str) => {
+        str = str.replace(/(^\s*)|(\s*$)/gi, "");
+        str = str.replace(/[ ]{2,}/gi, " ");
+        str = str.replace(/\n /, "\n");
+        return str.split(" ").length;
+      };
+      if (numWords(name) > 4) return true;
+      return false;
+    },
+  },
   computed: {
+    titleScaled() {
+      if (this.hasToScale(this.headerTitle)) return "font-size: 16px ";
+      return "";
+    },
     alertType() {
-      if (this.alert === "alert") return "alert";
+      if (this.alert === "completed") return "completed";
+      if (this.alert === "second-alert") return "alert";
       if (this.alert === "first-alert") return "first-alert";
       return "";
     },
@@ -123,10 +69,15 @@ export default {
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 250px;
-  height: 225px;
+  width: 260px;
+  height: 235px;
   border-radius: 0 0 25px 25px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.card-container{
+  height: 75%;
+  width: auto;
 }
 
 .header {
@@ -134,7 +85,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 20%;
+  height: 28%;
   color: white;
 }
 
@@ -147,7 +98,7 @@ export default {
 }
 
 .header-background-table {
-  background-color: var(--mainbrown);
+  background-color: var(--secondarybrown);
 }
 
 .title {
@@ -174,14 +125,12 @@ export default {
 
 .line-items {
   list-style: none;
-  margin-top: 0.85rem;
-  margin-bottom: 0.85rem;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   margin: auto;
-  height: 50%;
-  justify-content: center;
+  margin-top: 5%;
+  height: 72%;
   align-items: center;
   font-family: "Lato", "sans-serif";
   font-weight: 500;
@@ -189,23 +138,23 @@ export default {
   color: black;
   overflow-y: scroll;
   row-gap: 8px;
-  scrollbar-width: none
+  scrollbar-width: none;
 }
 
 .line-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   width: 105%;
   margin: auto;
 }
 
 ::-webkit-scrollbar {
-display: none;
+  display: none;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--mainbrown);
+  background: var(--mainbrown);
 }
 
 .product {
@@ -218,6 +167,10 @@ display: none;
 }
 
 .first-alert {
-  background-color: var(--first-alert-red);
+  background-color: var(--notification-first-alert);
+}
+
+.completed {
+  background-color: var(--buttongreen);
 }
 </style>

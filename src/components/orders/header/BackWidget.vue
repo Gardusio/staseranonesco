@@ -26,13 +26,13 @@ export default {
   height: auto;
   display: flex;
   align-items: center;
-  margin-left: 6rem;
+  margin-left: 5rem;
 }
 
 .text {
   font-family: "Raleway", "sans-serif";
   font-weight: 300;
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--mainbrown);
   margin-left: 1rem;
 }

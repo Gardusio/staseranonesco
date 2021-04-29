@@ -57,31 +57,6 @@ export default {
   height: 8rem;
 }
 
-.animated-alert {
-  align-self: flex-end;
-  animation-duration: 1.2s;
-  animation-iteration-count: infinite;
-  transform-origin: bottom;
-  animation-name: pulsate-fwd;
-  animation-timing-function: ease;
-}
-
-@keyframes pulsate-fwd {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  50% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-
-
 .table-icon-container {
   display: flex;
   flex-direction: column;
@@ -109,7 +84,7 @@ export default {
   color: var(--completed-green);
 }
 .first-alert {
-  color: var(--first-alert-red);
+  color: var(--notification-first-alert);
 }
 .waiting {
   color: var(--friedorange);

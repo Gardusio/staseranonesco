@@ -1,18 +1,18 @@
 <template>
   <the-background></the-background>
-  <the-sidebar activeElem="sala"></the-sidebar>
+  <the-sidebar activeElem="delivery"></the-sidebar>
 
   <order-header
-    @toSala="toSala()"
+    @toDeliveries="toDeliveries()"
     @addLineItem="addProduct()"
-    view="Sala"
+    view="Consegne"
     :title="title"
-    :waiting="waitingTitle"
+    :waiting="timeBefore"
   ></order-header>
 
   <main class="line-items-section">
     <line-items-grid
-      @addOne="(li) => addOne(li)"
+      @addOne="addOne"
       @removeOne="removeOne"
       :lineItems="order.lineItems"
     ></line-items-grid>
@@ -37,11 +37,11 @@
     </div>
     <div class="nav-item">
       <font-awesome-icon
-        :icon="['fas', 'chair']"
+        :icon="['fas', 'car']"
         class="icon"
         size="2x"
       ></font-awesome-icon>
-      <span class="category">Tavolo</span>
+      <span class="category">Ordine</span>
     </div>
     <div class="nav-item" @click="showChiudi = true">
       <font-awesome-icon
@@ -62,11 +62,14 @@
   </div>
 
   <small-modal v-if="showStampa" @close="showStampa = false">
-    <print-order :header="title"></print-order>
+    <print-order :header="order.name"></print-order>
   </small-modal>
 
   <big-modal v-if="showConto" @close="showConto = false">
-    <print-order-bill :total="total" :header="title"></print-order-bill>
+    <print-order-bill
+      :total="order.total"
+      :header="order.name"
+    ></print-order-bill>
   </big-modal>
 
   <big-modal v-if="showTavolo" @close="showTavolo = false">
@@ -75,21 +78,21 @@
 
   <small-modal v-if="showChiudi" @close="showChiudi = false">
     <close-table
-      v-if="table.status !== 'completed'"
+      v-if="!order.completed"
       :header="title"
-      @closeOrder="setStatus('completed')"
+      @closeOrder="setStatus(true)"
     ></close-table>
     <open-order
-      v-if="table.status === 'completed'"
+      v-if="order.completed"
       :header="title"
-      @openOrder="setStatus('waiting')"
+      @openOrder="setStatus(false)"
     ></open-order>
   </small-modal>
 
   <small-modal v-if="showElimina" @close="showElimina = false">
     <delete-order
-      instructionsEvidence="Vuoi liberare il tavolo?"
-      @deleteOrder="deleteOrder()"
+      @deleteOrder="deleteDelivery()"
+      instructionsEvidence="Eliminare questa consegna?"
     ></delete-order>
   </small-modal>
 
@@ -115,14 +118,13 @@ export default {
     SmallModal,
     BigModal,
     PrintOrder,
-    OpenOrder,
     PrintOrderBill,
     CloseTable,
     DeleteOrder,
+    OpenOrder,
   },
   data() {
     return {
-      table: null,
       order: null,
       showStampa: false,
       showConto: false,
@@ -132,20 +134,17 @@ export default {
     };
   },
   created() {
-    const tId = parseInt(this.$route.params.id);
-    const tables = this.$store.getters["tables/getTables"];
-    this.table = tables.find((t) => t.id === tId);
-
-    const orders = this.$store.getters["orders/getOrders"];
-    this.order = orders.find((o) => o.tableId === tId);
+    const id = parseInt(this.$route.params.id);
+    const orders = this.$store.getters["deliveries/getDeliveries"];
+    this.order = orders.find((o) => o.id === id);
   },
 
   methods: {
-    toSala() {
-      this.$router.push("/sala");
+    toDeliveries() {
+      this.$router.push("/delivery");
     },
     addProduct() {
-      this.$router.push("/create/" + this.table.id);
+      this.$router.push("/update-del/" + this.order.id);
     },
     addOne(li) {
       for (let i = 0; i < this.order.lineItems.length; i = i + 1) {
@@ -164,7 +163,7 @@ export default {
       this.order = updatedOrder;
 
       //update order
-      this.$store.dispatch("orders/updateLineItems", updatedOrder);
+      this.$store.dispatch("deliveries/updateLineItems", updatedOrder);
     },
     removeOne(li) {
       for (let i = 0; i < this.order.lineItems.length; i = i + 1) {
@@ -187,55 +186,63 @@ export default {
       this.order = updatedOrder;
 
       //update order
-      this.$store.dispatch("orders/updateLineItems", updatedOrder);
+      this.$store.dispatch("deliveries/updateLineItems", updatedOrder);
     },
     setStatus(newStatus) {
-      const payload = { id: this.table.id, status: newStatus };
-      this.$store.dispatch("tables/setTableStatus", payload);
-      if (newStatus === "completed")
-        this.$store.dispatch("notifications/deleteNotificationCompleted", {
-          id: this.order.id,
-        });
+      const payload = { id: this.order.id, status: newStatus };
+      this.$store.dispatch("deliveries/setStatus", payload);
+      if (newStatus)
+        this.$store.dispatch(
+          "notifications/deleteNotificationCompleted",
+          payload
+        );
       this.showChiudi = false;
     },
-    deleteOrder() {
-      this.$store.dispatch("orders/deleteOrder", { id: this.table.id });
-      this.$store.dispatch("notifications/deleteNotificationCompleted", {
-        id: this.order.id,
-      });
-      this.setStatus("free");
-      this.$router.push("/sala");
+    deleteDelivery() {
+      this.$store.dispatch("deliveries/deleteDelivery", { id: this.order.id });
+        this.$store.dispatch(
+          "notifications/deleteNotificationCompleted",
+          { id: this.order.id }
+        );
+      this.toDeliveries();
     },
   },
   computed: {
-    total() {
-      return this.order.total;
-    },
     title() {
-      return `Tavolo ${this.table.number}`;
+      return `${this.order.name}: ${this.order.street}/${this.order.civic}`;
     },
-    statusNavText() {
-      return this.table.status === "completed" ? "Apri" : "Chiudi";
-    },
-    waitingTitle() {
-      const createdAt = this.order.createdAt;
-      const waitingMillis = Date.now() - createdAt;
+    timeBefore() {
+      if (this.order.completed) return "Ordine completato.";
+      const hour = this.order.hour;
+      const waitingMillis = hour - new Date();
       const waiting = Math.round(
         ((waitingMillis % 86400000) % 3600000) / 60000
       );
-      if (this.table.status === "completed") return "Ordine completato.";
-      return `Aspetta da ${waiting} minuti`;
+      if (waitingMillis < 0) return `Prevista ${Math.abs(waiting)} minuti fa`;
+      return `Prevista tra ${waiting} minuti`;
+    },
+    statusNavText() {
+      return this.order.completed ? "Apri" : "Chiudi";
     },
   },
 };
 </script>
 
 <style scoped>
+.title-header {
+  font-family: "Raleway", "sans-serif";
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: var(--mainbrown);
+  width: 66%;
+}
 .header-container {
   display: flex;
   justify-content: space-between;
   padding: 0rem 1rem;
 }
+
 .line-items-section {
   margin-top: 2rem;
   position: absolute;

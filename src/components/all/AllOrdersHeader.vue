@@ -2,8 +2,14 @@
   <div class="header-container">
     <span class="title">Ordini</span>
     <div class="actions-container">
-      <span class="fascia">Fascia</span>
-      <fasce-widget page="orders"></fasce-widget>
+      <fasce-header
+        page="Fascia"
+        :upper="upper"
+        :lower="lower"
+        @increase="(slot) => $emit('increase', slot)"
+        @decrease="(slot) => $emit('decrease', slot)"
+      >
+      </fasce-header>
     </div>
     <date-widget class="date"></date-widget>
     <div id="border"></div>
@@ -12,21 +18,23 @@
 </template>
 
 <script>
-import FasceWidget from "../UI/layouts/FasceWidget";
+import FasceHeader from "../UI/layouts/FasceHeader";
 import DateWidget from "../UI/date/DateWidget";
 export default {
-  components: { FasceWidget, DateWidget },
+  emits: ["increase", "decrease"],
+  props: ["lower", "upper"],
+  components: { FasceHeader, DateWidget },
 };
 </script>
 
 <style scoped>
 .header-container {
   display: flex;
-  height:20%;
+  height: 20%;
   position: relative;
   align-items: center;
   justify-content: space-between;
-  padding:2rem 4rem;
+  padding: 2rem 4rem;
 }
 .separator {
   border: 0;
@@ -63,6 +71,6 @@ export default {
 }
 
 .date {
-height: auto;
+  height: auto;
 }
 </style>

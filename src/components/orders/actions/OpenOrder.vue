@@ -3,14 +3,11 @@
     <span class="title">Ordine {{ header }}</span>
     <div class="content-container">
       <span class="instructions"
-        >Chiudi l'ordine se è uscito tutto dalla cucina.
-        <span class="mark">Potrai riaprirlo</span> in seguito.</span
+        >Riapri l'ordine per aggiungere<span class="mark"> nuove comande</span
+        >.</span
       >
-      <span class="instructions evidence">È uscito tutto?</span>
-      <primary-button
-        text="Tutto!"
-        @click="$emit('closeOrder')"
-      ></primary-button>
+      <span class="instructions evidence">Vuoi riaprire l'ordine?</span>
+      <primary-button text="Apri!" @click="$emit('openOrder')"></primary-button>
     </div>
   </div>
 </template>
@@ -35,7 +32,7 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 90%;
-  margin-top:1rem;
+  margin-top: 1rem;
   align-items: center;
   justify-content: space-around;
 }
@@ -59,7 +56,7 @@ export default {
 
 .evidence {
   font-weight: 600;
-  color: var(--secondarybrown)
+  color: var(--secondarybrown);
 }
 
 .mark {

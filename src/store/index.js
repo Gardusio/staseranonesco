@@ -4,6 +4,7 @@ import tableOrdersModule from "./table-orders/index";
 import productsModule from "./products/index";
 import takeawayModule from "./takeaways/index";
 import deliveryModule from "./delivery/index";
+import notificationModule from "./notifications/index";
 
 export default createStore({
   modules: {
@@ -12,6 +13,7 @@ export default createStore({
     products: productsModule,
     takeaways: takeawayModule,
     deliveries: deliveryModule,
+    notifications: notificationModule,
   },
   state() {
     return {
@@ -27,6 +29,10 @@ export default createStore({
         new Date().setHours(18, 30, 0, 0),
         new Date().setHours(22, 30, 0, 0),
       ],
+      tableFirstAlertMillis: 15 * 60 * 1000,
+      tableSecondAlertMillis: 30 * 60 * 1000,
+      firstAlertMillis: 15 * 60 * 1000,
+      secondAlertMillis: 5 * 60 * 1000,
     };
   },
   getters: {
@@ -38,6 +44,18 @@ export default createStore({
     },
     getOrdersSlot(state) {
       return state.ordersSlot;
+    },
+    getAlertMillis(state) {
+      return {
+        first: state.firstAlertMillis,
+        second: state.secondAlertMillis,
+      };
+    },
+    getTableAlertMillis(state) {
+      return {
+        first: state.tableFirstAlertMillis,
+        second: state.tableSecondAlertMillis,
+      };
     },
   },
   mutations: {

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="qty">{{ qty }}x</div>
-    <span class="name">{{ name }}</span>
+    <div class="qty" :style="color">{{ qty }}x</div>
+    <span class="name" :style="scale ? nameScaled : ''">{{ name }}</span>
     <section class="actions">
       <div class="action action-minus" @click="decrement()">
         <font-awesome-icon
@@ -23,15 +23,40 @@
 
 <script>
 export default {
-  props: ["name", "qty"],
+  props: ["name", "qty", "type", "scale"],
   methods: {
     increment() {
       this.$emit("add");
     },
     decrement() {
       this.$emit("remove");
-    }
-  }
+    },
+    hasToScale(name) {
+      const numWords = (str) => {
+        str = str.replace(/(^\s*)|(\s*$)/gi, "");
+        str = str.replace(/[ ]{2,}/gi, " ");
+        str = str.replace(/\n /, "\n");
+        return str.split(" ").length;
+      };
+      if (numWords(name) > 4) return true;
+      return false;
+    },
+  },
+  computed: {
+    color() {
+      if (this.type === "panini")
+        return "background-color: var(--secondarybrown)";
+      else if (this.type === "pizze")
+        return "background-color: var(--pizzered)";
+      else if (this.type === "fritti")
+        return "background-color: var(--friedorange)";
+      else return "background-color: var(--bereblue)";
+    },
+    nameScaled() {
+      if (this.hasToScale(this.name)) return "font-size: 14px ";
+      return "";
+    },
+  },
 };
 </script>
 
@@ -71,7 +96,7 @@ export default {
   font-family: "Montserrat", "sans-serif";
   font-size: 20px;
   color: var(--mainbrown);
-  text-align:left;
+  text-align: left;
   margin-left: 1rem;
   margin-right: 1rem;
 }
@@ -79,9 +104,9 @@ export default {
 .actions {
   display: flex;
   justify-content: space-evenly;
-  width: 23%;
+  width: 20%;
   height: 100%;
-  min-width: 18%;
+  min-width: 82px;
   margin-right: 0.2rem;
   align-items: center;
   background-color: transparent;

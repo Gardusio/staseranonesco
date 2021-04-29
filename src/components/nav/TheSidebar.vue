@@ -25,13 +25,13 @@
         >
         </nav-item>
       </router-link>
-      <router-link to="/menu">
+      
         <nav-item
           item="menu"
           text="Menu"
           :isActive="activeElem === 'menu'"
         ></nav-item>
-      </router-link>
+      
       <router-link to="/ingredients">
         <nav-item
           item="inventario"

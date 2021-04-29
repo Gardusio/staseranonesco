@@ -3,15 +3,22 @@
     <header class="add-tables-header">Aggiungi Tavolo</header>
     <section class="container section">
       <p class="instructions">Inserisci il numero del nuovo tavolo.</p>
-      <input class="input" type="number" />
+      <input class="input" type="number" v-model="table.number" />
       <single-table-icon></single-table-icon>
+      <p class="error" v-if="error">
+        Il tavolo numero {{ table.number }} esiste gia!
+      </p>
     </section>
     <section class="container section">
       <p class="instructions">Inserisci i posti a tavola.</p>
-      <input class="input" type="number" />
+      <input class="input" type="number" v-model="table.seats" />
       <chairs-icon></chairs-icon>
     </section>
-    <primary-button class="primary-button" text="Aggiungi"></primary-button>
+    <primary-button
+      class="primary-button"
+      text="Aggiungi"
+      @click="addTable()"
+    ></primary-button>
   </div>
 </template>
 
@@ -26,6 +33,36 @@ export default {
     SingleTableIcon,
     ChairsIcon,
   },
+  data() {
+    return {
+      error: false,
+      table: {
+        id: null,
+        orderId: null,
+        hasOrder: false,
+        number: this.tablesLength() + 1,
+        seats: 4,
+        status: "free",
+        reservation: {},
+        statusChanges: {
+          firstAlert: 15,
+          secondAlert: 30,
+        },
+        orderCreatedAt: "",
+        lastUpdateAt: "",
+        createdAt: new Date(),
+      },
+    };
+  },
+  methods: {
+    tablesLength() {
+      return this.$store.getters["tables/getTables"].length;
+    },
+    addTable() {
+      this.$store.dispatch("tables/addTable", this.table);
+      this.$emit("close");
+    },
+  },
 };
 </script>
 
@@ -37,7 +74,7 @@ export default {
 }
 
 .section {
-  margin-top: 3rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
@@ -69,7 +106,11 @@ export default {
   text-align: center;
 }
 .primary-button {
-  margin-top: 5rem;
+  margin-top: 2rem;
   letter-spacing: 0.5px;
+}
+.error {
+  color: firebrick;
+  text-transform: uppercase;
 }
 </style>
