@@ -232,11 +232,11 @@ h1 {
   font-size: 1rem;
   padding-bottom: 0.5rem;
   padding-left: 0.2rem;
-  color: #623d22;
+  color: var(--mainbrown);
   margin-right: 5%;
   background: transparent;
   border: 0;
   outline: 0;
-  border-bottom: 2px solid #623d22;
+  border-bottom: 4px solid #623d22;
 }
 </style>

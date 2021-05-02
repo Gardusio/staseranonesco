@@ -10,7 +10,7 @@ export default {
         {
           id: 4,
           name: "Laurenzi",
-          hour: new Date(new Date().setHours(22,41,0,0)),
+          hour: new Date(new Date().setHours(20,25,0,0)),
           street: "Via Ovidio Cencioso e luridissimo",
           completed: false,
           civic: 15,

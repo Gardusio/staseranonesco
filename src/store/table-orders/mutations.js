@@ -17,4 +17,8 @@ export default {
     }
     order.total = total;
   },
+  setStatus(state, payload) {
+    const order = state.orders.filter(o => o.id === payload.id);
+    order.status = payload.status;
+  }
 };

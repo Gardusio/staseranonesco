@@ -4,11 +4,14 @@
 
 <script>
 export default {
-  computed: {
-    hour() {
-      const date = new Date();
-      return date.getHours() + "." + date.getMinutes();
-    },
+  data() {
+    return {
+      hour: "",
+    };
+  },
+  created() {
+    const date = new Date();
+    this.hour = date.getHours() + "." + date.getMinutes();
   },
 };
 </script>

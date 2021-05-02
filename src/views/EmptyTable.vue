@@ -3,48 +3,26 @@
   <the-sidebar activeElem="sala"></the-sidebar>
   <section class="main-section">
     <p class="title">Tavolo {{ table.number }}</p>
-    <div class="secondary-actions">
-      <secondary-button @click="showReservation = true"
-        ><font-awesome-icon
-          style="margin-right: 0.5rem"
-          :icon="['fas', 'pen-fancy']"
+    <div class="seats">
+      <p class="instructions">Quante persone?</p>
+      <div class="seats-actions">
+        <font-awesome-icon
+          class="action-icon"
+          :icon="['fas', 'minus-circle']"
+          size="lg"
+          @click="updateSeats(-1)"
         ></font-awesome-icon>
-        Riserva</secondary-button
-      >
-      <secondary-button @click="showSeats = true"
-        ><font-awesome-icon
-          style="margin-right: 0.5rem"
-          :icon="['fas', 'chair']"
+        <input class="input" type="number" :value="seats" />
+        <font-awesome-icon
+          class="action-icon"
+          :icon="['fas', 'plus-circle']"
+          size="lg"
+          @click="updateSeats(1)"
         ></font-awesome-icon>
-        Posti</secondary-button
-      >
-    </div>
-    <small-modal v-if="showReservation" @close="showReservation = false">
-      <reservation-action></reservation-action>
-    </small-modal>
-    <small-modal v-if="showSeats" @close="showSeats = false">
-      <h3 class="seats-header">Posti</h3>
-      <div class="seats">
-        <p class="instructions">Quante persone?</p>
-        <div class="seats-actions">
-          <font-awesome-icon
-            class="action-icon"
-            :icon="['fas', 'minus-circle']"
-            size="lg"
-            @click="updateSeats(-1)"
-          ></font-awesome-icon>
-          <input class="input" type="number" :value="seats" />
-          <font-awesome-icon
-            class="action-icon"
-            :icon="['fas', 'plus-circle']"
-            size="lg"
-            @click="updateSeats(1)"
-          ></font-awesome-icon>
-        </div>
-        <chairs-icon></chairs-icon>
-        <primary-button text="Ok" @click="confirmSeats()"></primary-button>
       </div>
-    </small-modal>
+      <chairs-icon></chairs-icon>
+    </div>
+    <small-modal v-if="showSeats" @close="showSeats = false"> </small-modal>
     <primary-button
       @click="createOrder()"
       class="main-action"
@@ -58,7 +36,6 @@
 <script>
 import DateWidget from "../components/UI/date/DateWidget";
 import ChairsIcon from "../components/sala/tables/ChairsIcon.vue";
-import ReservationAction from "../components/sala/tables/ReservationAction.vue";
 import SmallModal from "../components/UI/layouts/SmallModal.vue";
 
 export default {
@@ -66,7 +43,6 @@ export default {
   components: {
     ChairsIcon,
     DateWidget,
-    ReservationAction,
     SmallModal,
   },
   data() {
@@ -86,7 +62,7 @@ export default {
   },
   methods: {
     updateSeats(num) {
-      this.seats = this.seats + num;
+      this.seats += num;
     },
     confirmSeats() {
       this.$store.dispatch("tables/updateSeats", {
@@ -98,6 +74,7 @@ export default {
     createOrder() {
       const routeParams = this.$route.params;
       const tableId = routeParams.id;
+      this.confirmSeats();
       this.$router.push("/create/" + tableId);
     },
   },
@@ -118,34 +95,27 @@ export default {
 }
 .date {
   position: fixed;
-  bottom:3%;
+  bottom: 3%;
   right: 3%;
   height: auto;
 }
 .title {
   font-family: "Raleway", sans-serif;
   font-weight: 500;
-  color: var(--secondarybrown);
+  color: var(--mainbrown);
   font-size: 4rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 .action-icon {
   color: var(--mainbrown);
   align-self: center;
 }
 
-.seats-header {
-  text-align: center;
-  font-family: "Raleway", "sans-serif";
-  font-weight: 500;
-  font-size: 3rem;
-}
-
 .seats {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 90%;
+  height: 40%;
   align-items: center;
 }
 .seats-actions {
@@ -180,15 +150,7 @@ input {
   text-align: center;
 }
 
-.secondary-actions {
-  display: flex;
-  align-items: center;
-  width: 300px;
-  justify-content: space-around;
-  text-align: right;
-}
-
 .main-action {
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 </style>

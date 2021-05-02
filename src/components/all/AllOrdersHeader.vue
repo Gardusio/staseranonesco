@@ -50,6 +50,7 @@ export default {
   justify-content: center;
   height: 80%;
   width: 80%;
+  margin-top: -2rem;
 }
 .date {
   position: unset !important;

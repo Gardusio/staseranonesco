@@ -1,7 +1,7 @@
 <template>
   <div class="notif-header-container">
     <span class="title-header">Notifiche</span>
-    <the-hour style="color:var(--mainbrown)"></the-hour>
+    <the-hour :key="upload" style="color: var(--mainbrown)"></the-hour>
   </div>
 </template>
 
@@ -10,6 +10,23 @@ import TheHour from "../UI/date/TheHour";
 export default {
   components: {
     TheHour,
+  },
+  data() {
+    return {
+      upload: 0,
+    };
+  },
+  created() {
+    this.update();
+  },
+  methods: {
+    update() {
+      this.upload += 1;
+      setTimeout(this.update, 60000);
+    },
+  },
+  unmounted() {
+    clearTimeout();
   },
 };
 </script>

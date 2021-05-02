@@ -10,7 +10,7 @@ export default {
         {
           id: 3,
           name: "Laurenzi",
-          hour: new Date(new Date().setHours(22, 28, 0, 0)),
+          hour: new Date(new Date().setHours(20, 39, 0, 0)),
           phone: "3894831579",
           lastUpdate: "04/07/2021 12:35:00",
           createdAt: "04/07/2021 12:35:00",

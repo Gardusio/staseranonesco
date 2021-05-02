@@ -7,6 +7,9 @@ export default {
     const stateFirstNotifications =
       context.rootGetters["notifications/getFirstNotifications"];
 
+    const stateNotifications =
+      context.rootGetters["notifications/getNotifications"];
+
     const alertMillis = context.rootGetters.getAlertMillis;
     const tableAlertMillis = context.rootGetters.getTableAlertMillis;
 
@@ -37,6 +40,7 @@ export default {
           : `Tavolo ${order.tableNumber} aspetta da più di 30 minuti!`;
 
       const notification = {
+        createdAt: Date.now(),
         orderType: type,
         order: order,
         status: "alert",
@@ -54,6 +58,7 @@ export default {
           : `Tavolo ${order.tableNumber} aspetta da più di 15 minuti.`;
 
       const notification = {
+        createdAt: Date.now(),
         orderType: type,
         order: order,
         status: "first-alert",
@@ -64,18 +69,20 @@ export default {
 
     const checkAndNotify = (order, time, type, op) => {
       const isCompleted = order.completed || order.status === "completed";
-      const isNew =
-        !stateFirstNotifications.some((n) => n.order.id === order.id);
+      const isFirstNew = !stateFirstNotifications.some(
+        (n) => n.order.id === order.id
+      );
+      const isNew = !stateNotifications.some((n) => n.order.id === order.id);
 
       if (
-        isNew &&
+        isFirstNew &&
         !isCompleted &&
         isToFirstAlert(time, op) &&
         !isToAlert(time, op)
       )
         createFirstAlertNotification(order, type);
 
-      if (!isNew && !isCompleted && isToAlert(time, op)) {
+      if (isNew && !isCompleted && isToAlert(time, op)) {
         context.commit("deleteNotification", { id: order.id });
         createAlertNotification(order, type);
       }
@@ -91,5 +98,5 @@ export default {
   },
   deleteNotificationCompleted(context, payload) {
     context.commit("deleteNotificationCompleted", payload);
-  }
+  },
 };

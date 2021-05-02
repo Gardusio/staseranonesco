@@ -3,8 +3,8 @@
     <div class="card-container" @click="$emit('goInto')">
       <div class="header" :class="headerBackground">
         <span class="title" :style="titleScaled">{{ headerTitle }}</span>
-        <div class="hour-container" :class="alertType">
-          <div class="hour">{{ hourString }}</div>
+        <div class="hour-container">
+          <div class="hour" :class="alertType">{{ hourString }}</div>
         </div>
       </div>
       <ul class="line-items">
@@ -18,7 +18,10 @@
         </li>
       </ul>
     </div>
-    <card-actions @showPrintOrder="$emit('showPrint')" @showBill="$emit('showConto')"></card-actions>
+    <card-actions
+      @showPrintOrder="$emit('showPrint')"
+      @showBill="$emit('showConto')"
+    ></card-actions>
   </div>
 </template>
 
@@ -50,12 +53,21 @@ export default {
       if (this.alert === "completed") return "completed";
       if (this.alert === "second-alert") return "alert";
       if (this.alert === "first-alert") return "first-alert";
-      return "";
+      else {
+        if (this.orderType === "ta") return "hour-ta";
+        else if (this.orderType === "del") return "hour-del";
+        return "hour-table";
+      }
     },
     headerBackground() {
       if (this.orderType === "ta") return "header-background-ta";
       else if (this.orderType === "del") return "header-background-del";
       return "header-background-table";
+    },
+    hourColor() {
+      if (this.orderType === "ta") return "color: var(--takeawaysgreen)";
+      else if (this.orderType === "del") return "color: var(--deliveryorange)";
+      return "color: var(--secondarybrown)";
     },
     hourString() {
       return this.hour.hours + "." + this.hour.minutes;
@@ -75,7 +87,7 @@ export default {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.card-container{
+.card-container {
   height: 75%;
   width: auto;
 }
@@ -101,6 +113,18 @@ export default {
   background-color: var(--secondarybrown);
 }
 
+.header-ta {
+  color: var(--takeawaysgreen);
+}
+
+.hour-del {
+  color: var(--deliveryorange);
+}
+
+.hour-table {
+  color: var(--secondarybrown);
+}
+
 .title {
   font-family: "Montserrat", "sans-serif";
   font-weight: 500;
@@ -116,10 +140,11 @@ export default {
   align-items: center;
   height: 100%;
   padding: 0.5rem;
+  background-color: white;
 }
 .hour {
   font-family: "Lato", "sans-serif";
-  font-weight: 500;
+  font-weight: bold;
   font-size: 1.25rem;
 }
 
@@ -163,14 +188,14 @@ export default {
 }
 
 .alert {
-  background-color: var(--second-alert-red);
+  color: var(--second-alert-red);
 }
 
 .first-alert {
-  background-color: var(--notification-first-alert);
+  color: var(--notification-first-alert);
 }
 
 .completed {
-  background-color: var(--buttongreen);
+  color: var(--buttongreen);
 }
 </style>

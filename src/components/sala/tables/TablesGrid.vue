@@ -1,6 +1,6 @@
 <template>
   <div class="grid-container">
-    <Table
+    <table-item
       v-for="table in tableList"
       :key="table.id"
       :tableId="table.id"
@@ -8,15 +8,15 @@
       :status="tableStatus(table)"
       :orderCreatedAt="table.orderCreatedAt"
       @click="toTable(table)"
-    ></Table>
+    ></table-item>
   </div>
 </template>
 
 <script>
-import Table from "./Table.vue";
+import TableItem from "./Table.vue";
 
 export default {
-  components: { Table },
+  components: { TableItem },
   props: ["tableList"],
 
   methods: {
@@ -26,6 +26,8 @@ export default {
     },
 
     tableStatus(table) {
+      if(table.status === "completed") return "completed";
+
       if (table.status === "alert") return "alert";
       else if (this.isToAlert(table.statusChanges, table.orderCreatedAt)) {
         this.$store.dispatch("tables/setTableStatus", {
@@ -73,7 +75,7 @@ export default {
   margin-right: 41%;
   width: 50%;
   row-gap: 2.5rem;
-  column-gap: 2rem;
+  column-gap: 6rem;
   grid-auto-flow: dense;
 }
 </style>

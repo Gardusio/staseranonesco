@@ -1,6 +1,7 @@
 import {
   faHandHoldingUsd,
   faRing,
+  faSignOutAlt,
   faUtensils,
   faArrowCircleLeft,
   faTimesCircle,
@@ -43,6 +44,7 @@ const icons = [
   faPlusCircle,
   faMinusCircle,
   faTrash,
+  faSignOutAlt,
   faEuroSign,
   faTimesCircle,
   faHome,

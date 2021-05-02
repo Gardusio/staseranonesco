@@ -14,7 +14,7 @@
     <orders-grid :orders="filteredOrders" type="del"></orders-grid>
   </div>
   <div class="actions">
-    <add-button @click="showNew = true"></add-button>
+    <add-button @click="showNew = true" icon="del"></add-button>
   </div>
   <big-modal v-if="showNew" @close="showNew = false">
     <new-delivery-form></new-delivery-form>
@@ -124,9 +124,8 @@ export default {
   height: 79%;
 }
 .actions {
-  height: 16%;
-  width: 58%;
-  margin-left: 7%;
+  height: 17%;
+  margin-left: 90px;
   margin-right: 33%;
   display: flex;
   align-items: center;

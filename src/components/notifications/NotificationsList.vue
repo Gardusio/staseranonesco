@@ -8,7 +8,9 @@
       :alert="notification.status"
       :text="notification.text"
       :lineItems="notification.order.lineItems"
+      :createdAt="notification.createdAt"
       @view="viewOrder(notification.order, notification.orderType)"
+      @delete="deleteNotif(notification.order.id)"
     ></notification-item>
     <notification-item
       v-for="notif in firstNotifications"
@@ -18,7 +20,9 @@
       :alert="notif.status"
       :text="notif.text"
       :lineItems="notif.order.lineItems"
+      :createdAt="notif.createdAt"
       @view="viewOrder(notif.order, notif.orderType)"
+      @delete="deleteNotif(notif.order.id)"
     ></notification-item>
   </ul>
 </template>
@@ -46,6 +50,17 @@ export default {
         this.$router.push("/table-order/" + order.tableNumber);
       else if (orderType === "del") this.$router.push("/delivery/" + order.id);
       else this.$router.push("/takeaway/" + order.id);
+    },
+    deleteNotif(id) {
+      this.$store.dispatch("notifications/deleteNotificationCompleted", {
+        id: id,
+      });
+      this.notifications = this.$store.getters[
+        "notifications/getNotifications"
+      ];
+      this.firstNotifications = this.$store.getters[
+        "notifications/getFirstNotifications"
+      ];
     },
   },
 };

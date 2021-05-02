@@ -112,18 +112,16 @@ export default {
 .entry {
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
+  font-weight: 500;
   padding-bottom: 1rem;
   padding-left: 0.2rem;
-  color: #623d22;
+  color: var(--mainbrown);
   display: block;
-  margin-bottom: 4rem;
-  width: auto;
-  height: auto;
+  margin-bottom: 2rem;
   background: transparent;
   border: 0;
   outline: 0;
-  border-bottom: 1px solid #ccc;
-  
+  border-bottom: 2px solid #ccc;
 }
 
 .hour {

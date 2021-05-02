@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ["product", "category"],
+  props: ["product"],
   methods: {
     productSelected() {
       this.$emit("product-selected", this.product);
@@ -32,9 +32,9 @@ export default {
       return "";
     },
     categoryStyle() {
-      if (this.category === "Fritti") return "fritti";
-      else if (this.category === "Pizze") return "pizze";
-      else if (this.category === "Panini") return "panini";
+      if (this.product.category === "fritti") return "fritti";
+      else if (this.product.category === "pizze") return "pizze";
+      else if (this.product.category === "panini") return "panini";
       return "bere";
     },
   },

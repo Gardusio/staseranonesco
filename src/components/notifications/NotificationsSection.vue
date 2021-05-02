@@ -13,16 +13,16 @@ export default {
   data() {
     return {
       upload: 1,
-    }
+    };
   },
   created() {
-    this.update()
+    this.update();
   },
   methods: {
     update() {
       this.upload += 1;
-      setTimeout(this.update, 150000)
-    }
+      setTimeout(this.update, 60000);
+    },
   },
   unmounted() {
     clearTimeout();

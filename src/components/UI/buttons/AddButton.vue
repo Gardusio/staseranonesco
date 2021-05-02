@@ -1,12 +1,21 @@
 <template>
   <div class="circle-container">
-    <font-awesome-icon :icon="['fas', 'plus']" class="plus">
+    <font-awesome-icon :icon="addIcon" class="plus">
     </font-awesome-icon>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["icon"],
+  computed: {
+    addIcon() {
+      if(this.icon ==="ta") return ['fas', 'layer-group']
+      else if(this.icon ==="del") return ['fas', 'car']
+      else return ['fas', 'plus'];
+    }
+  }
+};
 </script>
 
 <style scoped>

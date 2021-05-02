@@ -14,7 +14,7 @@
     <orders-grid :orders="filteredOrders" type="ta"></orders-grid>
   </div>
   <div class="actions">
-    <add-button @click="showNew = true"></add-button>
+    <add-button @click="showNew = true" icon="ta"></add-button>
   </div>
   <big-modal v-if="showNew" @close="showNew = false">
     <new-take-away-form></new-take-away-form>

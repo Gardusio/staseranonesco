@@ -5,70 +5,7 @@
       :key="product.id"
       :product="product"
       @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
-    />
-    <product-item
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-      @product-selected="productSelected"
-      :category="category"
+      :category="product.category"
     />
   </div>
 </template>
@@ -98,7 +35,7 @@ export default {
         );
       }
       if (this.search !== "") {
-        returnProds = categoryProds.filter((p) =>
+        returnProds = prods.filter((p) =>
           p.name.toLowerCase().includes(this.search.toLowerCase())
         );
       } else returnProds = categoryProds;

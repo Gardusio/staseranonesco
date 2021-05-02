@@ -102,6 +102,7 @@ export default {
         tableNumber: this.table.number,
         lastUpdate: new Date(),
         createdAt: new Date(),
+        status: this.table.status,
         total: 0,
         lineItems: [],
       };
@@ -249,13 +250,15 @@ h1 {
 .search-bar {
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
+  font-weight: bold;
   padding-bottom: 0.5rem;
   padding-left: 0.2rem;
-  color: #623d22;
+  color: var(--mainbrown);
   margin-right: 5%;
+  margin-top: 1rem;
   background: transparent;
   border: 0;
   outline: 0;
-  border-bottom: 2px solid #623d22;
+  border-bottom: 2px solid var(--mainbrown);
 }
 </style>

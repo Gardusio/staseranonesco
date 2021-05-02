@@ -8,4 +8,7 @@ export default {
   updateLineItems(context, payload) {
     context.commit("updateLineItems", payload);
   },
+  setOrderStatus(context, payload) {
+    context.commit("setStatus", payload);
+  }
 };

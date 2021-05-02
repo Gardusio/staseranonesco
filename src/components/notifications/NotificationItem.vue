@@ -7,7 +7,7 @@
     "
   >
     <div class="notification-header">
-      <font-awesome-icon :icon="iconType" size="lg"></font-awesome-icon>
+      <font-awesome-icon :icon="iconType" size="lg" class="icon"></font-awesome-icon>
       <p class="notification-text-closed" :style="scaled">{{ text }}</p>
       <font-awesome-icon
         @click="openStyle = true"
@@ -24,24 +24,32 @@
     </div>
 
     <ul class="line-items" v-if="openStyle">
-      <li v-for="lineItem in lineItems" :key="lineItem.productId" class="line-item">
-        <span class="qty">{{lineItem.qty}}x </span>
-        <span class="product">{{lineItem.productName}}</span>
+      <li
+        v-for="lineItem in lineItems"
+        :key="lineItem.productId"
+        class="line-item"
+      >
+        <span class="qty">{{ lineItem.qty }}x </span>
+        <span class="product">{{ lineItem.productName }}</span>
       </li>
     </ul>
 
-    <button class="view-order" v-if="openStyle" @click="$emit('view')">Vai all'ordine</button>
+    <button class="view-order" v-if="openStyle" @click="$emit('view')">
+      Vai all'ordine
+    </button>
 
     <div class="notification-open-footer" v-if="openStyle">
-      <p class="delete-notification-text">Elimina notifica</p>
-      <p class="notification-createdAt-date">21.40</p>
+      <p class="delete-notification-text" @click="$emit('delete')">
+        Elimina notifica
+      </p>
+      <p class="notification-createdAt-date">creata alle {{ created }}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["type", "alert", "text", "lineItems"],
+  props: ["type", "alert", "text", "lineItems", "createdAt"],
   data() {
     return {
       openStyle: this.open,
@@ -63,11 +71,9 @@ export default {
     alertType() {
       let alertStyle;
       if (this.alert === "alert") {
-        if(this.openStyle)
-          alertStyle = "alert-style";
-          else alertStyle = "alert-style alert-style-closed"
-        }
-      else if (this.alert === "first-alert") alertStyle = "first-alert-style";
+        if (this.openStyle) alertStyle = "alert-style";
+        else alertStyle = "alert-style alert-style-closed";
+      } else if (this.alert === "first-alert") alertStyle = "first-alert-style";
       return alertStyle;
     },
     scaled() {
@@ -81,6 +87,12 @@ export default {
         : this.type === "del"
         ? ["fas", "car"]
         : ["fas", "chair"];
+    },
+    created() {
+      const date = new Date(this.createdAt);
+      const h = date.getHours();
+      const m = date.getMinutes();
+      return `${h}.${m}`;
     },
   },
 };
@@ -104,6 +116,10 @@ export default {
   font-weight: 500;
   font-size: 16px;
   text-align: center;
+}
+
+.notification-text-closed, .icon {
+    color: var(--mainbrown)
 }
 
 .notification-container-open {
@@ -187,7 +203,8 @@ export default {
 .view-order {
   margin-top: 1rem;
   border-radius: 20px;
-  border: 1px solid var(--mainbrown);
+  border: 1px solid var(--secondarybrown);
+  color: var(--mainbrown);
   text-transform: uppercase;
   font-family: "Raleway", sans-serif;
   font-weight: bold;
@@ -199,7 +216,6 @@ export default {
 
 .alert-style {
   border-color: var(--second-alert-red);
-  color: var(--second-alert-red);
 }
 
 .alert-style-closed {

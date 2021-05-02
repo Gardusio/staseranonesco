@@ -1,6 +1,6 @@
 <template>
   <div class="date">
-    <the-hour></the-hour>
+    <the-hour :key="upload"></the-hour>
     <the-date></the-date>
   </div>
 </template>
@@ -13,7 +13,23 @@ export default {
     TheDate,
     TheHour,
   },
-  computed: {},
+  data() {
+    return {
+      upload: 0,
+    };
+  },
+  created() {
+    this.update();
+  },
+  methods: {
+    update() {
+      this.upload += 1;
+      setTimeout(this.update, 60000);
+    },
+  },
+  unmounted() {
+    clearTimeout();
+  },
 };
 </script>
 
@@ -25,7 +41,7 @@ export default {
   position: fixed;
   height: auto;
   width: auto;
-  color: var(--mainbrown)
+  color: var(--mainbrown);
 }
 .day {
   font-size: 1rem;

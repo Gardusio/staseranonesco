@@ -82,7 +82,7 @@
     <open-order
       v-if="table.status === 'completed'"
       :header="title"
-      @openOrder="setStatus('waiting')"
+      @openOrder="setStatus()"
     ></open-order>
   </small-modal>
 
@@ -135,7 +135,6 @@ export default {
     const tId = parseInt(this.$route.params.id);
     const tables = this.$store.getters["tables/getTables"];
     this.table = tables.find((t) => t.id === tId);
-
     const orders = this.$store.getters["orders/getOrders"];
     this.order = orders.find((o) => o.tableId === tId);
   },
@@ -190,12 +189,14 @@ export default {
       this.$store.dispatch("orders/updateLineItems", updatedOrder);
     },
     setStatus(newStatus) {
-      const payload = { id: this.table.id, status: newStatus };
-      this.$store.dispatch("tables/setTableStatus", payload);
+      const updated = newStatus ? newStatus : this.calculateStatus(this.table);
+      const tablePayload = { id: this.table.id, status: updated };
+      const orderPayload = { id: this.order.id, status: updated };
+      this.$store.dispatch("tables/setTableStatus", tablePayload);
+      this.$store.dispatch("orders/setOrderStatus", orderPayload);
+
       if (newStatus === "completed")
-        this.$store.dispatch("notifications/deleteNotificationCompleted", {
-          id: this.order.id,
-        });
+        this.$store.dispatch("notifications/deleteNotificationCompleted", orderPayload);
       this.showChiudi = false;
     },
     deleteOrder() {
@@ -205,6 +206,38 @@ export default {
       });
       this.setStatus("free");
       this.$router.push("/sala");
+    },
+    calculateStatus(table)  {
+      if (this.isToAlert(table.statusChanges, table.orderCreatedAt)) {
+        this.$store.dispatch("tables/setTableStatus", {
+          id: table.id,
+          status: "alert",
+        });
+        return "alert";
+      }
+      if (this.isToFirstAlert(table.statusChanges, table.orderCreatedAt)) {
+        this.$store.dispatch("tables/setTableStatus", {
+          id: table.id,
+          status: "first-alert",
+        });
+        return "first-alert";
+      }
+      return "waiting";
+    },
+
+    isToFirstAlert(statusChanges, orderCreatedAt) {
+      const currentTime = Date.now();
+      const firstAlertMillis = statusChanges.firstAlert * 60 * 1000;
+      const creationMillis = new Date(orderCreatedAt).getTime();
+      const firstAlertTime = creationMillis + firstAlertMillis;
+      return firstAlertTime < currentTime;
+    },
+    isToAlert(statusChanges, orderCreatedAt) {
+      const currentTime = Date.now();
+      const secondAlertMillis = statusChanges.secondAlert * 60 * 1000;
+      const creationMillis = new Date(orderCreatedAt).getTime();
+      const secondAlertTime = creationMillis + secondAlertMillis;
+      return secondAlertTime < currentTime;
     },
   },
   computed: {
