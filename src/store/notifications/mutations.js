@@ -11,8 +11,6 @@ export default {
     state.firstNotifications = state.firstNotifications.filter(n => n.order.id !== payload.id);
   },
   deleteNotificationCompleted(state, payload) {
-    console.log(state.notifications.filter(n => n.order.id !== payload.id))
-    console.log(state.firstNotifications.filter(n => n.order.id !== payload.id))
     state.notifications = state.notifications.filter(n => n.order.id !== payload.id);
     state.firstNotifications = state.firstNotifications.filter(n => n.order.id !== payload.id);
   }

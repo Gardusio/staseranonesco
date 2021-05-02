@@ -102,7 +102,7 @@ export default {
         tableNumber: this.table.number,
         lastUpdate: new Date(),
         createdAt: new Date(),
-        status: this.table.status,
+        status: "waiting",
         total: 0,
         lineItems: [],
       };

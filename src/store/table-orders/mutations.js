@@ -1,5 +1,7 @@
 export default {
   createOrder(state, order) {
+    //http
+    order.id = order.tableId;
     state.orders.push(order);
   },
   deleteOrder(state, payload) {
@@ -18,7 +20,10 @@ export default {
     order.total = total;
   },
   setStatus(state, payload) {
-    const order = state.orders.filter(o => o.id === payload.id);
-    order.status = payload.status;
-  }
+    console.log(payload.id)
+    if (payload.id !== null) {
+      const order = state.orders.find((o) => o.id === payload.id);
+      order.status = payload.status;
+    }
+  },
 };

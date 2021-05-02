@@ -18,20 +18,32 @@ import TableItem from "./Table.vue";
 export default {
   components: { TableItem },
   props: ["tableList"],
-
+  data() {
+    return {
+      tableAlertMillis: {},
+    };
+  },
+  created() {
+    this.tableAlertMillis = this.$store.getters["getTableAlertMillis"];
+  },
   methods: {
     toTable(table) {
-      if (table.status === "free") this.$router.push(`/empty-table/${table.id}`);
+      if (table.status === "free")
+        this.$router.push(`/empty-table/${table.id}`);
       else this.$router.push(`/table-order/${table.id}`);
     },
 
     tableStatus(table) {
-      if(table.status === "completed") return "completed";
+      if (table.status === "completed") return "completed";
 
       if (table.status === "alert") return "alert";
       else if (this.isToAlert(table.statusChanges, table.orderCreatedAt)) {
         this.$store.dispatch("tables/setTableStatus", {
           id: table.id,
+          status: "alert",
+        });
+        this.$store.dispatch("orders/setOrderStatus", {
+          id: table.orderId,
           status: "alert",
         });
         return "alert";
@@ -43,6 +55,10 @@ export default {
           id: table.id,
           status: "first-alert",
         });
+        this.$store.dispatch("orders/setOrderStatus", {
+          id: table.orderId,
+          status: "first-alert",
+        });
         return "first-alert";
       }
       return table.status;
@@ -50,14 +66,14 @@ export default {
 
     isToFirstAlert(statusChanges, orderCreatedAt) {
       const currentTime = Date.now();
-      const firstAlertMillis = statusChanges.firstAlert * 60 * 1000;
+      const firstAlertMillis = this.tableAlertMillis.first;
       const creationMillis = new Date(orderCreatedAt).getTime();
       const firstAlertTime = creationMillis + firstAlertMillis;
       return firstAlertTime < currentTime;
     },
     isToAlert(statusChanges, orderCreatedAt) {
       const currentTime = Date.now();
-      const secondAlertMillis = statusChanges.secondAlert * 60 * 1000;
+      const secondAlertMillis = this.tableAlertMillis.second;
       const creationMillis = new Date(orderCreatedAt).getTime();
       const secondAlertTime = creationMillis + secondAlertMillis;
       return secondAlertTime < currentTime;

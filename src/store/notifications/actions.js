@@ -21,14 +21,14 @@ export default {
           currentTime + alertMillis.second >= hourMillis ||
           hourMillis <= currentTime
         );
-      else return hourMillis + tableAlertMillis.second <= currentTime;
+      else return hourMillis + tableAlertMillis.second <= currentTime; //tableAlertMillis.second
     };
 
     const isToFirstAlert = (hour, op) => {
       const currentTime = Date.now();
       const hourMillis = new Date(hour).getTime();
       if (op === "-") return currentTime + alertMillis.first >= hourMillis;
-      else return hourMillis + tableAlertMillis.first <= currentTime;
+      else return hourMillis +  tableAlertMillis.first <= currentTime; //
     };
 
     const createAlertNotification = (order, type) => {

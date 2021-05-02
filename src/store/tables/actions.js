@@ -23,5 +23,6 @@ export default {
       id: payload.tableId,
       status: "waiting",
     });
+    context.commit("updateTableOrderId", payload);
   },
 };

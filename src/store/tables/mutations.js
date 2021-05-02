@@ -15,4 +15,8 @@ export default {
     const t = state.tables.find((t) => t.id === payload.id);
     t.seats = payload.seats;
   },
+  updateTableOrderId(state, payload) {
+    const t = state.tables.find((t) => t.id === payload.tableId);
+    t.orderId = payload.tableId;
+  }
 };
