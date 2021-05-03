@@ -18,5 +18,6 @@ export default {
   updateTableOrderId(state, payload) {
     const t = state.tables.find((t) => t.id === payload.tableId);
     t.orderId = payload.tableId;
+    t.orderCreatedAt = new Date().toISOString();
   }
 };
