@@ -24,11 +24,86 @@ export default {
           ],
         },
         {
+          id: 1045,
+          category: "fritti",
+          subCategory: "",
+          price: 2.5,
+          name: "Strips di Pollo",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 1046,
+          category: "fritti",
+          subCategory: "",
+          price: 2.5,
+          name: "Fiori di zucca",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 102,
+          category: "fritti",
+          subCategory: "",
+          price: 2.5,
+          name: "Suppli",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
           id: 31,
           category: "bere",
           subCategory: "",
           price: 2.5,
           name: "Acqua 0.5L",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 3145,
+          category: "bere",
+          subCategory: "",
+          price: 2.5,
+          name: "Coca Cola 0.5L",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 3146,
+          category: "bere",
+          subCategory: "",
+          price: 2.5,
+          name: "Coca Cola 33cl",
           available: true,
           number: 0,
           ingredients: [
