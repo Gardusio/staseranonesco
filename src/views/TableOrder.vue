@@ -200,11 +200,11 @@ export default {
       this.showChiudi = false;
     },
     deleteOrder() {
+      this.setStatus("free");
       this.$store.dispatch("orders/deleteOrder", { id: this.table.id });
       this.$store.dispatch("notifications/deleteNotificationCompleted", {
         id: this.order.id,
       });
-      this.setStatus("free");
       this.$router.push("/sala");
     },
     calculateStatus(table)  {
