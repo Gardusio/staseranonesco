@@ -113,7 +113,7 @@ export default {
   background-color: var(--secondarybrown);
 }
 
-.header-ta {
+.hour-ta {
   color: var(--takeawaysgreen);
 }
 

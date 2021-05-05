@@ -1,6 +1,6 @@
 <template>
   <div class="circle-container">
-    <font-awesome-icon :icon="addIcon" class="plus">
+    <font-awesome-icon :icon="addIcon" class="plus" size="lg">
     </font-awesome-icon>
   </div>
 </template>
