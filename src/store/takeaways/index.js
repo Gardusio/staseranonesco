@@ -7,6 +7,7 @@ export default {
   state() {
     return {
       takeaways: [
+        /*
         {
           id: 3,
           name: "Laurenzi",
@@ -44,6 +45,7 @@ export default {
             },
           ],
         },
+        */
       ],
     };
   },

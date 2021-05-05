@@ -13,7 +13,7 @@ export default {
           category: "fritti",
           subCategory: "",
           price: 2.5,
-          name: "Cipotle, cipotle, cipotle, cipotle, cipotle",
+          name: "Anelli di cipolla",
           available: true,
           number: 0,
           ingredients: [
@@ -28,7 +28,7 @@ export default {
           category: "fritti",
           subCategory: "",
           price: 2.5,
-          name: "Strips di Pollo",
+          name: "Strick di Pollo",
           available: true,
           number: 0,
           ingredients: [
@@ -43,7 +43,7 @@ export default {
           category: "fritti",
           subCategory: "",
           price: 2.5,
-          name: "Fiori di zucca",
+          name: "Fiore di zucca",
           available: true,
           number: 0,
           ingredients: [
@@ -59,6 +59,51 @@ export default {
           subCategory: "",
           price: 2.5,
           name: "Suppli",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 102341,
+          category: "fritti",
+          subCategory: "",
+          price: 2.5,
+          name: "Patatine Fritte",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 4555,
+          category: "fritti",
+          subCategory: "",
+          price: 2.5,
+          name: "Crocchetta di patate",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 1,
+              name: "cipotle",
+            },
+          ],
+        },
+        {
+          id: 102342,
+          category: "fritti",
+          subCategory: "",
+          price: 2.5,
+          name: "Olive Ascolane",
           available: true,
           number: 0,
           ingredients: [
@@ -129,26 +174,182 @@ export default {
           ],
         },
         {
-          id: 11,
-          category: "fritti",
-          subCategory: "",
-          price: 2.5,
-          name: "Patatine fritte",
+          id: 2,
+          category: "pizze",
+          subCategory: "classiche",
+          price: 6,
+          name: "Margherita",
           available: true,
           number: 0,
           ingredients: [
             {
-              ingredientId: 1,
-              name: "cipotle",
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
             },
           ],
         },
         {
-          id: 2,
+          id: 201,
+          category: "pizze",
+          subCategory: "classiche",
+          price: 6,
+          name: "Focaccia",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 202,
+          category: "pizze",
+          subCategory: "classiche",
+          price: 6,
+          name: "Marinara",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 203,
+          category: "pizze",
+          subCategory: "classiche",
+          price: 6,
+          name: "Napoli",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 204,
+          category: "pizze",
+          subCategory: "classiche",
+          price: 6,
+          name: "Capricciosa",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 205,
+          category: "pizze",
+          subCategory: "bianche",
+          price: 6,
+          name: "Crostino",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 206,
+          category: "pizze",
+          subCategory: "bianche",
+          price: 6,
+          name: "Radicchio, gorgonzola, speck",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 207,
+          category: "pizze",
+          subCategory: "bianche",
+          price: 6,
+          name: "Rughetta, pachino, bufala",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 208,
           category: "pizze",
           subCategory: "rosse",
           price: 6,
-          name: "Margherita",
+          name: "Cipolle e peperoni",
+          available: true,
+          number: 0,
+          ingredients: [
+            {
+              ingredientId: 2,
+              name: "pomodoro",
+            },
+            {
+              ingredientId: 3,
+              name: "mozzarella",
+            },
+          ],
+        },
+        {
+          id: 209,
+          category: "pizze",
+          subCategory: "rosse",
+          price: 6,
+          name: "Rughetta, salame ungherese, carciofini",
           available: true,
           number: 0,
           ingredients: [

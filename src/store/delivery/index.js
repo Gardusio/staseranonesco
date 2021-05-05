@@ -7,6 +7,7 @@ export default {
   state() {
     return {
       deliveries: [
+        /*
         {
           id: 4,
           name: "Laurenzi",
@@ -46,6 +47,7 @@ export default {
             },
           ],
         },
+        */
       ],
     };
   },

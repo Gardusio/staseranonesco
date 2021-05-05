@@ -29,8 +29,8 @@ export default createStore({
         new Date().setHours(18, 30, 0, 0),
         new Date().setHours(22, 30, 0, 0),
       ],
-      tableFirstAlertMillis: 10000,//15 * 60 * 1000,
-      tableSecondAlertMillis: 20000,//30 * 60 * 1000,
+      tableFirstAlertMillis: 30000,//15 * 60 * 1000,
+      tableSecondAlertMillis: 60000,//30 * 60 * 1000,
       firstAlertMillis: 15 * 60 * 1000,
       secondAlertMillis: 5 * 60 * 1000,
     };

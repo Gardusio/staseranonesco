@@ -13,6 +13,7 @@
       <span class="text">Prenota tavolo</span>
     </div>
   </div>
+  <div class="separator"></div>
   <big-modal v-if="showAddModal" @close="showAddModal = false">
     <add-tables @close="showAddModal = false"></add-tables>
   </big-modal>
@@ -65,5 +66,14 @@ export default {
   font-weight: 500;
   color: var(--mainbrown);
   margin-top: 0.2rem;
+}
+
+.separator {
+  border: 0;
+  height: 1px;
+  margin-left: 9%;
+  margin-right: 35%;
+  margin-top: 1rem;
+  background: linear-gradient(var(--mainbrown), white);
 }
 </style>

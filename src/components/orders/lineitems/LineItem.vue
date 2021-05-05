@@ -38,7 +38,7 @@ export default {
         str = str.replace(/\n /, "\n");
         return str.split(" ").length;
       };
-      if (numWords(name) > 4) return true;
+      if (numWords(name) >= 4) return true;
       return false;
     },
   },
@@ -53,7 +53,7 @@ export default {
       else return "background-color: var(--bereblue)";
     },
     nameScaled() {
-      if (this.hasToScale(this.name)) return "font-size: 14px ";
+      if (this.hasToScale(this.name)) return "font-size: 15.5px ";
       return "";
     },
   },
