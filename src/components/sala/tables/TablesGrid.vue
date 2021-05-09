@@ -45,10 +45,12 @@ export default {
           id: table.id,
           status: alertFlag,
         });
-        this.$store.dispatch("orders/setOrderStatus", {
-          id: table.orderId,
-          status: alertFlag,
-        });
+        if (table.orderId != null) {
+          this.$store.dispatch("orders/setOrderStatus", {
+            id: table.orderId,
+            status: alertFlag,
+          });
+        }
         return alertFlag;
       }
       return table.status;
