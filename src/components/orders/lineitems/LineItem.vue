@@ -93,7 +93,6 @@ export default {
 }
 
 .name {
-  font-family: "Montserrat", "sans-serif";
   font-size: 20px;
   color: var(--mainbrown);
   text-align: left;

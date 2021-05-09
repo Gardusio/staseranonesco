@@ -1,24 +1,22 @@
 <template>
-  <div class="header-container">
-    <span class="title">Ordini</span>
-    <div class="actions-container">
+  <div class="orders-header-container">
+    <span class="orders-title">Ordini</span>
+    <div class="orders-actions-container">
       <fasce-header
         page="Fascia"
         :upper="upper"
         :lower="lower"
         @increase="(slot) => $emit('increase', slot)"
         @decrease="(slot) => $emit('decrease', slot)"
-      >
-      </fasce-header>
+      />
     </div>
-    <date-widget class="date"></date-widget>
-    <div id="border"></div>
+    <date-widget class="orders-date" />
   </div>
-  <div class="separator"></div>
+  <div class="orders-separator"></div>
 </template>
 
 <script>
-import FasceHeader from "../UI/layouts/FasceHeader";
+import FasceHeader from "../UI/layouts/fasce/FasceHeader";
 import DateWidget from "../UI/date/DateWidget";
 export default {
   emits: ["increase", "decrease"],
@@ -28,7 +26,7 @@ export default {
 </script>
 
 <style scoped>
-.header-container {
+.orders-header-container {
   display: flex;
   height: 20%;
   position: relative;
@@ -36,14 +34,14 @@ export default {
   justify-content: space-between;
   padding: 2rem 4rem;
 }
-.separator {
+.orders-separator {
   border: 0;
   height: 1px;
   width: calc(100% - 10rem);
   margin-left: 4rem;
   background: linear-gradient(gray, white);
 }
-.actions-container {
+.orders-actions-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,26 +50,14 @@ export default {
   width: 80%;
   margin-top: -2rem;
 }
-.date {
+.orders-date {
   position: unset !important;
 }
-
-.fascia {
-  font-family: "Raleway", "sans-serif";
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: var(--mainbrown);
-}
-
-.title {
+.orders-title {
   font-family: "Raleway", "sans-serif";
   font-size: 2rem;
   font-weight: 500;
   letter-spacing: 1px;
   color: var(--mainbrown);
-}
-
-.date {
-  height: auto;
 }
 </style>

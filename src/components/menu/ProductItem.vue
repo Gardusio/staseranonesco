@@ -57,7 +57,6 @@ export default {
 }
 
 .title {
-  font-family: "Montserrat";
   font-size: 18px;
   text-align: center;
   font-weight: 400;

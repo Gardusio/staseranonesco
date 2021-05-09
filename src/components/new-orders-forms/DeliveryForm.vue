@@ -1,4 +1,5 @@
 <template>
+  <big-modal @close="$emit('close')">
   <div class="container">
     <span class="new">Nuova Consegna</span>
     <form class="form-container" @submit.prevent="saveDelivery">
@@ -54,10 +55,15 @@
       <primary-button class="continue" text="Continua"></primary-button>
     </form>
   </div>
+  </big-modal>
 </template>
 
 <script>
+import BigModal from "../UI/layouts/modals/BigModal";
 export default {
+  components: {
+    BigModal
+  },
   data() {
     return {
       name: "",
@@ -134,7 +140,6 @@ export default {
 }
 
 .entry {
-  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   font-weight: 500;
   padding-bottom: 1rem;

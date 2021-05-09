@@ -1,10 +1,8 @@
 <template>
-  <div class="background">
-  </div>
+  <div class="background"></div>
 </template>
 
 <script>
-
 export default {};
 </script>
 
@@ -17,6 +15,6 @@ export default {};
   width: 100vw;
   position: fixed;
   bottom: 0;
-  z-index:-1000
+  z-index: -1000;
 }
 </style>

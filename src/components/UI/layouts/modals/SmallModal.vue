@@ -1,10 +1,10 @@
 <template>
   <div class="modal-mask" @click.self="$emit('close')">
-    <div class="container">
+    <div class="modal-content-container">
       <font-awesome-icon
         @click.self="$emit('close')"
         :icon="['fas', 'times-circle']"
-        class="close-icon"
+        class="modal-close-icon"
         size="lg"
       ></font-awesome-icon>
       <slot></slot>
@@ -13,25 +13,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  emits: ["close"],
+};
 </script>
 
 <style scoped>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(119, 122, 123, 0.4);
-  display: flex;
-  transition: opacity 0.3s ease;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
+.modal-content-container {
   background: rgba(255, 255, 255, 1);
   height: 50%;
   width: 30%;
@@ -41,13 +29,5 @@ export default {};
   z-index: 10;
   position: fixed;
   margin-left: 90px;
-}
-
-.close-icon {
-  color: #2d150b;
-  cursor: pointer;
-  position: absolute;
-  top: 2;
-  right: 20px;
 }
 </style>

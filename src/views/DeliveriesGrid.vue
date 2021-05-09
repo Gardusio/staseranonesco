@@ -1,33 +1,30 @@
 <template>
-  <the-background></the-background>
-  <the-sidebar activeElem="delivery"></the-sidebar>
-  <notifications-section></notifications-section>
+  <the-sidebar activeElem="delivery" />
+  <notifications-section/>
 
   <div class="main-container with-actions">
     <fasce-header
       :lower="slotLower"
       :upper="slotUpper"
       page="Consegne"
-      @increase="(slot) => up(slot)"
-      @decrease="(slot) => down(slot)"
-    ></fasce-header>
-    <orders-grid :orders="filteredOrders" type="del"></orders-grid>
+      @increase="(slot) => updateSlot(slot, 'up')"
+      @decrease="(slot) => updateSlot(slot, 'down')"
+    />
+    <orders-grid :orders="filteredOrders" type="del" />
   </div>
   <div class="actions">
-    <add-button @click="showNew = true" icon="del"></add-button>
+    <add-button @click="showNew = true" icon="del" />
   </div>
-  <big-modal v-if="showNew" @close="showNew = false">
-    <new-delivery-form></new-delivery-form>
-  </big-modal>
+
+  <new-delivery-form v-if="showNew" @close="showNew = false" />
 </template>
 
 <script>
 import NotificationsSection from "../components/notifications/NotificationsSection";
-import FasceHeader from "../components/UI/layouts/FasceHeader";
-import OrdersGrid from "../components/UI/layouts/OrdersGrid";
+import FasceHeader from "../components/UI/layouts/fasce/FasceHeader";
+import OrdersGrid from "../components/all/OrdersGrid";
 import AddButton from "../components/UI/buttons/AddButton";
 import NewDeliveryForm from "../components/new-orders-forms/DeliveryForm";
-import BigModal from "../components/UI/layouts/BigModal";
 export default {
   components: {
     NotificationsSection,
@@ -35,7 +32,6 @@ export default {
     OrdersGrid,
     AddButton,
     NewDeliveryForm,
-    BigModal
   },
   data() {
     return {
@@ -59,7 +55,7 @@ export default {
     this.slotUpper = slots[1];
   },
   methods: {
-    up(slot) {
+    updateSlot(slot, upOrDown) {
       let selectedMins;
       let selectedHours;
       let selectedSlot = slot === "lower" ? this.slotLower : this.slotUpper;
@@ -67,44 +63,29 @@ export default {
       selectedMins = new Date(selectedSlot).getMinutes();
       selectedHours = new Date(selectedSlot).getHours();
 
-      if (selectedMins >= 45) {
-        const newHour = selectedHours + 1;
-        selectedSlot = new Date().setHours(newHour, 0, 0, 0);
-      } else
+      if (upOrDown === "up") {
+        if (selectedMins >= 45) {
+          const newHour = selectedHours + 1;
+          selectedSlot = new Date().setHours(newHour, 0, 0, 0);
+        } else;
         selectedSlot = new Date().setHours(
           selectedHours,
           selectedMins + 15,
           0,
           0
         );
-
-      slot === "lower"
-        ? (this.slotLower = selectedSlot)
-        : (this.slotUpper = selectedSlot);
-
-      this.$store.dispatch("updateSlots", {
-        page: "delivery",
-        slots: [this.slotLower, this.slotUpper],
-      });
-    },
-    down(slot) {
-      let selectedMins;
-      let selectedHours;
-      let selectedSlot = slot === "lower" ? this.slotLower : this.slotUpper;
-
-      selectedMins = new Date(selectedSlot).getMinutes();
-      selectedHours = new Date(selectedSlot).getHours();
-
-      if (selectedMins === 0) {
-        const newHour = selectedHours - 1;
-        selectedSlot = new Date().setHours(newHour, 45, 0, 0);
-      } else
-        selectedSlot = new Date().setHours(
-          selectedHours,
-          selectedMins - 15,
-          0,
-          0
-        );
+      } else {
+        if (selectedMins === 0) {
+          const newHour = selectedHours - 1;
+          selectedSlot = new Date().setHours(newHour, 45, 0, 0);
+        } else
+          selectedSlot = new Date().setHours(
+            selectedHours,
+            selectedMins - 15,
+            0,
+            0
+          );
+      }
 
       slot === "lower"
         ? (this.slotLower = selectedSlot)

@@ -2,97 +2,53 @@
   <div
     :class="
       openStyle
-        ? 'notification-container-open ' + alertType
-        : 'notification-container ' + alertType
+        ? `notification-container-open ${alertType}`
+        : `notification-container ${alertType}`
     "
   >
-    <div class="notification-header">
-      <font-awesome-icon :icon="iconType" size="lg" class="icon"></font-awesome-icon>
-      <p class="notification-text-closed" :style="scaled">{{ text }}</p>
-      <font-awesome-icon
-        @click="openStyle = true"
-        v-if="!openStyle"
-        :icon="['fas', 'eye']"
-        class="eye-icon"
-      ></font-awesome-icon>
-      <font-awesome-icon
-        v-else
-        :icon="['fas', 'eye-slash']"
-        class="eye-icon"
-        @click.self="openStyle = false"
-      ></font-awesome-icon>
-    </div>
+    <notification-item-header
+      :type="type"
+      :isOpen="openStyle"
+      :notificationText="text"
+      @open="openStyle = true"
+      @close="openStyle = false"
+    />
+    
+    <notification-line-items v-if="openStyle" :lineItems="lineItems" />
 
-    <ul class="line-items" v-if="openStyle">
-      <li
-        v-for="lineItem in lineItems"
-        :key="lineItem.productId"
-        class="line-item"
-      >
-        <span class="qty">{{ lineItem.qty }}x </span>
-        <span class="product">{{ lineItem.productName }}</span>
-      </li>
-    </ul>
-
-    <button class="view-order" v-if="openStyle" @click="$emit('view')">
+    <button class="view-order-button" v-if="openStyle" @click="$emit('view')">
       Vai all'ordine
     </button>
 
-    <div class="notification-open-footer" v-if="openStyle">
-      <p class="delete-notification-text" @click="$emit('delete')">
-        Elimina notifica
-      </p>
-      <p class="notification-createdAt-date">creata alle {{ created }}</p>
-    </div>
+    <notification-item-footer
+      v-if="openStyle"
+      :createdAt="createdAt"
+      @delete="$emit('delete')"
+    />
   </div>
 </template>
 
 <script>
+import NotificationItemHeader from "./NotificationItemHeader.vue";
+import NotificationLineItems from "./NotificationLineItems.vue";
+import NotificationItemFooter from "./NotificationItemFooter.vue";
 export default {
+  components: {
+    NotificationItemHeader,
+    NotificationLineItems,
+    NotificationItemFooter,
+  },
   props: ["type", "alert", "text", "lineItems", "createdAt"],
   data() {
     return {
-      openStyle: this.open,
+      openStyle: false,
     };
-  },
-  methods: {
-    hasToScale(name) {
-      const numWords = (str) => {
-        str = str.replace(/(^\s*)|(\s*$)/gi, "");
-        str = str.replace(/[ ]{2,}/gi, " ");
-        str = str.replace(/\n /, "\n");
-        return str.split(" ").length;
-      };
-      if (numWords(name) > 4 && name.length > 33) return true;
-      return false;
-    },
   },
   computed: {
     alertType() {
-      let alertStyle;
-      if (this.alert === "alert") {
-        if (this.openStyle) alertStyle = "alert-style";
-        else alertStyle = "alert-style alert-style-closed";
-      } else if (this.alert === "first-alert") alertStyle = "first-alert-style";
-      return alertStyle;
-    },
-    scaled() {
-      return this.hasToScale(this.text)
-        ? " width:70%; font-size: 14px; overflow-wrap: break-word; "
-        : "";
-    },
-    iconType() {
-      return this.type === "ta"
-        ? ["fas", "layer-group"]
-        : this.type === "del"
-        ? ["fas", "car"]
-        : ["fas", "chair"];
-    },
-    created() {
-      const date = new Date(this.createdAt);
-      const h = date.getHours();
-      const m = date.getMinutes();
-      return `${h}.${m}`;
+      const alertStyle = "alert-style ";
+      if (this.alert === "alert" && this.openStyle) return alertStyle;
+      else return `${alertStyle} alert-style-closed`;
     },
   },
 };
@@ -112,16 +68,6 @@ export default {
   padding: 0.2rem;
 }
 
-.notification-text-closed {
-  font-weight: 500;
-  font-size: 16px;
-  text-align: center;
-}
-
-.notification-text-closed, .icon {
-    color: var(--mainbrown)
-}
-
 .notification-container-open {
   display: flex;
   flex-direction: column;
@@ -136,71 +82,7 @@ export default {
   transition: linear 2 ease-in;
 }
 
-.notification-header {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 48px;
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.line-items {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 75%;
-  height: 45%;
-  list-style: none;
-  overflow-y: scroll;
-}
-
-.line-item {
-  display: flex;
-  justify-content: space-around;
-  color: var(--mainbrown);
-}
-
-.qty {
-  font-weight: bold;
-  font-family: "Lato", sans-serif;
-  display: inline-block;
-  color: black;
-}
-
-.product {
-  display: inline-block;
-  font-weight: 200;
-  font-size: 16px;
-  font-family: "Lato", sans-serif;
-  margin-left: 0.5rem;
-  text-align: justify;
-  text-justify: inter-word;
-}
-
-.notification-open-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem;
-  width: 100%;
-}
-
-.delete-notification-text {
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  font-size: 12px;
-  color: black;
-}
-
-.notification-createdAt-date {
-  font-weight: 400;
-  font-size: 12px;
-  color: var(--mainbrown);
-}
-
-.view-order {
+.view-order-button {
   margin-top: 1rem;
   border-radius: 20px;
   border: 1px solid var(--secondarybrown);
@@ -215,7 +97,7 @@ export default {
 }
 
 .alert-style {
-  border-color: var(--second-alert-red);
+  border-color: var(--alert-red);
 }
 
 .alert-style-closed {
@@ -239,14 +121,5 @@ export default {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
-}
-
-.first-alert-style {
-  border-color: var(--notification-first-alert);
-  color: var(--notification-first-alert);
-}
-
-.eye-icon {
-  color: var(--mainbrown);
 }
 </style>

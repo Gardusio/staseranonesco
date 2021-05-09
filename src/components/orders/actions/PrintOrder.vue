@@ -1,4 +1,5 @@
 <template>
+<small-modal @close="$emit('close')">
   <div class="container">
     <span class="title">Stampa {{ header }}</span>
     <div class="content-container">
@@ -26,11 +27,16 @@
       <primary-button class="print" text="Stampa"></primary-button>
     </div>
   </div>
+    </small-modal>
 </template>
 
 <script>
+import SmallModal from "../../UI/layouts/modals/SmallModal";
 export default {
   props: ["header"],
+  components: {
+    SmallModal
+  },
   data() {
     return {
       orderCopies: 1,
@@ -73,7 +79,6 @@ export default {
 }
 
 .instructions {
-  font-family: "Montserrat", "sans-serif";
   font-size: 1.25rem;
   color: var(--mainbrown);
   text-align: center;

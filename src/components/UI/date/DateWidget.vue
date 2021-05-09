@@ -43,15 +43,4 @@ export default {
   width: auto;
   color: var(--mainbrown);
 }
-.day {
-  font-size: 1rem;
-  font-family: "Montserrat", sans-serif;
-  text-align: right;
-}
-
-.hour {
-  font-size: 2rem;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-}
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div class="grid-container">
     <table-item
-      v-for="table in tableList"
+      v-for="table in tables"
       :key="table.id"
       :tableId="table.id"
       :number="table.number"
-      :status="tableStatus(table)"
+      :status="calculateTableStatus(table)"
       :orderCreatedAt="table.orderCreatedAt"
       @click="toTable(table)"
     ></table-item>
@@ -17,13 +17,16 @@ import TableItem from "./Table.vue";
 
 export default {
   components: { TableItem },
-  props: ["tableList"],
   data() {
     return {
+      tables: [],
       tableAlertMillis: {},
     };
   },
   created() {
+    //load Tables
+    //this.$store.dispatch("tables/setTables");
+    this.tables = this.$store.getters["tables/getTables"];
     this.tableAlertMillis = this.$store.getters["getTableAlertMillis"];
   },
   methods: {
@@ -33,50 +36,30 @@ export default {
       else this.$router.push(`/table-order/${table.id}`);
     },
 
-    tableStatus(table) {
+    calculateTableStatus(table) {
+      const alertFlag = "alert";
       if (table.status === "completed") return "completed";
-
-      if (table.status === "alert") return "alert";
-      else if (this.isToAlert(table.statusChanges, table.orderCreatedAt)) {
+      if (table.status === alertFlag) return alertFlag;
+      else if (this.isToAlert(table.orderCreatedAt)) {
         this.$store.dispatch("tables/setTableStatus", {
           id: table.id,
-          status: "alert",
+          status: alertFlag,
         });
         this.$store.dispatch("orders/setOrderStatus", {
           id: table.orderId,
-          status: "alert",
+          status: alertFlag,
         });
-        return "alert";
-      }
-
-      if (table.status === "first-alert") return "first-alert";
-      else if (this.isToFirstAlert(table.statusChanges, table.orderCreatedAt)) {
-        this.$store.dispatch("tables/setTableStatus", {
-          id: table.id,
-          status: "first-alert",
-        });
-        this.$store.dispatch("orders/setOrderStatus", {
-          id: table.orderId,
-          status: "first-alert",
-        });
-        return "first-alert";
+        return alertFlag;
       }
       return table.status;
     },
 
-    isToFirstAlert(statusChanges, orderCreatedAt) {
+    isToAlert(orderCreatedAt) {
       const currentTime = Date.now();
-      const firstAlertMillis = this.tableAlertMillis.first;
+      const alertMillis = this.tableAlertMillis;
       const creationMillis = new Date(orderCreatedAt).getTime();
-      const firstAlertTime = creationMillis + firstAlertMillis;
-      return firstAlertTime < currentTime;
-    },
-    isToAlert(statusChanges, orderCreatedAt) {
-      const currentTime = Date.now();
-      const secondAlertMillis = this.tableAlertMillis.second;
-      const creationMillis = new Date(orderCreatedAt).getTime();
-      const secondAlertTime = creationMillis + secondAlertMillis;
-      return secondAlertTime < currentTime;
+      const alertTime = creationMillis + alertMillis;
+      return alertTime < currentTime;
     },
   },
 };

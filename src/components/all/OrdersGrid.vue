@@ -28,10 +28,10 @@
 
 <script>
 import OrdersCard from "./OrdersCard";
-import BigModal from "../layouts/BigModal";
-import SmallModal from "../layouts/SmallModal";
-import PrintOrderBill from "../../orders/actions/PrintOrderBill";
-import PrintOrder from "../../orders/actions/PrintOrder";
+import BigModal from "../UI/layouts/modals/BigModal";
+import SmallModal from "../UI/layouts/modals/SmallModal";
+import PrintOrderBill from "../orders/actions/PrintOrderBill";
+import PrintOrder from "../orders/actions/PrintOrder";
 export default {
   components: { OrdersCard, BigModal, SmallModal, PrintOrder, PrintOrderBill },
   props: ["orders", "type"],
@@ -56,11 +56,10 @@ export default {
       const hourMillis = new Date(hour).getTime();
       const alertMillis = this.$store.getters["getAlertMillis"];
       if (
-        currentTime + alertMillis.second >= hourMillis ||
+        currentTime + alertMillis >= hourMillis ||
         hourMillis <= currentTime
       )
-        return "second-alert";
-      if (currentTime + alertMillis.first >= hourMillis) return "first-alert";
+        return "alert";
       return "";
     },
     getOrderHour(date) {

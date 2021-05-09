@@ -1,22 +1,28 @@
 <template>
-  <div class="container">
-    <span class="title">Ordine {{ header }}</span>
-    <div class="content-container">
-      <span class="instructions"
-        >Chiudi l'ordine se è uscito tutto dalla cucina.
-        <span class="mark">Potrai riaprirlo</span> in seguito.</span
-      >
-      <span class="instructions evidence">È uscito tutto?</span>
-      <primary-button
-        text="Tutto!"
-        @click="$emit('closeOrder')"
-      ></primary-button>
+  <small-modal @close="$emit('close')">
+    <div class="container">
+      <span class="title">Ordine {{ header }}</span>
+      <div class="content-container">
+        <span class="instructions"
+          >Chiudi l'ordine se è uscito tutto dalla cucina.
+          <span class="mark">Potrai riaprirlo</span> in seguito.</span
+        >
+        <span class="instructions evidence">È uscito tutto?</span>
+        <primary-button
+          text="Tutto!"
+          @click="$emit('closeOrder')"
+        ></primary-button>
+      </div>
     </div>
-  </div>
+  </small-modal>
 </template>
 
 <script>
+import SmallModal from "../../UI/layouts/modals/SmallModal";
 export default {
+  components: {
+    SmallModal,
+  },
   props: ["header"],
 };
 </script>
@@ -35,7 +41,7 @@ export default {
   flex-direction: column;
   width: 100%;
   height: 90%;
-  margin-top:1rem;
+  margin-top: 1rem;
   align-items: center;
   justify-content: space-around;
 }
@@ -46,11 +52,10 @@ export default {
   color: var(--mainbrown);
   letter-spacing: 1px;
   margin-top: 2rem;
-  text-align:center;
+  text-align: center;
 }
 
 .instructions {
-  font-family: "Montserrat", "sans-serif";
   font-size: 1.25rem;
   color: var(--mainbrown);
   text-align: center;
@@ -59,7 +64,7 @@ export default {
 
 .evidence {
   font-weight: 600;
-  color: var(--secondarybrown)
+  color: var(--secondarybrown);
 }
 
 .mark {

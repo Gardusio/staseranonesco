@@ -1,8 +1,8 @@
 <template>
   <div class="header-container">
-    <back-widget :view="view" @back="back()"></back-widget>
-    <order-title :title="title" :waiting="wait"></order-title>
-    <add-button @click="addLineItem()"></add-button>
+    <back-widget :view="view" @back="back()" />
+    <order-title :title="title" :waiting="waiting" />
+    <add-button @click="$emit('addLineItem')" />
   </div>
 </template>
 
@@ -18,24 +18,11 @@ export default {
     BackWidget,
     OrderTitle,
   },
-  data() {
-    return {
-      wait: this.waiting,
-    };
-  },
   methods: {
     back() {
       if (this.view === "Sala") this.$emit("toSala");
       else if (this.view === "Asporto") this.$emit("toTakeAways");
       else this.$emit("toDeliveries");
-    },
-    addLineItem() {
-      this.$emit("addLineItem");
-    },
-  },
-  watch: {
-    waiting() {
-      this.wait = this.waiting;
     },
   },
 };
@@ -46,6 +33,8 @@ export default {
   margin-top: 3rem;
   margin-left: 2rem;
   margin-right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0rem 1rem;
 }
-
 </style>

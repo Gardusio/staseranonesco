@@ -1,6 +1,6 @@
 <template>
   <div class="notif-header-container">
-    <span class="title-header">Notifiche</span>
+    <span class="notif-title-header">Notifiche</span>
     <the-hour :key="upload" style="color: var(--mainbrown)"></the-hour>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
   padding: 2rem 1.25rem 0rem 1.25rem;
 }
 
-.title-header {
+.notif-title-header {
   font-family: "Raleway", "sans-serif";
   font-size: 2rem;
   color: var(--mainbrown);

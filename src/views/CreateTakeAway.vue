@@ -1,5 +1,4 @@
 <template>
-  <the-background></the-background>
   <the-sidebar activeElem="ta"></the-sidebar>
 
   <section class="left-section" style="padding: 1.5rem">

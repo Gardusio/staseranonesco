@@ -7,8 +7,6 @@ export default {
   state() {
     return {
       notifications: [],
-      firstNotifications: [],
-      hasToReload: false,
     };
   },
   getters,

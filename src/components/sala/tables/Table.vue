@@ -1,8 +1,8 @@
 <template>
-  <div class="container" :class="status === 'alert' ? 'animated-alert' : ''">
+  <div class="table-container" :class="status === 'alert' ? 'animated-alert' : ''">
     <div class="table-icon-container">
-      <p :class="numberClass">{{ number }}</p>
-      <img class="table" src="../../../assets/table.png" />
+      <p class="table-number" :style="numberStyle">{{ number }}</p>
+      <img class="table-img" src="../../../assets/table.png" />
     </div>
     <table-icon :status="status"></table-icon>
   </div>
@@ -13,42 +13,20 @@ import TableIcon from "./TableIcon";
 
 export default {
   components: { TableIcon },
-
   props: ["status", "number"],
-  data() {
-    return {
-      numberStyle: "number",
-    };
-  },
   computed: {
-    numberClass() {
-      if (this.isCompleted()) return this.numberStyle + " completed";
-      if (this.isWaiting()) return this.numberStyle + " waiting";
-      if (this.isAlert()) return this.numberStyle + " alert";
-      if (this.isFirstAlert()) return this.numberStyle + " first-alert";
-      return this.numberStyle;
-    },
-  },
-
-  methods: {
-    isCompleted() {
-      return this.status === "completed";
-    },
-    isWaiting() {
-      return this.status === "waiting";
-    },
-    isAlert() {
-      return this.status === "alert";
-    },
-    isFirstAlert() {
-      return this.status === "first-alert";
+    numberStyle() {
+      if (this.status === "completed") return "color: var(--completed-green)";
+      if (this.status === "waiting") return "color: var(--friedorange)";
+      if (this.status === "alert") return "color: var(--alert-red)";
+      return ""
     },
   },
 };
 </script>
 
 <style scoped>
-.container {
+.table-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,30 +44,18 @@ export default {
   height: 5rem;
 }
 
-.table {
+.table-img {
   z-index: 10;
   width: 7rem;
   height: 5rem;
 }
 
-.number {
+.table-number {
   font-family: "Lato", sans-serif;
   font-weight: bold;
   color: var(--gray);
   font-size: 60px;
   margin-right: 8px;
   text-shadow: 2px 3px 3px rgba(119, 122, 123, 0.1);
-}
-.completed {
-  color: var(--completed-green);
-}
-.first-alert {
-  color: var(--notification-first-alert);
-}
-.waiting {
-  color: var(--friedorange);
-}
-.alert {
-  color: var(--second-alert-red);
 }
 </style>

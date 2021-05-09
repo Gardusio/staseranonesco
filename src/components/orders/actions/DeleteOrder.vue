@@ -1,23 +1,29 @@
 <template>
-  <div class="container">
-    <span class="title">Elimina Ordine</span>
-    <div class="content-container">
-      <span class="instructions">
-        <span style="font-weight: 600"> Attento</span> tutte le righe d'ordine
-        verranno cancellate!
-      </span>
-      <span class="instructions evidence">{{ instructionsEvidence }}</span>
-      <primary-button
-        class="alert"
-        text="Elimina ordine"
-        @click="$emit('deleteOrder')"
-      ></primary-button>
+  <small-modal @close="$emit('close')">
+    <div class="container">
+      <span class="title">Elimina Ordine</span>
+      <div class="content-container">
+        <span class="instructions">
+          <span style="font-weight: 600"> Attento</span> tutte le righe d'ordine
+          verranno cancellate!
+        </span>
+        <span class="instructions evidence">{{ instructionsEvidence }}</span>
+        <primary-button
+          class="alert"
+          text="Elimina ordine"
+          @click="$emit('deleteOrder')"
+        />
+      </div>
     </div>
-  </div>
+  </small-modal>
 </template>
 
 <script>
+import SmallModal from "../../UI/layouts/modals/SmallModal";
 export default {
+  components: {
+    SmallModal,
+  },
   props: ["header", "instructionsEvidence"],
 };
 </script>
@@ -47,11 +53,10 @@ export default {
   color: firebrick;
   letter-spacing: 1px;
   margin-top: 2rem;
-  text-align:center;
+  text-align: center;
 }
 
 .instructions {
-  font-family: "Montserrat", "sans-serif";
   font-size: 1.25rem;
   color: var(--mainbrown);
   text-align: center;

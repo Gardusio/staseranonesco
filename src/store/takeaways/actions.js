@@ -17,4 +17,7 @@ export default {
   setStatus(context, payload) {
     context.commit("setStatus", payload);
   },
+  deleteTakeAway(context, payload) {
+    context.commit("deleteOne", payload);
+  },
 };

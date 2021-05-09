@@ -1,19 +1,28 @@
 <template>
-  <div class="container">
-    <span class="title">Ordine {{ header }}</span>
-    <div class="content-container">
-      <span class="instructions"
-        >Riapri l'ordine per aggiungere<span class="mark"> nuove comande</span
-        >.</span
-      >
-      <span class="instructions evidence">Vuoi riaprire l'ordine?</span>
-      <primary-button text="Apri!" @click="$emit('openOrder')"></primary-button>
+  <small-modal @close="$emit('close')">
+    <div class="container">
+      <span class="title">Ordine {{ header }}</span>
+      <div class="content-container">
+        <span class="instructions"
+          >Riapri l'ordine per aggiungere<span class="mark"> nuove comande</span
+          >.</span
+        >
+        <span class="instructions evidence">Vuoi riaprire l'ordine?</span>
+        <primary-button
+          text="Apri!"
+          @click="$emit('openOrder')"
+        ></primary-button>
+      </div>
     </div>
-  </div>
+  </small-modal>
 </template>
 
 <script>
+import SmallModal from "../../UI/layouts/modals/SmallModal.vue";
 export default {
+  components: {
+    SmallModal,
+  },
   props: ["header"],
 };
 </script>
@@ -43,11 +52,10 @@ export default {
   color: var(--mainbrown);
   letter-spacing: 1px;
   margin-top: 2rem;
-  text-align:center;
+  text-align: center;
 }
 
 .instructions {
-  font-family: "Montserrat", "sans-serif";
   font-size: 1.25rem;
   color: var(--mainbrown);
   text-align: center;

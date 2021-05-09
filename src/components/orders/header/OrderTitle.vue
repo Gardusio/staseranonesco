@@ -1,28 +1,18 @@
 <template>
-  <div class="container">
-    <span class="title">{{ title }}</span>
-    <span class="waiting">{{ wait }}</span>
+  <div class="order-header-title-container">
+    <span class="order-title">{{ title }}</span>
+    <span class="order-waiting">{{ waiting }}</span>
   </div>
 </template>
 
 <script>
 export default {
   props: ["title", "waiting"],
-  data() {
-    return {
-      wait: this.waiting,
-    };
-  },
-  watch: {
-    waiting() {
-      this.wait = this.waiting;
-    },
-  },
 };
 </script>
 
 <style scoped>
-.container {
+.order-header-title-container {
   position: absolute;
   width: 50%;
   height: auto;
@@ -33,11 +23,10 @@ export default {
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
-.title {
+.order-title {
   font-family: "Raleway", "sans-serif";
   letter-spacing: 1px;
   font-weight: 600;
@@ -46,8 +35,7 @@ export default {
   width: 66%;
 }
 
-.waiting {
-  font-family: "Montserrat", "sans-serif";
+.order-waiting {
   font-size: 1.25rem;
   margin-top: 0.5rem;
   color: var(--mainbrown);

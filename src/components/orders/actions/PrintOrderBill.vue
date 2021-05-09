@@ -1,69 +1,73 @@
 <template>
-  <div class="container">
-    <span class="title">Conto {{ header }}</span>
-    <span class="total"
-      >{{ confirmedTotal !== 0 ? confirmedTotal : total }}€</span
-    >
-    <div class="content-container">
-      <span class="instructions">Vuoi aggiungere uno sconto?</span>
-      <div class="discounts-grid">
-        <div
-          class="discount-item"
-          :class="selectedDiscount === 1 ? 'active' : ''"
-          @click.self="selectDiscount(1)"
-        >
-          1€
+  <big-modal @close="$emit('close')">
+    <div class="container">
+      <span class="title">Conto {{ header }}</span>
+      <span class="total"
+        >{{ confirmedTotal !== 0 ? confirmedTotal : total }}€</span
+      >
+      <div class="content-container">
+        <span class="instructions">Vuoi aggiungere uno sconto?</span>
+        <div class="discounts-grid">
+          <div
+            class="discount-item"
+            :class="selectedDiscount === 1 ? 'active' : ''"
+            @click.self="selectDiscount(1)"
+          >
+            1€
+          </div>
+          <div
+            class="discount-item"
+            :class="selectedDiscount === 1.5 ? 'active' : ''"
+            @click="selectDiscount(1.5)"
+          >
+            1.5€
+          </div>
+          <div
+            class="discount-item"
+            :class="selectedDiscount === 2 ? 'active' : ''"
+            @click="selectDiscount(2)"
+          >
+            2€
+          </div>
+          <div
+            class="discount-item"
+            :class="selectedDiscount === 2.5 ? 'active' : ''"
+            @click="selectDiscount(2.5)"
+          >
+            2.5€
+          </div>
+          <div
+            class="discount-item"
+            :class="selectedDiscount === 3 ? 'active' : ''"
+            @click="selectDiscount(3)"
+          >
+            3€
+          </div>
+          <div
+            class="discount-item"
+            :class="selectedDiscount === 3.5 ? 'active' : ''"
+            @click="selectDiscount(3.5)"
+          >
+            3.5€
+          </div>
         </div>
-        <div
-          class="discount-item"
-          :class="selectedDiscount === 1.5 ? 'active' : ''"
-          @click="selectDiscount(1.5)"
-        >
-          1.5€
-        </div>
-        <div
-          class="discount-item"
-          :class="selectedDiscount === 2 ? 'active' : ''"
-          @click="selectDiscount(2)"
-        >
-          2€
-        </div>
-        <div
-          class="discount-item"
-          :class="selectedDiscount === 2.5 ? 'active' : ''"
-          @click="selectDiscount(2.5)"
-        >
-          2.5€
-        </div>
-        <div
-          class="discount-item"
-          :class="selectedDiscount === 3 ? 'active' : ''"
-          @click="selectDiscount(3)"
-        >
-          3€
-        </div>
-        <div
-          class="discount-item"
-          :class="selectedDiscount === 3.5 ? 'active' : ''"
-          @click="selectDiscount(3.5)"
-        >
-          3.5€
-        </div>
-      </div>
 
-      <input
-        class="input"
-        type="text"
-        placeholder="Cambia il prezzo finale"
-        :v-model="confirmedTotal !== 0 ? confirmedTotal : total"
-      />
-      <primary-button text="Stampa"></primary-button>
+        <input
+          class="input"
+          type="text"
+          placeholder="Cambia il prezzo finale"
+          :v-model="confirmedTotal !== 0 ? confirmedTotal : total"
+        />
+        <primary-button text="Stampa"></primary-button>
+      </div>
     </div>
-  </div>
+  </big-modal>
 </template>
 
 <script>
+import BigModal from "../../UI/layouts/modals/BigModal";
 export default {
+  components: { BigModal },
   props: ["total", "header"],
   data() {
     return {
@@ -109,7 +113,6 @@ export default {
   width: 100%;
   height: 90%;
 
-
   align-items: center;
   justify-content: space-around;
 }
@@ -123,7 +126,6 @@ export default {
   margin-top: 1rem;
 }
 .instructions {
-  font-family: "Montserrat", "sans-serif";
   font-size: 1.25rem;
   color: var(--mainbrown);
   text-align: center;
@@ -158,7 +160,6 @@ export default {
 .input {
   border: 1px solid var(--mainbrown);
   color: var(--mainbrown);
-  font-family: "Montserrat", "sans-serif";
   font-size: 1.25rem;
   width: 70%;
   padding: 0.5rem;

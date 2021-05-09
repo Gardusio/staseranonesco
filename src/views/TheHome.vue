@@ -1,5 +1,4 @@
 <template>
-  <the-background></the-background>
   <div class="flex-container">
     <div class="home-date-container">
       <p class="home-date-container__date">{{ date }}</p>

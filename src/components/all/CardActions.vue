@@ -5,20 +5,15 @@
       :icon="['fas', 'print']"
       size="lg"
       @click="$emit('showPrintOrder')"
-    ></font-awesome-icon>
+    />
     <font-awesome-icon
       class="icon"
       :icon="['fas', 'receipt']"
       size="lg"
       @click="$emit('showBill')"
-    ></font-awesome-icon>
-    
+    />
   </div>
 </template>
-
-<script>
-export default {};
-</script>
 
 <style scoped>
 .actions-container {

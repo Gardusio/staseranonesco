@@ -18,4 +18,7 @@ export default {
     const order = orders.find((o) => o.id == payload.id);
     order.completed = payload.status;
   },
+  deleteOne(state, payload) {
+    state.takeaways = state.takeaways.filter((d) => d.id !== payload.id);
+  },
 };

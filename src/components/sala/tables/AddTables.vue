@@ -1,35 +1,33 @@
 <template>
-  <div class="container">
-    <header class="add-tables-header">Aggiungi Tavolo</header>
-    <section class="container section">
-      <p class="instructions">Inserisci il numero del nuovo tavolo.</p>
-      <input class="input" type="number" v-model="table.number" />
-      <single-table-icon></single-table-icon>
-      <p class="error" v-if="error">
-        Il tavolo numero {{ table.number }} esiste gia!
-      </p>
-    </section>
-    <section class="container section">
-      <p class="instructions">Inserisci i posti a tavola.</p>
-      <input class="input" type="number" v-model="table.seats" />
-      <chairs-icon></chairs-icon>
-    </section>
-    <primary-button
-      class="primary-button"
-      text="Aggiungi"
-      @click="addTable()"
-    ></primary-button>
-  </div>
+  <header class="add-tables-header">Aggiungi Tavolo</header>
+
+  <section class="add-tables-section">
+    <p class="add-tables-instructions">Inserisci il numero del nuovo tavolo.</p>
+    <input class="add-tables-input" type="number" v-model="table.number" />
+
+    <single-table-icon />
+
+    <p class="add-tables-error" v-if="error">
+      Il tavolo numero {{ table.number }} esiste gia!
+    </p>
+  </section>
+
+  <section class="add-tables-section">
+    <p class="add-tables-instructions">Inserisci i posti a tavola.</p>
+    <input class="add-tables-input" type="number" v-model="table.seats" />
+
+    <chairs-icon />
+  </section>
+
+  <primary-button class="primary-button" text="Aggiungi" @click="addTable()" />
 </template>
 
 <script>
-import PrimaryButton from "../../UI/buttons/PrimaryButton";
 import SingleTableIcon from "./SingleTableIcon";
 import ChairsIcon from "./ChairsIcon";
 export default {
-  props: ["buttonText"],
+  emits: ["close"],
   components: {
-    PrimaryButton,
     SingleTableIcon,
     ChairsIcon,
   },
@@ -43,11 +41,6 @@ export default {
         number: this.tablesLength() + 1,
         seats: 4,
         status: "free",
-        reservation: {},
-        statusChanges: {
-          firstAlert: 15,
-          secondAlert: 30,
-        },
         orderCreatedAt: "",
         lastUpdateAt: "",
         createdAt: new Date(),
@@ -67,30 +60,26 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.add-tables-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.section {
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
-
 .add-tables-header {
   font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--secondarybrown);
 }
-.instructions {
+.add-tables-instructions {
   color: var(--primarybrown);
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin-bottom: 1rem;
 }
-.input {
+.add-tables-input {
   margin-bottom: 1rem;
   border-radius: 20px;
   height: 52px;
@@ -109,7 +98,7 @@ export default {
   margin-top: 2rem;
   letter-spacing: 0.5px;
 }
-.error {
+.add-tables-error {
   color: firebrick;
   text-transform: uppercase;
 }

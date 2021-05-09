@@ -1,47 +1,34 @@
 <template>
   <nav class="sidebar-container">
     <ul class="sidebar__icon-list">
-      <router-link to="/sala"
-        ><nav-item item="sala" text="Sala" :isActive="activeElem === 'sala'">
-        </nav-item>
+      <router-link to="/sala">
+        <nav-item item="sala" text="Sala" :isActive="activeElem === 'sala'" />
       </router-link>
+
       <router-link to="/delivery">
         <nav-item
           item="delivery"
           text="Consegne"
           :isActive="activeElem === 'delivery'"
-        >
-        </nav-item>
+        />
       </router-link>
+
       <router-link to="/take-away">
-        <nav-item item="ta" text="Asporto" :isActive="activeElem === 'ta'">
-        </nav-item>
+        <nav-item item="ta" text="Asporto" :isActive="activeElem === 'ta'" />
       </router-link>
+
       <router-link to="/orders">
         <nav-item
           item="orders"
           text="Ordini"
           :isActive="activeElem === 'orders'"
-        >
-        </nav-item>
+        />
       </router-link>
-      
-        <nav-item
-          item="menu"
-          text="Menu"
-          :isActive="activeElem === 'menu'"
-        ></nav-item>
-      
-      <router-link to="/ingredients">
-        <nav-item
-          item="inventario"
-          text="Esauriti"
-          :isActive="activeElem === 'ingredients'"
-        >
-        </nav-item>
-      </router-link>
+
+      <nav-item item="menu" text="Menu" :isActive="activeElem === 'menu'" />
+
       <router-link to="/home">
-        <nav-item item="back" text="Home"> </nav-item>
+        <nav-item item="back" text="Home" />
       </router-link>
     </ul>
   </nav>
@@ -80,7 +67,7 @@ a.router-link-active {
 }
 
 .sidebar__icon-list {
- align-items: center;
+  align-items: center;
   justify-content: space-evenly;
   padding: 1rem;
   display: flex;

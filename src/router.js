@@ -6,7 +6,6 @@ import DeliveriesGrid from "./views/DeliveriesGrid.vue";
 import TakeAways from "./views/TakeAways.vue";
 import AllOrders from "./views/AllOrders.vue";
 import TheMenu from "./views/TheMenu.vue";
-import TheIngredients from "./views/TheIngredients.vue";
 import EmptyTable from "./views/EmptyTable.vue";
 import CreateTableOrder from "./views/CreateTableOrder.vue";
 import TableOrder from "./views/TableOrder.vue";
@@ -50,11 +49,6 @@ const routes = [
     path: "/menu",
     name: "menu",
     component: TheMenu,
-  },
-  {
-    path: "/ingredients",
-    name: "ingredients",
-    component: TheIngredients,
   },
   {
     path: "/table-order/:id",

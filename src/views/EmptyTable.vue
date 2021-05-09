@@ -1,6 +1,5 @@
 <template>
-  <the-background></the-background>
-  <the-sidebar activeElem="sala"></the-sidebar>
+  <the-sidebar activeElem="sala" />
   <section class="main-section">
     <p class="title">Tavolo {{ table.number }}</p>
     <div class="seats">
@@ -11,18 +10,18 @@
           :icon="['fas', 'minus-circle']"
           size="lg"
           @click="updateSeats(-1)"
-        ></font-awesome-icon>
+        />
         <input class="input" type="number" :value="seats" />
         <font-awesome-icon
           class="action-icon"
           :icon="['fas', 'plus-circle']"
           size="lg"
           @click="updateSeats(1)"
-        ></font-awesome-icon>
+        />
       </div>
-      <chairs-icon></chairs-icon>
+      <chairs-icon />
     </div>
-    <small-modal v-if="showSeats" @close="showSeats = false"> </small-modal>
+   
     <primary-button
       @click="createOrder()"
       class="main-action"
@@ -30,20 +29,18 @@
       >Apri ordine</primary-button
     >
   </section>
-  <date-widget class="date"></date-widget>
+  <date-widget class="date" />
 </template>
 
 <script>
 import DateWidget from "../components/UI/date/DateWidget";
 import ChairsIcon from "../components/sala/tables/ChairsIcon.vue";
-import SmallModal from "../components/UI/layouts/SmallModal.vue";
 
 export default {
   props: ["id", "number"],
   components: {
     ChairsIcon,
     DateWidget,
-    SmallModal,
   },
   data() {
     return {
@@ -78,7 +75,6 @@ export default {
       this.$router.push("/create/" + tableId);
     },
   },
-  computed: {},
 };
 </script>
 

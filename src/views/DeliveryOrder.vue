@@ -1,122 +1,85 @@
 <template>
-  <the-background></the-background>
-  <the-sidebar activeElem="delivery"></the-sidebar>
+  <the-sidebar activeElem="delivery" />
 
   <order-header
-    @toDeliveries="toDeliveries()"
-    @addLineItem="addProduct()"
+    @toDeliveries="$router.push('/delivery')"
+    @addLineItem="$router.push(`/update-del/${order.id}`)"
     view="Consegne"
-    :title="title"
+    :title="order.name"
     :waiting="timeBefore"
-  ></order-header>
+  />
 
   <main class="line-items-section">
     <line-items-grid
       @addOne="addOne"
       @removeOne="removeOne"
       :lineItems="order.lineItems"
-    ></line-items-grid>
+    />
   </main>
 
-  <div class="nav-list">
-    <div class="nav-item" @click="showStampa = true">
-      <font-awesome-icon
-        :icon="['fas', 'print']"
-        class="icon"
-        size="2x"
-      ></font-awesome-icon>
-      <span class="category">Stampa</span>
-    </div>
-    <div class="nav-item" @click="showConto = true">
-      <font-awesome-icon
-        :icon="['fas', 'euro-sign']"
-        class="icon"
-        size="2x"
-      ></font-awesome-icon>
-      <span class="category">Conto</span>
-    </div>
-    <div class="nav-item">
-      <font-awesome-icon
-        :icon="['fas', 'car']"
-        class="icon"
-        size="2x"
-      ></font-awesome-icon>
-      <span class="category">Ordine</span>
-    </div>
-    <div class="nav-item" @click="showChiudi = true">
-      <font-awesome-icon
-        :icon="['fas', 'check-circle']"
-        class="icon"
-        size="2x"
-      ></font-awesome-icon>
-      <span class="category">{{ statusNavText }}</span>
-    </div>
-    <div class="nav-item" @click="showElimina = true">
-      <font-awesome-icon
-        :icon="['fas', 'trash']"
-        class="icon"
-        size="2x"
-      ></font-awesome-icon>
-      <span class="category">Elimina</span>
-    </div>
-  </div>
+  <actions-list
+    :isCompleted="order.completed"
+    @showStampa="showStampa = true"
+    @showConto="showConto = true"
+    @showChiudi="showChiudi = true"
+    @showElimina="showElimina = true"
+  />
 
-  <small-modal v-if="showStampa" @close="showStampa = false">
-    <print-order :header="order.name"></print-order>
-  </small-modal>
+  <print-order
+    :header="`${order.name}`"
+    v-if="showStampa"
+    @close="showStampa = false"
+  />
 
-  <big-modal v-if="showConto" @close="showConto = false">
-    <print-order-bill
-      :total="order.total"
-      :header="order.name"
-    ></print-order-bill>
-  </big-modal>
+   <print-order-bill
+    v-if="showConto"
+    @close="showConto = false"
+    :total="order.total"
+    :header="`${order.name}`"
+  />
 
-  <big-modal v-if="showTavolo" @close="showTavolo = false">
-    <!-- seats, lastUpdate - waiting for tot li (#fritti,#panini...) -->
-  </big-modal>
+  <!-- seats, lastUpdate - waiting for tot li (#fritti,#panini...) -->
 
-  <small-modal v-if="showChiudi" @close="showChiudi = false">
-    <close-table
-      v-if="!order.completed"
-      :header="title"
-      @closeOrder="setStatus(true)"
-    ></close-table>
-    <open-order
-      v-if="order.completed"
-      :header="title"
-      @openOrder="setStatus(false)"
-    ></open-order>
-  </small-modal>
+  <close-table
+    v-if="showChiudi && !order.completed"
+    :header="`${order.name}`"
+    @closeOrder="setStatus(true)"
+    @close="showChiudi = false"
+  />
 
-  <small-modal v-if="showElimina" @close="showElimina = false">
-    <delete-order
-      @deleteOrder="deleteDelivery()"
-      instructionsEvidence="Eliminare questa consegna?"
-    ></delete-order>
-  </small-modal>
+  <open-order
+    v-if="showChiudi && order.completed"
+    :header="`${order.name}`"
+    @openOrder="setStatus(false)"
+    @close="showChiudi = false"
+  />
 
-  <date-widget></date-widget>
+  <delete-order
+    @deleteOrder="deleteDelivery()"
+    v-if="showElimina"
+    @close="showElimina = false"
+    instructionsEvidence="Eliminare questa consegna?"
+  />
+
+  <date-widget />
 </template>
 
 <script>
 import OrderHeader from "../components/orders/header/OrderHeader";
 import LineItemsGrid from "../components/orders/lineitems/LineItemsGrid";
 import DateWidget from "../components/UI/date/DateWidget";
-import SmallModal from "../components/UI/layouts/SmallModal";
-import BigModal from "../components/UI/layouts/BigModal";
 import PrintOrder from "../components/orders/actions/PrintOrder";
 import PrintOrderBill from "../components/orders/actions/PrintOrderBill";
 import CloseTable from "../components/orders/actions/CloseTable";
 import DeleteOrder from "../components/orders/actions/DeleteOrder";
 import OpenOrder from "../components/orders/actions/OpenOrder";
+import ActionsList from "../components/orders/nav-actions/OrdersActionsNavList";
 export default {
   components: {
     LineItemsGrid,
     DateWidget,
+    ActionsList,
     OrderHeader,
-    SmallModal,
-    BigModal,
     PrintOrder,
     PrintOrderBill,
     CloseTable,
@@ -138,14 +101,7 @@ export default {
     const orders = this.$store.getters["deliveries/getDeliveries"];
     this.order = orders.find((o) => o.id === id);
   },
-
   methods: {
-    toDeliveries() {
-      this.$router.push("/delivery");
-    },
-    addProduct() {
-      this.$router.push("/update-del/" + this.order.id);
-    },
     addOne(li) {
       for (let i = 0; i < this.order.lineItems.length; i = i + 1) {
         const current = this.order.lineItems[i];
@@ -155,15 +111,8 @@ export default {
           this.order.total += current.productPrice;
         }
       }
-      //set local-order line items
-      const updatedOrder = {
-        ...this.order,
-        lineItems: this.order.lineItems,
-      };
-      this.order = updatedOrder;
-
       //update order
-      this.$store.dispatch("deliveries/updateLineItems", updatedOrder);
+      this.$store.dispatch("deliveries/updateLineItems", this.order);
     },
     removeOne(li) {
       for (let i = 0; i < this.order.lineItems.length; i = i + 1) {
@@ -178,39 +127,25 @@ export default {
           }
         }
       }
-
-      const updatedOrder = {
-        ...this.order,
-        lineItems: this.order.lineItems,
-      };
-      this.order = updatedOrder;
-
       //update order
-      this.$store.dispatch("deliveries/updateLineItems", updatedOrder);
+      this.$store.dispatch("deliveries/updateLineItems", this.order);
     },
     setStatus(newStatus) {
       const payload = { id: this.order.id, status: newStatus };
       this.$store.dispatch("deliveries/setStatus", payload);
       if (newStatus)
-        this.$store.dispatch(
-          "notifications/deleteNotificationCompleted",
-          payload
-        );
+        this.$store.dispatch("notifications/deleteNotification", payload);
       this.showChiudi = false;
     },
     deleteDelivery() {
       this.$store.dispatch("deliveries/deleteDelivery", { id: this.order.id });
-        this.$store.dispatch(
-          "notifications/deleteNotificationCompleted",
-          { id: this.order.id }
-        );
-      this.toDeliveries();
+      this.$store.dispatch("notifications/deleteNotification", {
+        id: this.order.id,
+      });
+      this.$router.push("/delivery");
     },
   },
   computed: {
-    title() {
-      return `${this.order.name}: ${this.order.street}/${this.order.civic}`;
-    },
     timeBefore() {
       if (this.order.completed) return "Ordine completato.";
       const hour = this.order.hour;
@@ -221,28 +156,11 @@ export default {
       if (waitingMillis < 0) return `Prevista ${Math.abs(waiting)} minuti fa`;
       return `Prevista tra ${waiting} minuti`;
     },
-    statusNavText() {
-      return this.order.completed ? "Apri" : "Chiudi";
-    },
   },
 };
 </script>
 
 <style scoped>
-.title-header {
-  font-family: "Raleway", "sans-serif";
-  letter-spacing: 1px;
-  font-weight: 600;
-  font-size: 1.8rem;
-  color: var(--mainbrown);
-  width: 66%;
-}
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 0rem 1rem;
-}
-
 .line-items-section {
   margin-top: 2rem;
   position: absolute;
@@ -253,49 +171,5 @@ export default {
   text-align: center;
   height: 65%;
   width: 80%;
-}
-
-.nav-list {
-  position: absolute;
-  width: 80%;
-  margin: auto;
-  bottom: 1.225rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  left: 0;
-  right: 0;
-}
-
-.nav-item {
-  background-image: linear-gradient(180deg, #2d150b 0%, #623d22 120%);
-  color: white;
-  border-radius: 26px;
-  border: 2px solid white;
-  filter: drop-shadow(0px 3px 3px rgba(45, 21, 11, 1));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 6.25rem;
-  width: 6.25rem;
-  font-weight: 400;
-}
-
-.category {
-  font-family: "Raleway";
-  font-size: 1.2rem;
-  letter-spacing: 1px;
-  margin-top: 0.75rem;
-}
-
-.icon {
-  margin-top: 1rem;
-}
-
-.date {
-  position: fixed;
-  bottom: 3%;
-  right: 3%;
-  height: auto;
 }
 </style>

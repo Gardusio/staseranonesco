@@ -1,5 +1,4 @@
 <template>
-  <the-background></the-background>
   <the-sidebar activeElem="orders"></the-sidebar>
   <section class="main">
     <all-orders-header
@@ -91,9 +90,9 @@
 
 <script>
 import AllOrdersHeader from "../components/all/AllOrdersHeader";
-import OrderCard from "../components/UI/layouts/OrdersCard";
-import SmallModal from "../components/UI/layouts/SmallModal";
-import BigModal from "../components/UI/layouts/BigModal";
+import OrderCard from "../components/all/OrdersCard.vue";
+import SmallModal from "../components/UI/layouts/modals/SmallModal";
+import BigModal from "../components/UI/layouts/modals/BigModal";
 import PrintOrder from "../components/orders/actions/PrintOrder";
 import PrintOrderBill from "../components/orders/actions/PrintOrderBill";
 export default {
@@ -240,19 +239,14 @@ export default {
       const tableAlertMillis = this.$store.getters["getTableAlertMillis"];
 
       let alert;
-      let firstAlert;
 
       if (op === "+") {
-        alert = hourMillis + tableAlertMillis.second <= currentTime;
-        firstAlert = hourMillis + tableAlertMillis.first <= currentTime;
+        alert = hourMillis + tableAlertMillis <= currentTime;
       } else {
         alert =
-          currentTime + alertMillis.second >= hourMillis ||
-          hourMillis <= currentTime;
-        firstAlert = currentTime + alertMillis.first >= hourMillis;
+          currentTime + alertMillis >= hourMillis || hourMillis <= currentTime;
       }
-      if (alert) return "second-alert";
-      if (firstAlert) return "first-alert";
+      if (alert) return "alert";
       return "";
     },
 

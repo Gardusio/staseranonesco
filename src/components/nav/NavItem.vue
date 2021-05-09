@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div class="sidebar-nav-item-container">
     <font-awesome-icon
       :icon="navItem"
       :style="{ color: iconColor }"
       :size="iconSize"
     ></font-awesome-icon>
-    <span class="text" :class="activeText"> {{ text }} </span>
+    <span class="sidebar-nav-item-text" :class="activeText"> {{ text }} </span>
   </div>
 </template>
 
@@ -34,30 +34,32 @@ export default {
       return "1x";
     },
     activeText() {
-      if (this.isActive) return "activeText";
-      else return "inactiveText";
+      if (this.isActive) return "sidebar-nav-item-activeText";
+      else return "sidebar-nav-item-inactiveText";
     },
   },
 };
 </script>
 
 <style scoped>
-.container {
+.sidebar-nav-item-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   list-style: none;
   cursor: pointer;
 }
-.text {
+.sidebar-nav-item-text {
   font-family: "Raleway", sans-serif;
   font-size: 14px;
   margin-top: 0.3rem;
 }
-.inactiveText {
+
+.sidebar-nav-item-inactiveText {
   color: white;
 }
-.activeText {
+
+.sidebar-nav-item-activeText {
   color: #efbe7d;
   text-transform: uppercase;
   font-weight: bold;

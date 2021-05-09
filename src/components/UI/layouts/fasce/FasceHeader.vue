@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <span class="title">{{ page }}</span>
+  <div class="fasce-header-container">
+    <span class="fasce-header-title">{{ page }}</span>
     <fasce-widget
       :page="page"
       :slotUpper="supper"
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.fasce-header-container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -39,7 +39,7 @@ export default {
   margin-top: 2rem;
 }
 
-.title {
+.fasce-header-title {
   font-family: "Raleway", "sans-serif";
   font-weight: 500;
   font-size: 2rem;

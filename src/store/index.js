@@ -29,10 +29,8 @@ export default createStore({
         new Date().setHours(18, 30, 0, 0),
         new Date().setHours(22, 30, 0, 0),
       ],
-      tableFirstAlertMillis: 30000,//15 * 60 * 1000,
-      tableSecondAlertMillis: 60000,//30 * 60 * 1000,
-      firstAlertMillis: 15 * 60 * 1000,
-      secondAlertMillis: 5 * 60 * 1000,
+      tableAlertMillis: 60000,//30 * 60 * 1000,
+      ordersAlertMillis: 5 * 60 * 1000,
     };
   },
   getters: {
@@ -46,16 +44,10 @@ export default createStore({
       return state.ordersSlot;
     },
     getAlertMillis(state) {
-      return {
-        first: state.firstAlertMillis,
-        second: state.secondAlertMillis,
-      };
+      return state.ordersAlertMillis;
     },
     getTableAlertMillis(state) {
-      return {
-        first: state.tableFirstAlertMillis,
-        second: state.tableSecondAlertMillis,
-      };
+      return state.tableAlertMillis;
     },
   },
   mutations: {
