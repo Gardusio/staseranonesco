@@ -9,7 +9,7 @@
       page="Asporto"
       @increase="(slot) => updateSlot(slot, 'up')"
       @decrease="(slot) => updateSlot(slot, 'down')"
-    ></fasce-header>
+    />
     <orders-grid :orders="filteredOrders" type="ta" />
   </div>
 
@@ -17,7 +17,7 @@
     <add-button @click="showNew = true" icon="ta" />
   </div>
 
-    <new-take-away-form v-if="showNew" @close="showNew = false" />
+  <new-take-away-form v-if="showNew" @close="showNew = false" />
 </template>
 
 <script>

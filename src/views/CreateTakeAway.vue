@@ -8,13 +8,13 @@
         :lineItems="lineItems"
         @addOne="addOne"
         @removeOne="removeOne"
-      ></line-items>
+      />
     </div>
     <primary-button
       @click="saveOrder()"
       text="Salva Ordine"
       class="continue"
-    ></primary-button>
+    />
   </section>
 
   <section class="main-container">
@@ -32,15 +32,14 @@
       v-if="selectedCategoryIsWithSub"
       :chips="chipsType"
       @selected="(c) => (chipSelected = c)"
-    ></menu-chips>
+    />
     <products-grid
       :category="selectedCategory"
       :subCategory="selectedCategoryIsWithSub ? chipSelected : false"
       :search="search"
       @select-product="addProduct"
-    >
-    </products-grid>
-    <menu-nav @category-selected="setSelectedCategory"></menu-nav>
+    />
+    <menu-nav @category-selected="setSelectedCategory" />
   </section>
 </template>
 
@@ -122,20 +121,11 @@ export default {
           lineItem = current;
         }
       }
-
       if (lineItem.qty < 2) this.lineItems.push(lineItem);
 
       //sort lineItems to show fritti-pizze-panini-bevande
-
-      //set local-order line items
-      const updatedOrder = {
-        ...this.order,
-        lineItems: this.lineItems,
-      };
-      this.order = updatedOrder;
-
       //update order
-      this.$store.dispatch("takeaways/updateLineItems", updatedOrder);
+      this.$store.dispatch("takeaways/updateLineItems",   this.order);
     },
 
     addOne(li) {
@@ -146,15 +136,8 @@ export default {
           current.total += current.productPrice;
         }
       }
-      //set local-order line items
-      const updatedOrder = {
-        ...this.order,
-        lineItems: this.lineItems,
-      };
-      this.order = updatedOrder;
-
       //update order
-      this.$store.dispatch("takeaways/updateLineItems", updatedOrder);
+      this.$store.dispatch("takeaways/updateLineItems", this.order);
     },
 
     removeOne(li) {
@@ -169,15 +152,8 @@ export default {
           }
         }
       }
-
-      const updatedOrder = {
-        ...this.order,
-        lineItems: this.lineItems,
-      };
-      this.order = updatedOrder;
-
       //update order
-      this.$store.dispatch("takeaways/updateLineItems", updatedOrder);
+      this.$store.dispatch("takeaways/updateLineItems", this.order);
     },
   },
 };

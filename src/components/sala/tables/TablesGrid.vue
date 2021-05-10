@@ -8,7 +8,7 @@
       :status="calculateTableStatus(table)"
       :orderCreatedAt="table.orderCreatedAt"
       @click="toTable(table)"
-    ></table-item>
+    />
   </div>
 </template>
 
