@@ -10,11 +10,7 @@
         @removeOne="removeOne"
       />
     </div>
-    <primary-button
-      @click="saveOrder()"
-      text="Salva Ordine"
-      class="continue"
-    />
+    <primary-button @click="saveOrder()" text="Salva Ordine" class="continue" />
   </section>
 
   <section class="main-container">
@@ -66,22 +62,6 @@ export default {
       search: "",
     };
   },
-  computed: {
-    category() {
-      return this.selectedCategory;
-    },
-    chipsType() {
-      const pizze = ["Classiche", "Speciali", "Rosse", "Bianche"];
-      const panini = ["Speciali", "Hamburger", "Salsiccia", "Pollo"];
-      if (this.selectedCategory === "Pizze") return pizze;
-      else return panini;
-    },
-    selectedCategoryIsWithSub() {
-      return (
-        this.selectedCategory === "Panini" || this.selectedCategory === "Pizze"
-      );
-    },
-  },
   created() {
     const tables = this.$store.getters["tables/getTables"];
     const id = this.$route.params.id;
@@ -105,8 +85,24 @@ export default {
         lineItems: [],
       };
       this.order = order;
-      this.$store.dispatch("orders/createOrder", order);
+      this.$store.dispatch("orders/createOrder", this.order);
     }
+  },
+  computed: {
+    category() {
+      return this.selectedCategory;
+    },
+    chipsType() {
+      const pizze = ["Classiche", "Speciali", "Rosse", "Bianche"];
+      const panini = ["Speciali", "Hamburger", "Salsiccia", "Pollo"];
+      if (this.selectedCategory === "Pizze") return pizze;
+      else return panini;
+    },
+    selectedCategoryIsWithSub() {
+      return (
+        this.selectedCategory === "Panini" || this.selectedCategory === "Pizze"
+      );
+    },
   },
   methods: {
     setSelectedCategory(selected) {
@@ -143,7 +139,6 @@ export default {
       }
 
       if (lineItem.qty < 2) this.lineItems.push(lineItem);
-
       //sort lineItems to show fritti-pizze-panini-bevande
       //update order
       this.$store.dispatch("orders/updateLineItems", this.order);

@@ -67,7 +67,7 @@ export default {
         if (selectedMins >= 45) {
           const newHour = selectedHours + 1;
           selectedSlot = new Date().setHours(newHour, 0, 0, 0);
-        } else;
+        } else
         selectedSlot = new Date().setHours(
           selectedHours,
           selectedMins + 15,

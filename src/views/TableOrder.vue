@@ -3,7 +3,7 @@
 
   <order-header
     @toSala="$router.push('/sala')"
-    @addLineItem="$router.push(`/create/&{table.id}`)"
+    @addLineItem="$router.push(`/create/${table.id}`)"
     view="Sala"
     :title="title"
     :waiting="waitingTitle"
@@ -196,5 +196,11 @@ export default {
   text-align: center;
   height: 65%;
   width: 80%;
+}
+.date {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  height: auto;
 }
 </style>

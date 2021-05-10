@@ -8,6 +8,7 @@
         :lower="lower"
         @increase="(slot) => $emit('increase', slot)"
         @decrease="(slot) => $emit('decrease', slot)"
+        @resetInterval="$emit('resetInterval')"
       />
     </div>
     <date-widget class="orders-date" />

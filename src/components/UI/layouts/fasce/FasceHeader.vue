@@ -7,7 +7,8 @@
       :slotLower="slower"
       @slotUp="(slot) => $emit('increase', slot)"
       @slotDown="(slot) => $emit('decrease', slot)"
-    ></fasce-widget>
+    />
+    <span class="fasce-reset-button" @click="$emit('resetInterval')">Vedi tutti</span>
   </div>
 </template>
 
@@ -44,5 +45,11 @@ export default {
   font-weight: 500;
   font-size: 2rem;
   color: var(--mainbrown);
+}
+
+.fasce-reset-button {
+  margin-top:1rem;
+  color: var(--mainbrown);
+  text-decoration: underline;
 }
 </style>

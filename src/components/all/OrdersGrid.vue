@@ -11,29 +11,29 @@
       @goInto="goInto(order.id, type)"
       @showPrint="setPrintInfos(order.name)"
       @showConto="setBillInfos(order.total, order.name)"
-    ></orders-card>
+    />
   </div>
 
-  <small-modal v-if="showStampa" @close="showStampa = false">
-    <print-order :header="stampaHeader"></print-order>
-  </small-modal>
+  <print-order
+    v-if="showStampa"
+    @close="showStampa = false"
+    :header="stampaHeader"
+  />
 
-  <big-modal v-if="showConto" @close="showConto = false">
-    <print-order-bill
-      :total="orderSelectedTotal"
-      :header="contoHeader"
-    ></print-order-bill>
-  </big-modal>
+  <print-order-bill
+    v-if="showConto"
+    @close="showConto = false"
+    :total="orderSelectedTotal"
+    :header="contoHeader"
+  />
 </template>
 
 <script>
 import OrdersCard from "./OrdersCard";
-import BigModal from "../UI/layouts/modals/BigModal";
-import SmallModal from "../UI/layouts/modals/SmallModal";
 import PrintOrderBill from "../orders/actions/PrintOrderBill";
 import PrintOrder from "../orders/actions/PrintOrder";
 export default {
-  components: { OrdersCard, BigModal, SmallModal, PrintOrder, PrintOrderBill },
+  components: { OrdersCard,PrintOrder, PrintOrderBill },
   props: ["orders", "type"],
   data() {
     return {
@@ -55,10 +55,7 @@ export default {
       const currentTime = Date.now();
       const hourMillis = new Date(hour).getTime();
       const alertMillis = this.$store.getters["getAlertMillis"];
-      if (
-        currentTime + alertMillis >= hourMillis ||
-        hourMillis <= currentTime
-      )
+      if (currentTime + alertMillis >= hourMillis || hourMillis <= currentTime)
         return "alert";
       return "";
     },

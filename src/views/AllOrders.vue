@@ -1,12 +1,13 @@
 <template>
-  <the-sidebar activeElem="orders"></the-sidebar>
+  <the-sidebar activeElem="orders" />
   <section class="main">
     <all-orders-header
       :upper="slotUpper"
       :lower="slotLower"
-      @increase="(slot) => up(slot)"
-      @decrease="(slot) => down(slot)"
-    ></all-orders-header>
+      @increase="(slot) => updateSlot(slot, 'up')"
+      @decrease="(slot) => updateSlot(slot, 'down')"
+      @resetInterval="resetFasce()"
+    />
 
     <section class="orders">
       <div class="type-container ta">
@@ -26,8 +27,7 @@
             @goInto="goInto(takeaway.id, 'ta')"
             @showPrint="setPrintInfos(takeaway.name)"
             @showConto="setBillInfos(takeaway.total, takeaway.name)"
-          >
-          </order-card>
+          />
         </ul>
       </div>
       <div class="type-container del">
@@ -47,8 +47,7 @@
             @goInto="goInto(delivery.id, 'del')"
             @showPrint="setPrintInfos(deliveryHeader(delivery))"
             @showConto="setBillInfos(delivery.total, deliveryHeader(delivery))"
-          >
-          </order-card>
+          />
         </ul>
       </div>
       <div class="type-container tables">
@@ -70,38 +69,36 @@
             @showConto="
               setBillInfos(order.total, 'Tavolo ' + order.tableNumber)
             "
-          ></order-card>
+          />
         </ul>
       </div>
     </section>
 
-    <small-modal v-if="showStampa" @close="showStampa = false">
-      <print-order :header="stampaHeader"></print-order>
-    </small-modal>
+    <print-order
+      v-if="showStampa"
+      :header="stampaHeader"
+      @close="showStampa = false"
+    />
 
-    <big-modal v-if="showConto" @close="showConto = false">
-      <print-order-bill
-        :total="orderSelectedTotal"
-        :header="contoHeader"
-      ></print-order-bill>
-    </big-modal>
+    <print-order-bill
+      v-if="showConto"
+      @close="showConto = false"
+      :total="orderSelectedTotal"
+      :header="contoHeader"
+    />
   </section>
 </template>
 
 <script>
 import AllOrdersHeader from "../components/all/AllOrdersHeader";
 import OrderCard from "../components/all/OrdersCard.vue";
-import SmallModal from "../components/UI/layouts/modals/SmallModal";
-import BigModal from "../components/UI/layouts/modals/BigModal";
 import PrintOrder from "../components/orders/actions/PrintOrder";
 import PrintOrderBill from "../components/orders/actions/PrintOrderBill";
 export default {
   components: {
     AllOrdersHeader,
     OrderCard,
-    SmallModal,
     PrintOrder,
-    BigModal,
     PrintOrderBill,
   },
   data() {
@@ -110,13 +107,8 @@ export default {
       slotUpper: null,
       showStampa: false,
       showConto: false,
-      showTavolo: false,
-      showChiudi: true,
-      showElimina: false,
       stampaHeader: "",
       contoHeader: "",
-      orderInfoHeader: "",
-      chiudiHeader: "",
       orderSelectedTotal: 0,
       selectedOrder: null,
       orderStatus: null,
@@ -164,7 +156,7 @@ export default {
     isBeetween(t) {
       return t.hour >= this.slotLower && t.hour <= this.slotUpper;
     },
-    up(slot) {
+    updateSlot(slot, upOrDown) {
       let selectedMins;
       let selectedHours;
       let selectedSlot = slot === "lower" ? this.slotLower : this.slotUpper;
@@ -172,45 +164,29 @@ export default {
       selectedMins = new Date(selectedSlot).getMinutes();
       selectedHours = new Date(selectedSlot).getHours();
 
-      if (selectedMins >= 45) {
-        const newHour = selectedHours + 1;
-        selectedSlot = new Date().setHours(newHour, 0, 0, 0);
-      } else
-        selectedSlot = new Date().setHours(
-          selectedHours,
-          selectedMins + 15,
-          0,
-          0
-        );
-
-      slot === "lower"
-        ? (this.slotLower = selectedSlot)
-        : (this.slotUpper = selectedSlot);
-
-      this.$store.dispatch("updateSlots", {
-        page: "allOrders",
-        slots: [this.slotLower, this.slotUpper],
-      });
-    },
-    down(slot) {
-      let selectedMins;
-      let selectedHours;
-      let selectedSlot = slot === "lower" ? this.slotLower : this.slotUpper;
-
-      selectedMins = new Date(selectedSlot).getMinutes();
-      selectedHours = new Date(selectedSlot).getHours();
-
-      if (selectedMins === 0) {
-        const newHour = selectedHours - 1;
-        selectedSlot = new Date().setHours(newHour, 45, 0, 0);
-      } else
-        selectedSlot = new Date().setHours(
-          selectedHours,
-          selectedMins - 15,
-          0,
-          0
-        );
-
+      if (upOrDown === "up") {
+        if (selectedMins >= 45) {
+          const newHour = selectedHours + 1;
+          selectedSlot = new Date().setHours(newHour, 0, 0, 0);
+        } else
+          selectedSlot = new Date().setHours(
+            selectedHours,
+            selectedMins + 15,
+            0,
+            0
+          );
+      } else {
+        if (selectedMins === 0) {
+          const newHour = selectedHours - 1;
+          selectedSlot = new Date().setHours(newHour, 45, 0, 0);
+        } else
+          selectedSlot = new Date().setHours(
+            selectedHours,
+            selectedMins - 15,
+            0,
+            0
+          );
+      }
       slot === "lower"
         ? (this.slotLower = selectedSlot)
         : (this.slotUpper = selectedSlot);
@@ -239,7 +215,6 @@ export default {
       const tableAlertMillis = this.$store.getters["getTableAlertMillis"];
 
       let alert;
-
       if (op === "+") {
         alert = hourMillis + tableAlertMillis <= currentTime;
       } else {
@@ -249,9 +224,18 @@ export default {
       if (alert) return "alert";
       return "";
     },
-
     deliveryHeader(delivery) {
       return `${delivery.street}/${delivery.civic}`;
+    },
+    resetFasce() {
+      const defaultLower = new Date().setHours(18, 30, 0, 0);
+      const defaultUpper = new Date().setHours(22, 30, 0, 0);
+      this.slotLower = defaultLower;
+      this.slotUpper = defaultUpper;
+      this.$store.dispatch("updateSlots", {
+        page: "allOrders",
+        slots: [this.slotLower, this.slotUpper],
+      });
     },
   },
 };
@@ -294,7 +278,6 @@ export default {
 .del {
   background-color: rgba(182, 129, 73, 0.09);
 }
-
 .tables {
   background-color: rgba(45, 21, 11, 0.09);
 }
