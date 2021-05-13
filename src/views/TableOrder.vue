@@ -9,6 +9,8 @@
     :waiting="waitingTitle"
   />
 
+  <categories-chips :chips="categoryChips" class="order-menu-chips"/>
+
   <main class="line-items-section">
     <line-items-grid
       @addOne="(li) => addOne(li)"
@@ -67,6 +69,7 @@ import CloseTable from "../components/orders/actions/CloseTable";
 import DeleteOrder from "../components/orders/actions/DeleteOrder";
 import OpenOrder from "../components/orders/actions/OpenOrder";
 import ActionsList from "../components/orders/nav-actions/OrdersActionsNavList";
+import CategoriesChips from "../components/menu/CategoriesChips"
 export default {
   components: {
     LineItemsGrid,
@@ -78,6 +81,7 @@ export default {
     PrintOrderBill,
     CloseTable,
     DeleteOrder,
+    CategoriesChips
   },
   data() {
     return {
@@ -88,6 +92,7 @@ export default {
       showTavolo: false,
       showChiudi: false,
       showElimina: false,
+      categoryChips: ["Fritti", "Pizze", "Panini","Tutti"]
     };
   },
   created() {
@@ -122,6 +127,7 @@ export default {
           current.total -= current.productPrice;
           this.order.total -= current.productPrice;
           if (current.qty === 0) {
+            console.log(this.order.lineItems)
             const index = this.order.lineItems.indexOf(current);
             this.order.lineItems.splice(index, 1);
           }
@@ -194,13 +200,13 @@ export default {
   left: 0;
   right: 0;
   text-align: center;
-  height: 65%;
+  height: 60%;
   width: 80%;
 }
-.date {
-  position: fixed;
-  bottom: 3%;
-  right: 3%;
-  height: auto;
+
+.order-menu-chips {
+  margin-top:3rem;
 }
+
+
 </style>

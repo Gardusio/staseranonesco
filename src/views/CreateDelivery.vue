@@ -4,7 +4,7 @@
   <section class="left-section" style="padding: 1.5rem">
     <span class="title">{{ order.name }}</span>
     <span class="via">{{ order.street }} - {{ order.civic }}</span>
-    <div class="line-items">
+    <div id="line-items" class="line-items">
       <line-items
         :lineItems="lineItems"
         @addOne="addOne"

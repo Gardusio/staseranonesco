@@ -36,7 +36,7 @@ export default {
       }
       if (this.search !== "") {
         returnProds = prods.filter((p) =>
-          p.name.toLowerCase().includes(this.search.toLowerCase())
+          p.name.toLowerCase().startsWith(this.search.toLowerCase())
         );
       } else returnProds = categoryProds;
 
@@ -45,11 +45,12 @@ export default {
   },
   methods: {
     productSelected(product) {
+      this.searchFilter = "";
       this.$emit("select-product", product);
     },
   },
   watch: {
-    search(newSearch) {
+    searchFilter(newSearch) {
       this.searchFilter = newSearch;
     },
   },

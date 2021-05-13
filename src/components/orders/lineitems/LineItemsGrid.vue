@@ -9,16 +9,16 @@
       :scale="false"
       @add="add(lineItem)"
       @remove="remove(lineItem)"
-    ></line-item>
+    />
   </div>
 </template>
 
 <script>
 import LineItem from "./LineItem";
 export default {
+  components: { LineItem },
   emits: ["addOne", "removeOne"],
   props: ["lineItems"],
-  components: { LineItem },
   methods: {
     add(li) {
       this.$emit("addOne", li);
@@ -33,14 +33,13 @@ export default {
 <style scoped>
 .grid-container {
   position: absolute;
-  height: 100%;
-  width: 109%;
+  height: 89%;
+  width: 100%;
+  margin-left: 45px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 7;
+  grid-template-rows: repeat(5, 1fr);
   column-gap: 4rem;
-  row-gap: 1rem;
-  padding: 1rem;
   overflow-y: scroll;
   grid-auto-flow: dense;
 }

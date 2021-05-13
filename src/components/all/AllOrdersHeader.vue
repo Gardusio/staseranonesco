@@ -20,7 +20,7 @@
 import FasceHeader from "../UI/layouts/fasce/FasceHeader";
 import DateWidget from "../UI/date/DateWidget";
 export default {
-  emits: ["increase", "decrease"],
+  emits: ["increase", "decrease", "resetInterval"],
   props: ["lower", "upper"],
   components: { FasceHeader, DateWidget },
 };

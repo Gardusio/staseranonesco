@@ -10,7 +10,7 @@
       :createdAt="notification.createdAt"
       @view="viewOrder(notification.order, notification.orderType)"
       @delete="deleteNotification(notification.order.id)"
-    ></notification-item>
+    />
   </ul>
 </template>
 

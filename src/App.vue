@@ -12,8 +12,8 @@
   --friedorange: #e1a85f;
   --pizzered: #8f3822;
   --bereblue: #b0d8e5;
-  --buttonorange: #db8442;
-  --buttongreen: #82ce73;
+  --buttonorange: rgb(219, 132, 66);
+  --buttongreen: rgb(130, 206, 115);
   --alert-red: rgb(255, 35, 35);
   --completed-green: rgba(125, 236, 117, 0.69);
   --gray: #777a7b;
@@ -88,5 +88,12 @@
   position: absolute;
   top: 2;
   right: 20px;
+}
+
+.date {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  height: auto;
 }
 </style>

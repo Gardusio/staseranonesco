@@ -3,7 +3,7 @@
 
   <section class="left-section" style="padding: 1.5rem">
     <span class="title">Tavolo {{ table.number }}</span>
-    <div class="line-items">
+    <div id="line-items" class="line-items">
       <line-items
         :lineItems="lineItems"
         @addOne="addOne"
@@ -141,6 +141,7 @@ export default {
       if (lineItem.qty < 2) this.lineItems.push(lineItem);
       //sort lineItems to show fritti-pizze-panini-bevande
       //update order
+      this.order.lineItems = this.lineItems;
       this.$store.dispatch("orders/updateLineItems", this.order);
     },
 
@@ -153,6 +154,7 @@ export default {
         }
       }
       //update order
+      this.order.lineItems = this.lineItems;
       this.$store.dispatch("orders/updateLineItems", this.order);
     },
 
@@ -169,6 +171,7 @@ export default {
         }
       }
       //update order
+      this.order.lineItems = this.lineItems;
       this.$store.dispatch("orders/updateLineItems", this.order);
     },
   },

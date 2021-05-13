@@ -1,7 +1,7 @@
 <template>
   <section class="left-section">
-    <notifications-header></notifications-header>
-    <notifications-list :key="upload"></notifications-list>
+    <notifications-header />
+    <notifications-list :key="upload" />
   </section>
 </template>
 

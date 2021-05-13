@@ -1,6 +1,6 @@
 <template>
   <the-sidebar activeElem="delivery" />
-  <notifications-section/>
+  <notifications-section />
 
   <div class="main-container with-actions">
     <fasce-header
@@ -9,6 +9,7 @@
       page="Consegne"
       @increase="(slot) => updateSlot(slot, 'up')"
       @decrease="(slot) => updateSlot(slot, 'down')"
+      @resetInterval="resetInterval()"
     />
     <orders-grid :orders="filteredOrders" type="del" />
   </div>
@@ -55,6 +56,16 @@ export default {
     this.slotUpper = slots[1];
   },
   methods: {
+    resetInterval() {
+      const defaultLower = new Date().setHours(18, 30, 0, 0);
+      const defaultUpper = new Date().setHours(22, 30, 0, 0);
+      this.slotLower = defaultLower;
+      this.slotUpper = defaultUpper;
+      this.$store.dispatch("updateSlots", {
+        page: "delivery",
+        slots: [this.slotLower, this.slotUpper],
+      });
+    },
     updateSlot(slot, upOrDown) {
       let selectedMins;
       let selectedHours;
@@ -68,12 +79,12 @@ export default {
           const newHour = selectedHours + 1;
           selectedSlot = new Date().setHours(newHour, 0, 0, 0);
         } else
-        selectedSlot = new Date().setHours(
-          selectedHours,
-          selectedMins + 15,
-          0,
-          0
-        );
+          selectedSlot = new Date().setHours(
+            selectedHours,
+            selectedMins + 15,
+            0,
+            0
+          );
       } else {
         if (selectedMins === 0) {
           const newHour = selectedHours - 1;

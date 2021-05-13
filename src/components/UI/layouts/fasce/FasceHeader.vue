@@ -8,7 +8,7 @@
       @slotUp="(slot) => $emit('increase', slot)"
       @slotDown="(slot) => $emit('decrease', slot)"
     />
-    <span class="fasce-reset-button" @click="$emit('resetInterval')">Vedi tutti</span>
+    <span class="fasce-reset-button" @click="$emit('resetInterval')">Mostra tutti</span>
   </div>
 </template>
 

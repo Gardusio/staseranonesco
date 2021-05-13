@@ -67,7 +67,7 @@ export default createStore({
       if (page === "takeAway") context.commit("setTakeAwaysSlots", payload);
       else if (page === "delivery")
         context.commit("setDeliveriesSlots", payload);
-      context.commit("setOrdersSlots", payload);
+      else context.commit("setOrdersSlots", payload);
     },
   },
 });

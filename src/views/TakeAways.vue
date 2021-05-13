@@ -9,6 +9,7 @@
       page="Asporto"
       @increase="(slot) => updateSlot(slot, 'up')"
       @decrease="(slot) => updateSlot(slot, 'down')"
+      @resetInterval="resetInterval()"
     />
     <orders-grid :orders="filteredOrders" type="ta" />
   </div>
@@ -56,6 +57,16 @@ export default {
     },
   },
   methods: {
+    resetInterval() {
+      const defaultLower = new Date().setHours(18, 30, 0, 0);
+      const defaultUpper = new Date().setHours(22, 30, 0, 0);
+      this.slotLower = defaultLower;
+      this.slotUpper = defaultUpper;
+      this.$store.dispatch("updateSlots", {
+        page: "takeAway",
+        slots: [this.slotLower, this.slotUpper],
+      });
+    },
     updateSlot(slot, upOrDown) {
       let selectedMins;
       let selectedHours;

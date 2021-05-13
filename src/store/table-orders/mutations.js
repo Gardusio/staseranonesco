@@ -18,6 +18,10 @@ export default {
         ? 1
         : li2.productCategory === "bere" && li1.productCategory !== "bere"
         ? -1
+        : li1.productCategory === "pizze" && li2.productCategory !== "pizze"
+        ? -1
+        : li2.productCategory === "pizze" && li1.productCategory !== "pizze"
+        ? 1
         : 0;
     };
     const orders = state.orders;

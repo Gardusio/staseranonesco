@@ -8,7 +8,7 @@
     :scale="true"
     @add="add(lineItem)"
     @remove="remove(lineItem)"
-  ></line-item>
+  />
 </template>
 
 <script>
@@ -17,6 +17,10 @@ export default {
   emits: ["addOne", "removeOne"],
   props: ["lineItems"],
   components: { LineItem },
+  updated() {
+    console.log("scroll");
+    document.getElementById('line-items').scrollTop = document.getElementById('line-items').scrollHeight
+  },
   methods: {
     add(li) {
       this.$emit("addOne", li);
@@ -28,5 +32,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
