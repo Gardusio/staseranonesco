@@ -1,47 +1,47 @@
 <template>
-<big-modal @close="$emit('close')">
-  <div class="container">
-    <span class="new">Nuovo Asporto</span>
-    <form class="form-container" @submit.prevent="saveTakeAway">
-      <input
-        v-model="name"
-        type="text"
-        placeholder="Nome"
-        required
-        class="entry"
-      />
-      <div class="hours">
-        <div class="hour-container">
-          <label for="h" class="label">Ore</label>
-          <input
-            v-model="hour"
-            id="h"
-            type="number"
-            class="entry hour"
-            required
-          />
+  <big-modal @close="$emit('close')">
+    <div class="container">
+      <span class="new">Nuovo Asporto</span>
+      <form class="form-container" @submit.prevent="saveTakeAway">
+        <input
+          v-model="name"
+          type="text"
+          placeholder="Nome"
+          required
+          class="entry"
+        />
+        <div class="hours">
+          <div class="hour-container">
+            <label for="h" class="label">Ore</label>
+            <input
+              v-model="hour"
+              id="h"
+              type="number"
+              class="entry hour"
+              required
+            />
+          </div>
+          <div class="hour-container">
+            <label for="m" class="label">Minuti</label>
+            <input
+              v-model="minutes"
+              id="m"
+              type="number"
+              class="entry hour"
+              required
+            />
+          </div>
         </div>
-        <div class="hour-container">
-          <label for="m" class="label">Minuti</label>
-          <input
-            v-model="minutes"
-            id="m"
-            type="number"
-            class="entry hour"
-            required
-          />
-        </div>
-      </div>
-      <input
-        v-model="phone"
-        type="tel"
-        class="entry"
-        placeholder="389 48 31 579"
-        required
-      />
-      <primary-button text="Continua"></primary-button>
-    </form>
-  </div>
+        <input
+          v-model="phone"
+          type="tel"
+          class="entry"
+          placeholder="389 48 31 579"
+          required
+        />
+        <primary-button text="Continua"></primary-button>
+      </form>
+    </div>
   </big-modal>
 </template>
 
@@ -49,7 +49,7 @@
 import BigModal from "../UI/layouts/modals/BigModal";
 export default {
   components: {
-    BigModal
+    BigModal,
   },
   data() {
     return {
@@ -71,6 +71,20 @@ export default {
         createdAt: new Date(),
         total: 0,
         lineItems: [],
+        quantityState: [
+          {
+            category: "fritti",
+            qty: 0,
+          },
+          {
+            category: "pizze",
+            qty: 0,
+          },
+          {
+            category: "panini",
+            qty: 0,
+          },
+        ],
       };
       this.$store
         .dispatch("takeaways/saveNewTa", {
@@ -107,7 +121,7 @@ export default {
   font-family: inherit;
   color: rgba(98, 61, 34, 45%);
   font-size: 1rem;
-  margin-bottom:8px;
+  margin-bottom: 8px;
 }
 .hours {
   display: flex;

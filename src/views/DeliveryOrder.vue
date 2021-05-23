@@ -9,11 +9,18 @@
     :waiting="timeBefore"
   />
 
+  <categories-chips
+    :quantityState="order.quantityState"
+    :chips="categoryChips"
+    @selected="categoryChipSelected"
+    class="order-menu-chips"
+  />
+
   <main class="line-items-section">
     <line-items-grid
       @addOne="addOne"
       @removeOne="removeOne"
-      :lineItems="order.lineItems"
+      :lineItems="categoryLineItems"
     />
   </main>
 
@@ -31,7 +38,7 @@
     @close="showStampa = false"
   />
 
-   <print-order-bill
+  <print-order-bill
     v-if="showConto"
     @close="showConto = false"
     :total="order.total"
@@ -74,6 +81,7 @@ import CloseTable from "../components/orders/actions/CloseTable";
 import DeleteOrder from "../components/orders/actions/DeleteOrder";
 import OpenOrder from "../components/orders/actions/OpenOrder";
 import ActionsList from "../components/orders/nav-actions/OrdersActionsNavList";
+import CategoriesChips from "../components/menu/CategoriesChips";
 export default {
   components: {
     LineItemsGrid,
@@ -85,6 +93,7 @@ export default {
     CloseTable,
     DeleteOrder,
     OpenOrder,
+    CategoriesChips
   },
   data() {
     return {
@@ -94,6 +103,8 @@ export default {
       showTavolo: false,
       showChiudi: false,
       showElimina: false,
+      categoryChips: ["Fritti", "Pizze", "Panini", "Tutti"],
+      chipSelected: "Tutti",
     };
   },
   created() {
@@ -109,6 +120,7 @@ export default {
           current.qty += 1;
           current.total += current.productPrice;
           this.order.total += current.productPrice;
+          this.updateQuantityState(current.productCategory, true);
         }
       }
       //update order
@@ -125,6 +137,7 @@ export default {
             const index = this.order.lineItems.indexOf(current);
             this.order.lineItems.splice(index, 1);
           }
+          this.updateQuantityState(current.productCategory, false);
         }
       }
       //update order
@@ -144,6 +157,20 @@ export default {
       });
       this.$router.push("/delivery");
     },
+    updateQuantityState(category, isAdding) {
+      let quantityState = this.order.quantityState;
+      for (let i = 0; i < quantityState.length; i++) {
+        const currentCategoryState = quantityState[i];
+        if (currentCategoryState.category === category) {
+          if (isAdding) currentCategoryState.qty += 1;
+          else currentCategoryState.qty -= 1;
+        }
+      }
+      this.order.quantityState = quantityState;
+    },
+    categoryChipSelected(chip) {
+      this.chipSelected = chip;
+    },
   },
   computed: {
     timeBefore() {
@@ -155,6 +182,24 @@ export default {
       );
       if (waitingMillis < 0) return `Prevista ${Math.abs(waiting)} minuti fa`;
       return `Prevista tra ${waiting} minuti`;
+    },
+    categoryLineItems() {
+      if (this.chipSelected === "Tutti") return this.order.lineItems;
+      return this.order.lineItems.filter(
+        (li) => li.productCategory === this.chipSelected.toLowerCase()
+      );
+    },
+    quantityState() {
+      let quantityState = [];
+      for (let i = 0; i < this.categoryChips.length; i++) {
+        const currentCategory = this.categoryChips[i];
+        for (let j = 0; j < this.order.lineItems.length; j++) {
+          const currentLineItem = this.order.lineItems[j];
+          if (currentLineItem.productCategory === currentCategory)
+            this.updateQuantityState(quantityState, currentCategory);
+        }
+      }
+      return quantityState;
     },
   },
 };
@@ -171,5 +216,9 @@ export default {
   text-align: center;
   height: 65%;
   width: 80%;
+}
+
+.order-menu-chips {
+  margin-top: 3rem;
 }
 </style>

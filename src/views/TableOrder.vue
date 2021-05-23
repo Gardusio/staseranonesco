@@ -9,13 +9,18 @@
     :waiting="waitingTitle"
   />
 
-  <categories-chips :chips="categoryChips" class="order-menu-chips"/>
+  <categories-chips
+    :quantityState="order.quantityState"
+    :chips="categoryChips"
+    @selected="categoryChipSelected"
+    class="order-menu-chips"
+  />
 
   <main class="line-items-section">
     <line-items-grid
-      @addOne="(li) => addOne(li)"
+      @addOne="addOne"
       @removeOne="removeOne"
-      :lineItems="order.lineItems"
+      :lineItems="categoryLineItems"
     />
   </main>
 
@@ -35,6 +40,7 @@
     :total="order.total"
     :header="title"
   />
+
   <!-- seats, lastUpdate - waiting for tot li (#fritti,#panini...) -->
 
   <close-table
@@ -56,6 +62,7 @@
     @close="showElimina = false"
     instructionsEvidence="Vuoi liberare il tavolo?"
   />
+
   <date-widget />
 </template>
 
@@ -69,7 +76,7 @@ import CloseTable from "../components/orders/actions/CloseTable";
 import DeleteOrder from "../components/orders/actions/DeleteOrder";
 import OpenOrder from "../components/orders/actions/OpenOrder";
 import ActionsList from "../components/orders/nav-actions/OrdersActionsNavList";
-import CategoriesChips from "../components/menu/CategoriesChips"
+import CategoriesChips from "../components/menu/CategoriesChips";
 export default {
   components: {
     LineItemsGrid,
@@ -81,7 +88,7 @@ export default {
     PrintOrderBill,
     CloseTable,
     DeleteOrder,
-    CategoriesChips
+    CategoriesChips,
   },
   data() {
     return {
@@ -92,7 +99,8 @@ export default {
       showTavolo: false,
       showChiudi: false,
       showElimina: false,
-      categoryChips: ["Fritti", "Pizze", "Panini","Tutti"]
+      categoryChips: ["Fritti", "Pizze", "Panini", "Tutti"],
+      chipSelected: "Tutti",
     };
   },
   created() {
@@ -114,6 +122,7 @@ export default {
           current.qty += 1;
           current.total += current.productPrice;
           this.order.total += current.productPrice;
+          this.updateQuantityState(current.productCategory, true);
         }
       }
       //update order
@@ -127,10 +136,10 @@ export default {
           current.total -= current.productPrice;
           this.order.total -= current.productPrice;
           if (current.qty === 0) {
-            console.log(this.order.lineItems)
             const index = this.order.lineItems.indexOf(current);
             this.order.lineItems.splice(index, 1);
           }
+          this.updateQuantityState(current.productCategory, false);
         }
       }
       //update order
@@ -165,7 +174,6 @@ export default {
       }
       return "waiting";
     },
-
     isToAlert(orderCreatedAt) {
       const currentTime = Date.now();
       const alertMillis = this.$store.getters["getTableAlertMillis"];
@@ -173,19 +181,52 @@ export default {
       const alertTime = creationMillis + alertMillis;
       return alertTime < currentTime;
     },
+    updateQuantityState(category, isAdding) {
+      let quantityState = this.order.quantityState;
+      for (let i = 0; i < quantityState.length; i++) {
+        const currentCategoryState = quantityState[i];
+        if (currentCategoryState.category === category) {
+          if (isAdding) currentCategoryState.qty += 1;
+          else currentCategoryState.qty -= 1;
+        }
+      }
+      this.order.quantityState = quantityState;
+    },
+    categoryChipSelected(chip) {
+      this.chipSelected = chip;
+    },
   },
   computed: {
     title() {
       return `Tavolo ${this.table.number}`;
     },
     waitingTitle() {
+      if (this.table.status === "completed") return "Ordine completato.";
+
       const createdAt = this.order.createdAt;
       const waitingMillis = Date.now() - createdAt;
       const waiting = Math.round(
         ((waitingMillis % 86400000) % 3600000) / 60000
       );
-      if (this.table.status === "completed") return "Ordine completato.";
       return `Aspetta da ${waiting} minuti`;
+    },
+    categoryLineItems() {
+      if (this.chipSelected === "Tutti") return this.order.lineItems;
+      return this.order.lineItems.filter(
+        (li) => li.productCategory === this.chipSelected.toLowerCase()
+      );
+    },
+    quantityState() {
+      let quantityState = [];
+      for (let i = 0; i < this.categoryChips.length; i++) {
+        const currentCategory = this.categoryChips[i];
+        for (let j = 0; j < this.lineItems.length; j++) {
+          const currentLineItem = this.lineItems[j];
+          if (currentLineItem.productCategory === currentCategory)
+            this.updateQuantityState(quantityState, currentCategory);
+        }
+      }
+      return quantityState;
     },
   },
 };
@@ -205,8 +246,6 @@ export default {
 }
 
 .order-menu-chips {
-  margin-top:3rem;
+  margin-top: 3rem;
 }
-
-
 </style>

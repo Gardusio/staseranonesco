@@ -11,7 +11,7 @@
         <primary-button
           text="Tutto!"
           @click="$emit('closeOrder')"
-        ></primary-button>
+        />
       </div>
     </div>
   </small-modal>
@@ -54,19 +54,16 @@ export default {
   margin-top: 2rem;
   text-align: center;
 }
-
 .instructions {
   font-size: 1.25rem;
   color: var(--mainbrown);
   text-align: center;
   line-height: 1.5;
 }
-
 .evidence {
   font-weight: 600;
   color: var(--secondarybrown);
 }
-
 .mark {
   color: var(--evidenceorange);
   font-weight: 500;

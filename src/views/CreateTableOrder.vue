@@ -83,6 +83,20 @@ export default {
         status: "waiting",
         total: 0,
         lineItems: [],
+        quantityState: [
+          {
+            category: "fritti",
+            qty: 0,
+          },
+          {
+            category: "pizze",
+            qty: 0,
+          },
+          {
+            category: "panini",
+            qty: 0,
+          },
+        ],
       };
       this.order = order;
       this.$store.dispatch("orders/createOrder", this.order);
@@ -109,12 +123,10 @@ export default {
       this.chipSelected = "";
       this.selectedCategory = selected;
     },
-
     saveOrder() {
       this.$store.dispatch("tables/saveOrder", this.order);
       this.$router.push("/table-order/" + this.order.tableId);
     },
-
     addProduct(product) {
       //create line item
       let lineItem = {
@@ -139,6 +151,7 @@ export default {
       }
 
       if (lineItem.qty < 2) this.lineItems.push(lineItem);
+      this.updateQuantityState(lineItem.productCategory, true);
       //sort lineItems to show fritti-pizze-panini-bevande
       //update order
       this.order.lineItems = this.lineItems;
@@ -151,6 +164,7 @@ export default {
         if (current.productId === li.productId) {
           current.qty += 1;
           current.total += current.productPrice;
+          this.updateQuantityState(current.productCategory, true);
         }
       }
       //update order
@@ -168,11 +182,23 @@ export default {
             const index = this.lineItems.indexOf(current);
             this.lineItems.splice(index, 1);
           }
+          this.updateQuantityState(current.productCategory, false);
         }
       }
       //update order
       this.order.lineItems = this.lineItems;
       this.$store.dispatch("orders/updateLineItems", this.order);
+    },
+    updateQuantityState(category, isAdding) {
+      let quantityState = this.order.quantityState;
+      for (let i = 0; i < quantityState.length; i++) {
+        const currentCategoryState = quantityState[i];
+        if (currentCategoryState.category === category) {
+          if (isAdding) currentCategoryState.qty += 1;
+          else currentCategoryState.qty -= 1;
+        }
+      }
+      this.order.quantityState = quantityState;
     },
   },
 };

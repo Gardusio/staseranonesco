@@ -6,8 +6,8 @@
     :qty="lineItem.qty"
     :type="lineItem.productCategory"
     :scale="true"
-    @add="add(lineItem)"
-    @remove="remove(lineItem)"
+    @add="$emit('addOne', lineItem)"
+    @remove="$emit('removeOne', lineItem)"
   />
 </template>
 
@@ -18,18 +18,7 @@ export default {
   props: ["lineItems"],
   components: { LineItem },
   updated() {
-    console.log("scroll");
     document.getElementById('line-items').scrollTop = document.getElementById('line-items').scrollHeight
-  },
-  methods: {
-    add(li) {
-      this.$emit("addOne", li);
-    },
-    remove(li) {
-      this.$emit("removeOne", li);
-    },
   },
 };
 </script>
-
-<style scoped></style>

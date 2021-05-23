@@ -1,60 +1,66 @@
 <template>
   <big-modal @close="$emit('close')">
-  <div class="container">
-    <span class="new">Nuova Consegna</span>
-    <form class="form-container" @submit.prevent="saveDelivery">
-      <input
-        v-model="name"
-        type="text"
-        placeholder="Nome"
-        required
-        class="entry"
-      />
+    <div class="container">
+      <span class="new">Nuova Consegna</span>
+      <form class="form-container" @submit.prevent="saveDelivery">
+        <input
+          v-model="name"
+          type="text"
+          placeholder="Nome"
+          required
+          class="entry"
+        />
 
-      <input
-        v-model="street"
-        id="s"
-        type="text"
-        class="entry"
-        placeholder="Via"
-        required
-      />
+        <input
+          v-model="street"
+          id="s"
+          type="text"
+          class="entry"
+          placeholder="Via"
+          required
+        />
 
-      <label for="c" class="label">N°</label>
-      <input v-model="civic" id="c" type="number" class="entry hour" required />
+        <label for="c" class="label">N°</label>
+        <input
+          v-model="civic"
+          id="c"
+          type="number"
+          class="entry hour"
+          required
+        />
 
-      <div class="hours">
-        <div class="hour-container">
-          <label for="h" class="label">Ore</label>
-          <input
-            v-model="hour"
-            id="h"
-            type="number"
-            class="entry hour"
-            required
-          />
+        <div class="hours">
+          <div class="hour-container">
+            <label for="h" class="label">Ore</label>
+            <input
+              v-model="hour"
+              id="h"
+              type="number"
+              class="entry hour"
+              required
+            />
+          </div>
+          <div class="hour-container">
+            <label for="m" class="label">Minuti</label>
+            <input
+              v-model="minutes"
+              id="m"
+              type="number"
+              class="entry hour"
+              required
+            />
+          </div>
         </div>
-        <div class="hour-container">
-          <label for="m" class="label">Minuti</label>
-          <input
-            v-model="minutes"
-            id="m"
-            type="number"
-            class="entry hour"
-            required
-          />
-        </div>
-      </div>
-      <input
-        v-model="phone"
-        type="tel"
-        class="entry"
-        placeholder="389 48 31 579"
-        required
-      />
-      <primary-button class="continue" text="Continua"></primary-button>
-    </form>
-  </div>
+        <input
+          v-model="phone"
+          type="tel"
+          class="entry"
+          placeholder="389 48 31 579"
+          required
+        />
+        <primary-button class="continue" text="Continua"></primary-button>
+      </form>
+    </div>
   </big-modal>
 </template>
 
@@ -62,7 +68,7 @@
 import BigModal from "../UI/layouts/modals/BigModal";
 export default {
   components: {
-    BigModal
+    BigModal,
   },
   data() {
     return {
@@ -88,6 +94,20 @@ export default {
         createdAt: new Date(),
         total: 0,
         lineItems: [],
+        quantityState: [
+          {
+            category: "fritti",
+            qty: 0,
+          },
+          {
+            category: "pizze",
+            qty: 0,
+          },
+          {
+            category: "panini",
+            qty: 0,
+          },
+        ],
       };
       this.$store
         .dispatch("deliveries/saveNewDel", {
@@ -167,6 +187,6 @@ export default {
 }
 
 .continue {
-  margin-top:1rem;
+  margin-top: 1rem;
 }
 </style>

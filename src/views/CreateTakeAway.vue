@@ -10,11 +10,7 @@
         @removeOne="removeOne"
       />
     </div>
-    <primary-button
-      @click="saveOrder()"
-      text="Salva Ordine"
-      class="continue"
-    />
+    <primary-button @click="saveOrder()" text="Salva Ordine" class="continue" />
   </section>
 
   <section class="main-container">
@@ -45,7 +41,7 @@
 
 <script>
 import MenuNav from "../components/menu/MenuNav";
-import MenuChips from "../components/menu/MenuChips"
+import MenuChips from "../components/menu/MenuChips";
 import ProductsGrid from "../components/menu/ProductsGrid";
 import LineItems from "../components/orders/lineitems/LineItemsList";
 
@@ -122,11 +118,11 @@ export default {
         }
       }
       if (lineItem.qty < 2) this.lineItems.push(lineItem);
-
+       this.updateQuantityState(lineItem.productCategory, true);
       //sort lineItems to show fritti-pizze-panini-bevande
       //update order
-      this.order.lineItems = this.lineItems
-      this.$store.dispatch("takeaways/updateLineItems",   this.order);
+      this.order.lineItems = this.lineItems;
+      this.$store.dispatch("takeaways/updateLineItems", this.order);
     },
 
     addOne(li) {
@@ -135,10 +131,11 @@ export default {
         if (current.productId === li.productId) {
           current.qty += 1;
           current.total += current.productPrice;
+           this.updateQuantityState(current.productCategory, true);
         }
       }
       //update order
-      this.order.lineItems = this.lineItems
+      this.order.lineItems = this.lineItems;
       this.$store.dispatch("takeaways/updateLineItems", this.order);
     },
 
@@ -152,11 +149,24 @@ export default {
             const index = this.lineItems.indexOf(current);
             this.lineItems.splice(index, 1);
           }
+          this.updateQuantityState(current.productCategory, false);
         }
       }
       //update order
-      this.order.lineItems = this.lineItems
+      this.order.lineItems = this.lineItems;
       this.$store.dispatch("takeaways/updateLineItems", this.order);
+    },
+
+    updateQuantityState(category, isAdding) {
+      let quantityState = this.order.quantityState;
+      for (let i = 0; i < quantityState.length; i++) {
+        const currentCategoryState = quantityState[i];
+        if (currentCategoryState.category === category) {
+          if (isAdding) currentCategoryState.qty += 1;
+          else currentCategoryState.qty -= 1;
+        }
+      }
+      this.order.quantityState = quantityState;
     },
   },
 };

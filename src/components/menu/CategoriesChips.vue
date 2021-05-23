@@ -7,17 +7,17 @@
       :class="chipSelected === chip ? `active` : ''"
       @click="handleSelected(chip)"
     >
-    <div class="category-quantity">
-        12x
-    </div>
-      {{ chip }}
+      <div class="category-quantity" :style="type(chip)">
+        {{ qty(chip) }}
+      </div>
+      <span class="category-name">{{ chip }}</span>
     </div>
   </section>
 </template>
 
 <script>
 export default {
-  props: ["chips"],
+  props: ["chips", "quantityState"],
   data() {
     return {
       chipSelected: "",
@@ -28,6 +28,27 @@ export default {
       this.chipSelected = chip;
       this.$emit("selected", chip);
     },
+    qty(chip) {
+      let qty = 0;
+      if (chip === "Tutti") {
+        for (let i = 0; i < this.quantityState.length; i++) {
+          const current = this.quantityState[i];
+          qty += current.qty;
+        }
+      } else {
+        for (let i = 0; i < this.quantityState.length; i++) {
+          const current = this.quantityState[i];
+          if (current.category === chip.toLowerCase()) qty = current.qty;
+        }
+      }
+      return qty;
+    },
+    type(chip) {
+      if (chip === "Fritti") return "color: var(--friedorange)"
+      if (chip === "Pizze") return "color: var(--pizzered)"
+      if (chip === "Panini") return "color: var(--secondarybrown)";
+      return ""
+    }
   },
 };
 </script>
@@ -43,7 +64,6 @@ export default {
 
 .chip {
   padding: 0.5rem;
-  border-bottom: 2px solid var(--mainbrown);
   font-size: 1rem;
   font-weight: 500;
   color: var(--mainbrown);
@@ -53,11 +73,12 @@ export default {
   align-items: center;
   justify-content: space-between;
   width: 100px;
+  border: 1px solid var(--mainbrown);
+  border-radius: 4px
 }
 
 .active {
-  padding: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--mainbrown);
   font-weight: bold;
   font-family: "Raleway", "sans-serif";
@@ -66,11 +87,14 @@ export default {
 }
 
 .category-quantity {
-  color: var(--friedorange);
+  color: var(--mainbrown);
   font-family: "Lato", "sans-serif";
   font-weight: bold;
-  font-size: 20px;
-  
+  font-size: 24px;
 }
 
+.category-name {
+   font-family: "Raleway", "sans-serif";
+   margin: 4px
+}
 </style>
