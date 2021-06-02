@@ -1,6 +1,6 @@
 <template>
   <div class="orders-header-container">
-    <span class="orders-title">Ordini</span>
+    <category-quantities />
     <div class="orders-actions-container">
       <fasce-header
         page="Fascia"
@@ -19,10 +19,11 @@
 <script>
 import FasceHeader from "../UI/layouts/fasce/FasceHeader";
 import DateWidget from "../UI/date/DateWidget";
+import CategoryQuantities from "../all/CategoryQuantities"
 export default {
   emits: ["increase", "decrease", "resetInterval"],
   props: ["lower", "upper"],
-  components: { FasceHeader, DateWidget },
+  components: { FasceHeader, DateWidget, CategoryQuantities},
 };
 </script>
 
