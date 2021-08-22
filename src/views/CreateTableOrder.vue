@@ -25,13 +25,14 @@
     </div>
 
     <menu-chips
-      v-if="selectedCategoryIsWithSub"
+      :key="resetChipSelectedStyle"
+      v-if="selectedCategoryIsWithSub()"
       :chips="chipsType"
       @selected="(c) => (chipSelected = c)"
     />
     <products-grid
       :category="selectedCategory"
-      :subCategory="selectedCategoryIsWithSub ? chipSelected : false"
+      :subCategory="subCategorySelected"
       :search="search"
       @select-product="addProduct"
     />
@@ -60,6 +61,7 @@ export default {
       selectedCategory: "Fritti",
       chipSelected: "",
       search: "",
+      resetChipSelectedStyle: 0
     };
   },
   created() {
@@ -103,6 +105,9 @@ export default {
     }
   },
   computed: {
+    subCategorySelected() {
+      return this.selectedCategoryIsWithSub() ? this.chipSelected : false;
+    },
     category() {
       return this.selectedCategory;
     },
@@ -112,15 +117,16 @@ export default {
       if (this.selectedCategory === "Pizze") return pizze;
       else return panini;
     },
+  },
+  methods: {
     selectedCategoryIsWithSub() {
       return (
         this.selectedCategory === "Panini" || this.selectedCategory === "Pizze"
       );
     },
-  },
-  methods: {
     setSelectedCategory(selected) {
-      this.chipSelected = "";
+      this.resetChipSelectedStyle +=1;
+      this.chipSelected = ""
       this.selectedCategory = selected;
     },
     saveOrder() {
@@ -129,6 +135,7 @@ export default {
     },
     addProduct(product) {
       //create line item
+      this.search = "";
       let lineItem = {
         id: null,
         productId: product.id,

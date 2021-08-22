@@ -78,11 +78,10 @@ export default {
 }
 
 .active {
-  font-size: 1.25rem;
   color: var(--mainbrown);
   font-weight: bold;
   font-family: "Raleway", "sans-serif";
-  border-bottom: 4px solid var(--evidenceorange);
+  border: 4px solid var(--evidenceorange);
   transition: all 0.2s ease-in-out;
 }
 

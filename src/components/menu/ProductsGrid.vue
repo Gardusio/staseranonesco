@@ -33,6 +33,9 @@ export default {
         categoryProds = prods.filter(
           (p) => p.subCategory === this.subCategory.toLowerCase()
         );
+        categoryProds.forEach((element) => {
+          console.log(element.subCategory);
+        });
       }
       if (this.search !== "") {
         returnProds = prods.filter((p) =>

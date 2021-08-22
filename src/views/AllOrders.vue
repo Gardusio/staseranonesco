@@ -4,6 +4,7 @@
     <all-orders-header
       :upper="slotUpper"
       :lower="slotLower"
+      :lineItemsAways= lineItemsAways
       @increase="(slot) => updateSlot(slot, 'up')"
       @decrease="(slot) => updateSlot(slot, 'down')"
       @resetInterval="resetFasce()"
@@ -118,16 +119,24 @@ export default {
     };
   },
   computed: {
+    lineItemsAways() {
+      let li = [];
+      const ta = this.takeaways.filter(i => this.isBeetween(i) && this.notDone(i));
+      const del = this.deliveries.filter(i => this.isBeetween(i) && this.notDone(i));
+      ta.forEach(t => li.push(...t.lineItems));
+      del.forEach(d => li.push(...d.lineItems));
+      console.log(li)
+      return li
+    },
     filteredTakeAways() {
-      return this.takeaways.filter(this.isBeetween);
+      return this.takeaways.filter(i => this.isBeetween(i) && this.notDone(i));
     },
     filteredDeliveries() {
-      return this.deliveries.filter(this.isBeetween);
+      return this.deliveries.filter(i => this.isBeetween(i) && this.notDone(i));
     },
     filteredOrders() {
-      const isBeetween = (t) =>
-        t.lastUpdate >= this.slotLower && t.lastUpdate <= this.slotUpper;
-      return this.tableOrders.filter(isBeetween);
+      const isOpen = (o) => o.status !== "completed";
+      return this.tableOrders.filter(i => isOpen(i));
     },
   },
   created() {
@@ -139,6 +148,9 @@ export default {
     this.slotUpper = slots[1];
   },
   methods: {
+    notDone(t) {
+      return t.completed == false;
+    },
     goInto(id, type) {
       if (type === "ta") this.$router.push("/takeaway/" + id);
       else if (type === "del") this.$router.push("/delivery/" + id);

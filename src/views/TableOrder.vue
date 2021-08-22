@@ -12,7 +12,7 @@
   <categories-chips
     :quantityState="order.quantityState"
     :chips="categoryChips"
-    @selected="categoryChipSelected"
+    @selected="(chip) => categoryChipSelected = chip"
     class="order-menu-chips"
   />
 
@@ -62,7 +62,6 @@
     @close="showElimina = false"
     instructionsEvidence="Vuoi liberare il tavolo?"
   />
-
   <date-widget />
 </template>
 
@@ -112,9 +111,6 @@ export default {
   },
 
   methods: {
-    toSala() {
-      this.$router.push("/sala");
-    },
     addOne(li) {
       for (let i = 0; i < this.order.lineItems.length; i = i + 1) {
         const current = this.order.lineItems[i];
@@ -145,17 +141,25 @@ export default {
       //update order
       this.$store.dispatch("orders/updateLineItems", this.order);
     },
+
     setStatus(newStatus) {
-      const updated = newStatus ? newStatus : this.calculateStatus(this.table);
+      const updated = newStatus ? newStatus : this.isToAlert(this.table.orderCreatedAt) ? "alert" : "waiting" ;
       const tablePayload = { id: this.table.id, status: updated };
       const orderPayload = { id: this.order.id, status: updated };
+      
       this.$store.dispatch("tables/setTableStatus", tablePayload);
-      this.$store.dispatch("orders/setOrderStatus", orderPayload);
 
-      if (newStatus === "completed")
+      if (updated !== "free") {
+        console.log("SHOULD SEE THIS");
+        this.$store.dispatch("orders/setOrderStatus", orderPayload);
+      }
+
+      if (newStatus === "completed") {
         this.$store.dispatch("notifications/deleteNotification", orderPayload);
+      }
       this.showChiudi = false;
     },
+
     deleteOrder() {
       this.setStatus("free");
       this.$store.dispatch("orders/deleteOrder", { id: this.table.id });
@@ -164,16 +168,7 @@ export default {
       });
       this.$router.push("/sala");
     },
-    calculateStatus(table) {
-      if (this.isToAlert(table.orderCreatedAt)) {
-        this.$store.dispatch("tables/setTableStatus", {
-          id: table.id,
-          status: "alert",
-        });
-        return "alert";
-      }
-      return "waiting";
-    },
+
     isToAlert(orderCreatedAt) {
       const currentTime = Date.now();
       const alertMillis = this.$store.getters["getTableAlertMillis"];
@@ -181,6 +176,7 @@ export default {
       const alertTime = creationMillis + alertMillis;
       return alertTime < currentTime;
     },
+
     updateQuantityState(category, isAdding) {
       let quantityState = this.order.quantityState;
       for (let i = 0; i < quantityState.length; i++) {
@@ -192,14 +188,12 @@ export default {
       }
       this.order.quantityState = quantityState;
     },
-    categoryChipSelected(chip) {
-      this.chipSelected = chip;
-    },
   },
   computed: {
     title() {
       return `Tavolo ${this.table.number}`;
     },
+
     waitingTitle() {
       if (this.table.status === "completed") return "Ordine completato.";
 
@@ -210,12 +204,14 @@ export default {
       );
       return `Aspetta da ${waiting} minuti`;
     },
+
     categoryLineItems() {
       if (this.chipSelected === "Tutti") return this.order.lineItems;
       return this.order.lineItems.filter(
         (li) => li.productCategory === this.chipSelected.toLowerCase()
       );
     },
+
     quantityState() {
       let quantityState = [];
       for (let i = 0; i < this.categoryChips.length; i++) {

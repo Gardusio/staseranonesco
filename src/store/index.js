@@ -18,18 +18,18 @@ export default createStore({
   state() {
     return {
       takeAwaysSlot: [
-        new Date().setHours(18, 30, 0, 0),
-        new Date().setHours(22, 30, 0, 0),
+        new Date().setHours(18, 45, 0, 0),
+        new Date().setHours(19, 0, 0, 0),
       ],
       deliveriesSlot: [
-        new Date().setHours(18, 30, 0, 0),
-        new Date().setHours(22, 30, 0, 0),
+        new Date().setHours(18, 45, 0, 0),
+        new Date().setHours(19, 0, 0, 0),
       ],
       ordersSlot: [
-        new Date().setHours(18, 30, 0, 0),
-        new Date().setHours(22, 30, 0, 0),
+        new Date().setHours(18, 45, 0, 0),
+        new Date().setHours(19, 0, 0, 0),
       ],
-      tableAlertMillis: 60000,//30 * 60 * 1000,
+      tableAlertMillis: 60 * 1000,
       ordersAlertMillis: 5 * 60 * 1000,
     };
   },

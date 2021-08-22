@@ -1,45 +1,66 @@
 <template>
   <div class="category-quantities-container">
     <div class="category-line">
-      <div class="category-quantity"></div>
-      <div class="category-name"></div>
+      <div class="category-name">Fritti: </div>
+      <div class="category-quantity" style="background-color: var(--friedorange)"> {{qtyFritti}} </div>
     </div>
     <div class="category-line">
-      <div class="category-quantity"></div>
-      <div class="category-name"></div>
+      <div class="category-name">Pizze: </div>
+      <div class="category-quantity" style="background-color: var(--pizzered)"> {{qtyPizze}} </div>
     </div>
     <div class="category-line">
-      <div class="category-quantity"></div>
-      <div class="category-name"></div>
+      <div class="category-name">Panini: </div>
+      <div class="category-quantity" style="background-color: var(--secondarybrown)"> {{qtyPanini}} </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["lower", "upper"],
-  data() {
-    return {
-      lineItems: [],
-    };
+  props: ["lineItemsAways"],
+  computed: {
+    qtyFritti() {
+      return this.filterLineItemsByProductCategory("fritti").length;
+    },
+    qtyPanini() {
+      return this.filterLineItemsByProductCategory("panini").length;
+    },
+    qtyPizze() {
+    return this.filterLineItemsByProductCategory("pizze").length;
+    },
   },
-  created() {
-    const takeaways = this.$store.getters["takeaways/getTakeAways"];
-    const deliveries = this.$store.getters["deliveries/getDeliveries"];
-
-    let lineItems = [];
-     console.log(new Date(this.lower));
-
-    for (let i = 0; i < takeaways.length; i = i + 1) {
-      console.log(takeaways[i].hour);
-      lineItems = [...lineItems, ...takeaways[i].lineItems];
+  methods: {
+    filterLineItemsByProductCategory(category) {
+      return this.lineItemsAways.filter(li => li.productCategory === category);
     }
-    for (let j = 0; j < deliveries.length; j = j + 1) {
-      console.log(deliveries[j].hour)
-      lineItems = [...lineItems, ...deliveries[j].lineItems];
-    }
-  },
+  }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.category-quantities-container {
+  width: 15%;
+  height: 100%;
+}
+.category-line {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.category-name {
+  font-size: 24px;
+}
+
+.category-quantity {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+</style>

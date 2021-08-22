@@ -1,6 +1,6 @@
 <template>
   <div class="orders-header-container">
-    <category-quantities />
+    <category-quantities :lineItemsAways= "lineItemsAways" />
     <div class="orders-actions-container">
       <fasce-header
         page="Fascia"
@@ -21,8 +21,8 @@ import FasceHeader from "../UI/layouts/fasce/FasceHeader";
 import DateWidget from "../UI/date/DateWidget";
 import CategoryQuantities from "../all/CategoryQuantities"
 export default {
-  emits: ["increase", "decrease", "resetInterval"],
-  props: ["lower", "upper"],
+  emits: ["increase", "decrease", "resetInterval", ],
+  props: ["lower", "upper", "lineItemsAways"],
   components: { FasceHeader, DateWidget, CategoryQuantities},
 };
 </script>
@@ -54,6 +54,7 @@ export default {
 }
 .orders-date {
   position: unset !important;
+  width: 10%;
 }
 .orders-title {
   font-family: "Raleway", "sans-serif";

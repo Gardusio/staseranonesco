@@ -43,13 +43,14 @@ export default {
 .fasce-header-title {
   font-family: "Raleway", "sans-serif";
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--mainbrown);
 }
 
 .fasce-reset-button {
   margin-top:1rem;
-  color: var(--mainbrown);
+  color: var(--secondarybrown);
+  font-weight: 600;
   text-decoration: underline;
 }
 </style>

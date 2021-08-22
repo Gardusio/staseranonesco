@@ -3,10 +3,7 @@
     <table-item
       v-for="table in tables"
       :key="table.id"
-      :tableId="table.id"
-      :number="table.number"
-      :status="calculateTableStatus(table)"
-      :orderCreatedAt="table.orderCreatedAt"
+      :table="table"
       @click="toTable(table)"
     />
   </div>
@@ -20,14 +17,15 @@ export default {
   data() {
     return {
       tables: [],
-      tableAlertMillis: {},
     };
   },
   created() {
     //load Tables
     //this.$store.dispatch("tables/setTables");
     this.tables = this.$store.getters["tables/getTables"];
-    this.tableAlertMillis = this.$store.getters["getTableAlertMillis"];
+  },
+  computed: {
+   
   },
   methods: {
     toTable(table) {
@@ -36,33 +34,7 @@ export default {
       else this.$router.push(`/table-order/${table.id}`);
     },
 
-    calculateTableStatus(table) {
-      const alertFlag = "alert";
-      if (table.status === "completed") return "completed";
-      if (table.status === alertFlag) return alertFlag;
-      else if (this.isToAlert(table.orderCreatedAt)) {
-        this.$store.dispatch("tables/setTableStatus", {
-          id: table.id,
-          status: alertFlag,
-        });
-        if (table.orderId != null) {
-          this.$store.dispatch("orders/setOrderStatus", {
-            id: table.orderId,
-            status: alertFlag,
-          });
-        }
-        return alertFlag;
-      }
-      return table.status;
-    },
 
-    isToAlert(orderCreatedAt) {
-      const currentTime = Date.now();
-      const alertMillis = this.tableAlertMillis;
-      const creationMillis = new Date(orderCreatedAt).getTime();
-      const alertTime = creationMillis + alertMillis;
-      return alertTime < currentTime;
-    },
   },
 };
 </script>

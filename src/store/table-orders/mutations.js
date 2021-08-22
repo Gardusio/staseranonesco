@@ -36,8 +36,10 @@ export default {
     order.total = total;
   },
   setStatus(state, payload) {
+    console.log(payload.id);
     if (payload.id !== null) {
-      const order = state.orders.find((o) => o.id === payload.id);
+      console.log(state.orders.find(o => o.id == payload.id))
+      let order = state.orders.find((o) => o.id == payload.id);
       order.status = payload.status;
     }
   },

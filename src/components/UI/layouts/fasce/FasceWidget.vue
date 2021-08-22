@@ -55,7 +55,7 @@ export default {
 }
 .fasce-hours {
   font-family: "Lato", "sans-serif";
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--secondarybrown);
 }
