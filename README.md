@@ -1,4 +1,4 @@
-# staseranonesco
+# staseranonesco front end app
 
 ## Project setup
 ```
