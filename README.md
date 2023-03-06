@@ -1,4 +1,4 @@
-# staseranonesco front end app
+# staseranonesco front end app (restaurant management system)
 
 ## Project setup
 ```
